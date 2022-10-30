@@ -28,7 +28,7 @@ public class Note {
     private Integer collect;
 
     // 笔记发布时间
-    private LocalDateTime datetime;
+    private LocalDateTime dateTime;
 
     public Integer getId() {
         return id;
@@ -95,11 +95,11 @@ public class Note {
     }
 
     public LocalDateTime getDatetime() {
-        return datetime;
+        return dateTime;
     }
 
-    public void setDatetime(LocalDateTime datetime) {
-        this.datetime = datetime;
+    public void setDatetime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class Note {
                 ", sectionId=" + sectionId +
                 ", likes=" + likes +
                 ", collect=" + collect +
-                ", datetime=" + datetime +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }
