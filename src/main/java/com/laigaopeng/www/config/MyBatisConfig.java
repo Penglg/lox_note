@@ -16,6 +16,7 @@ public class MyBatisConfig {
     public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
+        // 定义类型别名
         factoryBean.setTypeAliasesPackage("com.laigaopeng.www.pojo");
         return factoryBean;
     }
@@ -23,6 +24,7 @@ public class MyBatisConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer msc = new MapperScannerConfigurer();
+        // 映射扫描接口
         msc.setBasePackage("com.laigaopeng.www.dao");
         return msc;
     }
