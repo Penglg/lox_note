@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+/**
+ * 面向collection表的数据访问层
+ */
 public interface CollectionDao {
     @Insert("insert into collection values(null, #{userId}, #{noteId})")
     int insert(Collection collection);

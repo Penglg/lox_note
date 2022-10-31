@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+/**
+ * 面向like的数据访问层
+ */
 public interface LikeDao {
     @Insert("insert into like values(null, #{userId}, #{noteId})")
     int insert(Like like);

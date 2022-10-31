@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * 面向role表的数据访问层
+ */
 public interface RoleDao {
     @Insert("insert into role values(null, #{name}, #{permissionLevel}, #{desc})")
     int save(Role role);

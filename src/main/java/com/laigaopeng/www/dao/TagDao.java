@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * 面向tag_dao表的数据访问层
+ */
 public interface TagDao {
     @Insert("insert into tag values(null, #{name}, #{desc})")
     int save(Tag tag);

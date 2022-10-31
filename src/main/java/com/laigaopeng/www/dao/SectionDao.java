@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * 卖你想section表的数据访问层
+ */
 public interface SectionDao {
     @Insert("insert into section values(null, #{name}, #{desc})")
     int save(Section section);

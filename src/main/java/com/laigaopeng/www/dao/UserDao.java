@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * 面向user表的数据访问层
+ */
 public interface UserDao {
     @Insert("insert into user values (null, #{name}, #{account}, #{password}, #{sex}, null, null, #{createDate}})")
     int save(User user);

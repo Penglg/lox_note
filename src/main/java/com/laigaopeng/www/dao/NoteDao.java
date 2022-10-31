@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * 面向note的数据访问层
+ */
 public interface NoteDao {
 
     @Insert("insert into note values(null, #{tile}, #{userId}, #{content}, null, #{sectionId}, null, null, " +

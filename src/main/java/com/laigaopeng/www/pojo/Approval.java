@@ -14,7 +14,7 @@ public class Approval {
     // 审批申请内容说明
     private String content;
 
-    // 审批结果，1为审批通过，0为未通过
+    // 审批结果，1为审批通过，0为未通过，-1为未处理
     private Integer result;
 
     public Integer getId() {
