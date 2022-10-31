@@ -15,6 +15,27 @@ public class Approval {
 
     private Integer result; // 审批结果，1为审批通过，0为未通过，-1为未处理
 
+    /* 非数据库字段 */
+    private Note note;
+
+    private User user;
+
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }
