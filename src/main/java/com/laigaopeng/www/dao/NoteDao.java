@@ -28,4 +28,12 @@ public interface NoteDao {
 
     @Select("select * from note")
     List<Note> findAll();
+
+    /**
+     * 根据user主键id获取该user所有笔记
+     * @param userId user主键id
+     * @return 集合结果
+     */
+    @Select("select * from note where user_id=#{userId}")
+    List<Note> findByUserId(Integer userId);
 }
