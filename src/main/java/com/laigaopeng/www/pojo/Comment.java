@@ -19,6 +19,27 @@ public class Comment {
     // 评论时间
     private LocalDateTime dateTime;
 
+    /* 非数据库表字段属性 */
+    private Note note;
+
+    private User user;
+
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }
