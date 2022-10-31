@@ -24,9 +24,19 @@ public interface NoteTagDao {
     @Select("select * from note_tag where id=#{id}")
     NoteTag findById(Integer id);
 
+    /**
+     * 根据笔记追主键id获取该笔记所有标签
+     * @param noteId noteId
+     * @return 集合结果
+     */
     @Select("select * from note_tag where note_id=#{noteId}")
     List<NoteTag> findByNoteId(Integer noteId);
 
+    /**
+     * 根绝标签主键id获取拥有该标签的笔记
+     * @param tagId tag主键id
+     * @return 集合结果
+     */
     @Select("select * from note_tag where tag_id=#{tagId}")
     List<NoteTag> findByTagId(Integer tagId);
 }

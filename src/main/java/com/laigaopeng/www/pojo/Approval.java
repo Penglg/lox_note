@@ -11,11 +11,9 @@ public class Approval {
 
     private Integer userId;
 
-    // 审批申请内容说明
-    private String content;
+    private String content; // 审批申请内容说明
 
-    // 审批结果，1为审批通过，0为未通过，-1为未处理
-    private Integer result;
+    private Integer result; // 审批结果，1为审批通过，0为未通过，-1为未处理
 
     public Integer getId() {
         return id;
