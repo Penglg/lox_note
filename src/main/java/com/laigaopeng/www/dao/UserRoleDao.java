@@ -24,9 +24,19 @@ public interface UserRoleDao {
     @Select("select * from user_role where id=#{id}")
     UserRole findById(Integer id);
 
+    /**
+     * 根据用户主键id获取user_role数据
+     * @param userId 用户主键id
+     * @return 查询结果
+     */
     @Select("select * from user_role where user_id=#{userId}")
-    List<UserRole> findByUserId(Integer noteId);
+    List<UserRole> findByUserId(Integer userId);
 
+    /**
+     * 根据角色主键id获取user_role数据
+     * @param roleId roleId
+     * @return 集合结果
+     */
     @Select("select * from user_role where role_id=#{roleId}")
-    List<UserRole> findByRoleId(Integer tagId);
+    List<UserRole> findByRoleId(Integer roleId);
 }

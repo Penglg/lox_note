@@ -20,11 +20,19 @@ public interface CommentDao {
     @Select("select * from comment where id=#{id}")
     Comment findById(Integer id);
 
-    // 根据note的id查找此note的所有comment
+    /**
+     * 根据note的id查找此note的所有comment
+     * @param id id
+     * @return 集合结果
+     */
     @Select("select * from comment where note_id=#{id}")
     List<Comment> findByNoteId(Integer id);
 
-    // 根据user的id查找此user的所有comment
-    @Select("select * from comment where user_id=#{id}")
-    List<Comment> findByUserId(Integer id);
+    /**
+     * 根据user的id查找此user的所有comment
+     * @param userId userId
+     * @return 集合结果
+     */
+    @Select("select * from comment where user_id=#{userId}")
+    List<Comment> findByUserId(Integer userId);
 }
