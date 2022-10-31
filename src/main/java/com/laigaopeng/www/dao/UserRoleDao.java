@@ -1,10 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.UserRole;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -30,6 +27,11 @@ public interface UserRoleDao {
      * @return 查询结果
      */
     @Select("select * from user_role where user_id=#{userId}")
+    @Results(id = "userRoleMap", value = {
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "role_id", property = "roleId")
+    })
     List<UserRole> findByUserId(Integer userId);
 
     /**
@@ -38,5 +40,6 @@ public interface UserRoleDao {
      * @return 集合结果
      */
     @Select("select * from user_role where role_id=#{roleId}")
+    @ResultMap("userRoleMap")
     List<UserRole> findByRoleId(Integer roleId);
 }

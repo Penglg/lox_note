@@ -1,10 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,8 +19,13 @@ public interface UserDao {
     int update(User user);
 
     @Select("select * from user where id = #{id}")
+    @Results(id = "userMap", value = {
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "create_date", property = "createDate")
+    })
     User findById(Integer id);
 
     @Select("select * from user")
+    @ResultMap("userMap")
     List<User> findAll();
 }

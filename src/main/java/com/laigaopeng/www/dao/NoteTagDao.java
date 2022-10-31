@@ -1,10 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.NoteTag;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,6 +19,11 @@ public interface NoteTagDao {
     int update(NoteTag noteTag);
 
     @Select("select * from note_tag where id=#{id}")
+    @Results(id = "noteTagMap", value = {
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "note_id", property = "noteId"),
+            @Result(column = "tag_id", property = "tagId")
+    })
     NoteTag findById(Integer id);
 
     /**
@@ -30,6 +32,7 @@ public interface NoteTagDao {
      * @return 集合结果
      */
     @Select("select * from note_tag where note_id=#{noteId}")
+    @ResultMap("noteTagMap")
     List<NoteTag> findByNoteId(Integer noteId);
 
     /**
@@ -38,5 +41,6 @@ public interface NoteTagDao {
      * @return 集合结果
      */
     @Select("select * from note_tag where tag_id=#{tagId}")
+    @ResultMap("noteTagMap")
     List<NoteTag> findByTagId(Integer tagId);
 }

@@ -1,9 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Like;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -18,8 +16,14 @@ public interface LikeDao {
     int delete(Integer id);
 
     @Select("select * from like where id=#{id}")
+    @Results(id = "likeMap", value = {
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "note_id", property = "noteId")
+    })
     Like findById(Integer id);
 
     @Select("select * from like where user_id=#{userId}")
+    @ResultMap("likeMap")
     List<Like> findByUserId(Integer userId);
 }

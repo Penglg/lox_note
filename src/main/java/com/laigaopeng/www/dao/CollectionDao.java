@@ -1,9 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Collection;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -18,8 +16,14 @@ public interface CollectionDao {
     int delete(Integer id);
 
     @Select("select * from collection where id=#{id}")
+    @Results(id = "collectionMap", value = {
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "user_id", property = "noteId"),
+            @Result(column = "note_id", property = "noteId")
+    })
     Collection findById(Integer id);
 
     @Select("select * from collection where user_id=#{userId}")
+    @ResultMap("collectionMap")
     List<Collection> findByUserId(Integer userId);
 }

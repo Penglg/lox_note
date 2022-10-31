@@ -1,10 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Section;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,8 +19,10 @@ public interface SectionDao {
     int update(Section section);
 
     @Select("select * from section where id=#{id}")
+    @Result(column = "id", property = "id", id = true)
     Section findById(Integer id);
 
     @Select("select * from section")
+    @Result(column = "id", property = "id", id = true)
     List<Section> findAll();
 }

@@ -1,10 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Tag;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,8 +19,10 @@ public interface TagDao {
     int update(Tag tag);
 
     @Select("select * from tag where id=#{id}")
+    @Result(column = "id", property = "id", id = true)
     Tag findById(Integer id);
 
     @Select("select * from tag")
+    @Result(column = "id", property = "id", id = true)
     List<Tag> findAll();
 }

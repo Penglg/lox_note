@@ -26,8 +26,8 @@ public interface ApprovalDao {
     int delete(Integer id);
 
     @Select("select * from approval where id=#{id}")
-    @Results({
-            @Result(column = "id", property = "id"),
+    @Results(id = "approvalMap", value = {
+            @Result(column = "id", property = "id", id = true),
             @Result(column = "note_id", property = "noteId"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "content", property = "content"),
@@ -36,8 +36,8 @@ public interface ApprovalDao {
     Approval findById(Integer id);
 
     @Select("select * from approval")
-    @Results({
-            @Result(column = "id", property = "id"),
+    @Results(id = "approvalUserNoteMap", value = {
+            @Result(column = "id", property = "id", id = true),
             @Result(column = "note_id", property = "noteId"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "content", property = "content"),
@@ -65,13 +65,7 @@ public interface ApprovalDao {
      * @return 查询到的申请集合
      */
     @Select("select * from approval where user_id=#{userId}")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "note_id", property = "noteId"),
-            @Result(column = "user_id", property = "userId"),
-            @Result(column = "content", property = "content"),
-            @Result(column = "result", property = "result")
-    })
+    @ResultMap("approvalMap")
     List<Approval> findByUserId(Integer userId);
 
     /**
@@ -79,26 +73,6 @@ public interface ApprovalDao {
      * @return 查询到的申请集合
      */
     @Select("select * from approval where result=-1")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "note_id", property = "noteId"),
-            @Result(column = "user_id", property = "userId"),
-            @Result(column = "content", property = "content"),
-            @Result(column = "result", property = "result"),
-            @Result(
-                    property = "user", // 封装的User属性
-                    column = "user_id",
-                    javaType = User.class,
-                    // select属性
-                    one = @One(select = "com.laigaopeng.www.dao.UserDao.findById")
-            ),
-            @Result(
-                    property = "note", // 封装的Note属性
-                    column = "note_id",
-                    javaType = Note.class,
-                    one = @One(select = "com.laigaopeng.www.dao.NoteDao.findById")
-
-            )
-    })
+    @ResultMap("approvalUserNoteMap")
     List<Approval> findUnprocessed();
 }

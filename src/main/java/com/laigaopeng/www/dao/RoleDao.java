@@ -1,10 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Role;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,8 +19,16 @@ public interface RoleDao {
     int update(Role role);
 
     @Select("select * from role where id=#{id}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "permission_level", property = "permissionLevel")
+    })
     Role findById(Integer id);
 
     @Select("select * from role")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "permission_level", property = "permissionLevel")
+    })
     List<Role> findAll();
 }
