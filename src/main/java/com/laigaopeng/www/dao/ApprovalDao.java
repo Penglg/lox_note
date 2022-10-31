@@ -1,10 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Approval;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,9 +24,23 @@ public interface ApprovalDao {
     int delete(Integer id);
 
     @Select("select * from approval where id=#{id}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "note_id", property = "noteId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "content", property = "content"),
+            @Result(column = "result", property = "result")
+    })
     Approval findById(Integer id);
 
     @Select("select * from approval")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "note_id", property = "noteId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "content", property = "content"),
+            @Result(column = "result", property = "result")
+    })
     List<Approval> findAll();
 
     /**
@@ -38,6 +49,13 @@ public interface ApprovalDao {
      * @return 查询到的申请集合
      */
     @Select("select * from approval where user_id=#{userId}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "note_id", property = "noteId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "content", property = "content"),
+            @Result(column = "result", property = "result")
+    })
     List<Approval> findByUserId(Integer userId);
 
     /**
@@ -45,5 +63,12 @@ public interface ApprovalDao {
      * @return 查询到的申请集合
      */
     @Select("select * from approval where result=-1")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "note_id", property = "noteId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "content", property = "content"),
+            @Result(column = "result", property = "result")
+    })
     List<Approval> findUnprocessed();
 }
