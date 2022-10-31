@@ -1,6 +1,8 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Approval;
+import com.laigaopeng.www.pojo.Note;
+import com.laigaopeng.www.pojo.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -39,7 +41,21 @@ public interface ApprovalDao {
             @Result(column = "note_id", property = "noteId"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "content", property = "content"),
-            @Result(column = "result", property = "result")
+            @Result(column = "result", property = "result"),
+            @Result(
+                    property = "user", // 封装的User属性
+                    column = "user_id",
+                    javaType = User.class,
+                    // select属性
+                    one = @One(select = "com.laigaopeng.www.dao.UserDao.findById")
+            ),
+            @Result(
+                    property = "note", // 封装的Note属性
+                    column = "note_id",
+                    javaType = Note.class,
+                    one = @One(select = "com.laigaopeng.www.dao.NoteDao.findById")
+
+            )
     })
     List<Approval> findAll();
 
@@ -68,7 +84,21 @@ public interface ApprovalDao {
             @Result(column = "note_id", property = "noteId"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "content", property = "content"),
-            @Result(column = "result", property = "result")
+            @Result(column = "result", property = "result"),
+            @Result(
+                    property = "user", // 封装的User属性
+                    column = "user_id",
+                    javaType = User.class,
+                    // select属性
+                    one = @One(select = "com.laigaopeng.www.dao.UserDao.findById")
+            ),
+            @Result(
+                    property = "note", // 封装的Note属性
+                    column = "note_id",
+                    javaType = Note.class,
+                    one = @One(select = "com.laigaopeng.www.dao.NoteDao.findById")
+
+            )
     })
     List<Approval> findUnprocessed();
 }
