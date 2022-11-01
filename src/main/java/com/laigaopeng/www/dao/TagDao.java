@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.TagProvider;
 import com.laigaopeng.www.pojo.Tag;
 import org.apache.ibatis.annotations.*;
 
@@ -15,7 +16,7 @@ public interface TagDao {
     @Delete("delete from tag where id=#{id}")
     int delete(Integer id);
 
-    @Update("update tag set name=#{name}, desc=#{desc}")
+    @UpdateProvider(type = TagProvider.class, method = "updateTag")
     int update(Tag tag);
 
     @Select("select * from tag where id=#{id}")

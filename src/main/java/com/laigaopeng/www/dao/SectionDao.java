@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.SectionProvider;
 import com.laigaopeng.www.pojo.Section;
 import org.apache.ibatis.annotations.*;
 
@@ -15,7 +16,7 @@ public interface SectionDao {
     @Delete("delete from section where id=#{id}")
     int delete(Integer id);
 
-    @Update("update section set name=#{name}, desc=#{desc}")
+    @UpdateProvider(type = SectionProvider.class, method = "updateSection")
     int update(Section section);
 
     @Select("select * from section where id=#{id}")
