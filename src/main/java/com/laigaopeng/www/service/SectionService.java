@@ -4,6 +4,10 @@ import com.laigaopeng.www.pojo.Section;
 
 import java.util.List;
 
+/**
+ * 分区业务逻辑层
+ *
+ */
 public interface SectionService {
 
     /**

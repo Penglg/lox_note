@@ -4,6 +4,10 @@ import com.laigaopeng.www.pojo.Tag;
 
 import java.util.List;
 
+/**
+ * 标签业务逻辑层
+ *
+ */
 public interface TagService {
 
     /**
