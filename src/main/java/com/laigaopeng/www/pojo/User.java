@@ -1,6 +1,6 @@
 package com.laigaopeng.www.pojo;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class User {
 
     private Integer disabled; // 用户是否被禁止发布笔记，默认为0，1为被禁止
 
-    private LocalDate createDate;
+    private Date createDate;
 
     /* 非数据库字段 */
     private List<Role> roles; // 用户的所有角色
@@ -92,11 +92,11 @@ public class User {
         this.disabled = disabled;
     }
 
-    public LocalDate getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
