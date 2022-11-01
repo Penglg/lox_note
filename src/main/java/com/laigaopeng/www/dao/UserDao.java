@@ -52,4 +52,12 @@ public interface UserDao {
             )
     })
     User findUserAndRolesById(Integer userId);
+
+    @Select("select * from user where account = #{account}")
+    @ResultMap("userAndRoleMap")
+    User findByAccount(String account);
+
+    @Select("select * from user where name = #{name}")
+    @ResultMap("userMap")
+    User findByName(String name);
 }

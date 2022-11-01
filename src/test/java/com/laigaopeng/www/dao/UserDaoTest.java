@@ -62,4 +62,16 @@ public class UserDaoTest {
         System.out.println("user:" + user);
         System.out.println("roles:" + user.getRoles());
     }
+
+    @Test
+    public void testFindByAccount() {
+        User user = userDao.findByAccount("111111");
+        System.out.println("user:" + user);
+    }
+
+    @Test
+    public void testFindByName() {
+        User user = userDao.findByName("testUpdate");
+        System.out.println("user:" + user);
+    }
 }
