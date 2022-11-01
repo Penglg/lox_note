@@ -1,6 +1,6 @@
 package com.laigaopeng.www.dao;
 
-import com.laigaopeng.www.pojo.Collection;
+import com.laigaopeng.www.pojo.Collect;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * 面向collection表的数据访问层
  */
-public interface CollectionDao {
+public interface CollectDao {
     @Insert("insert into collection values(null, #{userId}, #{noteId})")
-    int insert(Collection collection);
+    int insert(Collect collection);
 
     @Delete("delete from collection where id=#{id}")
     int delete(Integer id);
@@ -21,9 +21,9 @@ public interface CollectionDao {
             @Result(column = "user_id", property = "noteId"),
             @Result(column = "note_id", property = "noteId")
     })
-    Collection findById(Integer id);
+    Collect findById(Integer id);
 
     @Select("select * from collection where user_id=#{userId}")
     @ResultMap("collectionMap")
-    List<Collection> findByUserId(Integer userId);
+    List<Collect> findByUserId(Integer userId);
 }

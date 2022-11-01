@@ -4,7 +4,7 @@ package com.laigaopeng.www.pojo;
  * collection收藏实体类
  * 用于绑定用户与其收藏的笔记
  */
-public class Collection {
+public class Collect {
 
     private Integer id;
 
