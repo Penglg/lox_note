@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.NoteTagProvider;
 import com.laigaopeng.www.pojo.NoteTag;
 import org.apache.ibatis.annotations.*;
 
@@ -15,8 +16,8 @@ public interface NoteTagDao {
     @Delete("delete from note_tag where id=#{id}")
     int delete(Integer id);
 
-    @Update("update note_tag set tag_id=#{tagId} where id=#{id}")
-    int update(NoteTag noteTag);
+    @UpdateProvider(type = NoteTagProvider.class, method = "updateNoteTag")
+    int update(@Param("noteTag") NoteTag noteTag);
 
     @Select("select * from note_tag where id=#{id}")
     @Results(id = "noteTagMap", value = {

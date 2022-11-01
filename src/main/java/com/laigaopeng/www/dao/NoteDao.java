@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.NoteProvider;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.Section;
 import org.apache.ibatis.annotations.*;
@@ -18,8 +19,8 @@ public interface NoteDao {
     @Delete("delete from note where id = #{id}")
     int delete(Integer id);
 
-    @Update("update note set title=#{title}, content=#{content}, section_id=#{sectionId}")
-    int update(Note note);
+    @UpdateProvider(type = NoteProvider.class, method = "updateNote")
+    int update(@Param("note") Note note);
 
     @Select("select * from note where id = #{id}")
     @Results(id = "noteMap",value = {

@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.ApprovalProvider;
 import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.User;
@@ -15,12 +16,12 @@ public interface ApprovalDao {
     int insert(Approval approval);
 
     /**
-     * 对approval的result结果进行更新
+     * 对approval进行更新
      * @param approval approval对象
      * @return 影响行数
      */
-    @Update("update approval set result=#{result} where id=#{id}")
-    int update(Approval approval);
+    @UpdateProvider(type = ApprovalProvider.class, method = "updateApproval")
+    int update(@Param("approval") Approval approval);
 
     @Delete("delete from approval where id=#{id}")
     int delete(Integer id);

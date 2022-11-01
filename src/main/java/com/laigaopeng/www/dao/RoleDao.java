@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.RoleProvider;
 import com.laigaopeng.www.pojo.Role;
 import org.apache.ibatis.annotations.*;
 
@@ -15,7 +16,7 @@ public interface RoleDao {
     @Delete("delete from role where id=#{id}")
     int delete(Integer id);
 
-    @Update("update role set name=#{name}, permission_level=#{permissionLevel}, desc=#{desc}")
+    @UpdateProvider(type = RoleProvider.class, method = "updateRole")
     int update(Role role);
 
     @Select("select * from role where id=#{id}")
