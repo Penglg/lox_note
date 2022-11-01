@@ -1,6 +1,7 @@
 package com.laigaopeng.www.pojo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * note笔记实体类
@@ -13,22 +14,46 @@ public class Note {
 
     private Integer userId;
 
-    // 笔记内容
-    private String content;
+    private String content; // 笔记内容
 
     private String photo;
 
-    // 笔记所在分区id
-    private Integer sectionId;
+    private Integer sectionId; // 笔记所在分区id
 
-    // 笔记获得点赞数，默认0
-    private Integer likes;
+    private Integer likes; // 笔记获得点赞数，默认0
 
-    // 笔记获得收藏数，默认0
-    private Integer collect;
+    private Integer collect; // 笔记获得收藏数，默认0
 
-    // 笔记发布时间
-    private LocalDateTime dateTime;
+    private LocalDateTime dateTime; // 笔记发布时间
+
+    /* 非数据库表字段属性 */
+    private List<Tag> tags; // 笔记的标签
+
+    private Section section; // 笔记所在分区
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+    }
 
     public Integer getId() {
         return id;

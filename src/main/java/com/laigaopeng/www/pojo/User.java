@@ -1,6 +1,7 @@
 package com.laigaopeng.www.pojo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * 用户实体类
@@ -20,10 +21,20 @@ public class User {
 
     private String photo;
 
-    // 用户是否被禁止发布笔记，默认为0，1为被禁止
-    private Integer disabled;
+    private Integer disabled; // 用户是否被禁止发布笔记，默认为0，1为被禁止
 
     private LocalDate createDate;
+
+    /* 非数据库字段 */
+    private List<Role> roles; // 用户的所有角色
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public Integer getId() {
         return id;

@@ -19,16 +19,22 @@ public interface RoleDao {
     int update(Role role);
 
     @Select("select * from role where id=#{id}")
-    @Results({
+    @Results(id = "roleMap", value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "permission_level", property = "permissionLevel")
     })
     Role findById(Integer id);
 
     @Select("select * from role")
-    @Results({
-            @Result(column = "id", property = "id", id = true),
-            @Result(column = "permission_level", property = "permissionLevel")
-    })
+    @ResultMap("roleMap")
     List<Role> findAll();
+
+    /**
+     * 根据user的id多表查询user对应的角色
+     * @param userId user主键id
+     * @return 查询到的角色
+     */
+    @Select("select * from role r, user_role ur where r.id = ur.role_id and ur.user_id = #{userId}")
+    @ResultMap("roleMap")
+    List<Role> findByUserId(Integer userId);
 }

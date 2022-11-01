@@ -1,6 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.pojo.Note;
+import com.laigaopeng.www.pojo.Section;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -30,7 +31,19 @@ public interface NoteDao {
             @Result(column = "section_id", property = "sectionId"),
             @Result(column = "likes", property = "likes"),
             @Result(column = "collect", property = "collect"),
-            @Result(column = "datetime", property = "dateTime")
+            @Result(column = "datetime", property = "dateTime"),
+            @Result(
+                    property = "tags",
+                    column = "id",
+                    javaType = List.class,
+                    many = @Many(select = "com.laigaopeng.www.dao.TagDao.findByNoteId")
+            ),
+            @Result(
+                    property = "section",
+                    column = "section_id",
+                    javaType = Section.class,
+                    one = @One(select = "com.laigaopeng.www.dao.SectionDao.findById")
+            )
     })
     Note findById(Integer id);
 

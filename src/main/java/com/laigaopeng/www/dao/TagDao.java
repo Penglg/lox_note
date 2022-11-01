@@ -25,4 +25,13 @@ public interface TagDao {
     @Select("select * from tag")
     @Result(column = "id", property = "id", id = true)
     List<Tag> findAll();
+
+    /**
+     * 根据笔记主键id查找对应标签集合
+     * @param noteId 笔记主键id
+     * @return 集合对象
+     */
+    @Select("select * from tag t, note_tag nt where nt.note_id = #{noteId} and t.id = nt.tag_id")
+    @Result(column = "id", property = "id", id = true)
+    List<Tag> findByNoteId(Integer noteId);
 }
