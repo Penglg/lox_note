@@ -59,4 +59,22 @@ public interface NoteDao {
     @Select("select * from note where user_id=#{userId}")
     @ResultMap("noteMap")
     List<Note> findByUserId(Integer userId);
+
+    /**
+     * 根据user主键id获取user点赞的笔记
+     * @param userId user主键id
+     * @return 集合结果
+     */
+    @Select("select * from note n, like l where n.id = l.note_id and l.user_id = #{userId}")
+    @ResultMap("noteMap")
+    List<Note> findLikes(Integer userId);
+
+    /**
+     * 根据user主键id获取user收藏的笔记
+     * @param userId user主键id
+     * @return 集合结果
+     */
+    @Select("select * from note n, like l where n.id = l.note_id and l.user_id = #{userId}")
+    @ResultMap("noteMap")
+    List<Note> findCollections(Integer userId);
 }
