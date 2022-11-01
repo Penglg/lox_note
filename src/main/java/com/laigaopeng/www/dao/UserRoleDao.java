@@ -15,9 +15,6 @@ public interface UserRoleDao {
     @Delete("delete from user_role where id=#{id}")
     int delete(Integer id);
 
-    @Update("update user_role set role_id=#{roleId} where id=#{id}")
-    int update(UserRole userRole);
-
     @Select("select * from user_role where id=#{id}")
     UserRole findById(Integer id);
 
