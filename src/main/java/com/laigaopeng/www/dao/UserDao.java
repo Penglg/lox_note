@@ -54,10 +54,14 @@ public interface UserDao {
     User getUserAndRolesById(Integer userId);
 
     @Select("select * from user where account = #{account}")
-    @ResultMap("userAndRoleMap")
+    @ResultMap("userMap")
     User getByAccount(String account);
 
     @Select("select * from user where name = #{name}")
     @ResultMap("userMap")
     User getByName(String name);
+
+    @Select("select * from user where account = #{account} and password = #{password}")
+    @ResultMap("userAndRoleMap")
+    User getByAccAndPwd(String account, String password);
 }

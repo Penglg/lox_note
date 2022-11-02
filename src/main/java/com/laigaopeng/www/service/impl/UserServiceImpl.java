@@ -50,7 +50,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(String account, String password) {
-        return null;
+        if (EmptyCheckerUtil.isStringEmpty(account) || EmptyCheckerUtil.isStringEmpty(password)) return null;
+        return userDao.getByAccAndPwd(account, password);
     }
 
     @Override
