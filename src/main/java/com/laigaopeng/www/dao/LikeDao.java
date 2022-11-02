@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface LikeDao {
     @Insert("insert into like values(null, #{userId}, #{noteId})")
-    int insert(Like like);
+    int save(Like like);
 
     @Delete("delete from like where id=#{id}")
     int delete(Integer id);
