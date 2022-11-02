@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 面向like的数据访问层
+ *
  */
 public interface LikeDao {
     @Insert("insert into like values(null, #{userId}, #{noteId})")
@@ -21,9 +22,9 @@ public interface LikeDao {
             @Result(column = "user_id", property = "userId"),
             @Result(column = "note_id", property = "noteId")
     })
-    Like findById(Integer id);
+    Like getById(Integer id);
 
     @Select("select * from like where user_id=#{userId}")
     @ResultMap("likeMap")
-    List<Like> findByUserId(Integer userId);
+    List<Like> listByUserId(Integer userId);
 }

@@ -46,7 +46,7 @@ public class UserDaoTest {
 
     @Test
     public void testFindById() {
-        User user = userDao.findById(1);
+        User user = userDao.getById(1);
         System.out.println(user);
     }
 
@@ -58,20 +58,20 @@ public class UserDaoTest {
 
     @Test
     public void testFindUserAndRoleById() {
-        User user = userDao.findUserAndRolesById(1);
+        User user = userDao.getUserAndRolesById(1);
         System.out.println("user:" + user);
         System.out.println("roles:" + user.getRoles());
     }
 
     @Test
     public void testFindByAccount() {
-        User user = userDao.findByAccount("111111");
+        User user = userDao.getByAccount("111111");
         System.out.println("user:" + user);
     }
 
     @Test
     public void testFindByName() {
-        User user = userDao.findByName("testUpdate");
+        User user = userDao.getByName("testUpdate");
         System.out.println("user:" + user);
     }
 }

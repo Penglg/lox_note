@@ -15,7 +15,7 @@ public interface TagService {
      *
      * @return 查询结果
      */
-    List<Tag> findAll();
+    List<Tag> listAll();
 
     /**
      * 添加标签

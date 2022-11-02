@@ -42,7 +42,7 @@ public interface UserService {
      * @param password 密码
      * @return 获取结果
      */
-    User login(String account, String password);
+    User get(String account, String password);
 
     /**
      * 禁止用户发布笔记

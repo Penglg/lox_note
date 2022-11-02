@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 面向note表的数据访问层
+ *
  */
 public interface NoteTagDao {
     @Insert("insert into note_tag values(null, noteId, tagId)")
@@ -25,23 +26,25 @@ public interface NoteTagDao {
             @Result(column = "note_id", property = "noteId"),
             @Result(column = "tag_id", property = "tagId")
     })
-    NoteTag findById(Integer id);
+    NoteTag listById(Integer id);
 
     /**
      * 根据笔记追主键id获取该笔记所有标签
+     *
      * @param noteId noteId
      * @return 集合结果
      */
     @Select("select * from note_tag where note_id=#{noteId}")
     @ResultMap("noteTagMap")
-    List<NoteTag> findByNoteId(Integer noteId);
+    List<NoteTag> listByNoteId(Integer noteId);
 
     /**
      * 根绝标签主键id获取拥有该标签的笔记
+     *
      * @param tagId tag主键id
      * @return 集合结果
      */
     @Select("select * from note_tag where tag_id=#{tagId}")
     @ResultMap("noteTagMap")
-    List<NoteTag> findByTagId(Integer tagId);
+    List<NoteTag> listByTagId(Integer tagId);
 }

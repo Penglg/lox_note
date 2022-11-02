@@ -34,5 +34,5 @@ public interface CommentService {
      * @param noteId 笔记主键
      * @return 查找结果
      */
-    List<Comment> findNoteComments(Integer noteId);
+    List<Comment> listNoteComments(Integer noteId);
 }

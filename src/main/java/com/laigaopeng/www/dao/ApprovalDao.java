@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 免表approval表的数据访问层
+ *
  */
 public interface ApprovalDao {
     @Insert("insert into approval values(null, #{noteID}, #{userId}, #{content}, #{result})")
@@ -17,6 +18,7 @@ public interface ApprovalDao {
 
     /**
      * 对approval进行更新
+     * s
      * @param approval approval对象
      * @return 影响行数
      */
@@ -34,7 +36,7 @@ public interface ApprovalDao {
             @Result(column = "content", property = "content"),
             @Result(column = "result", property = "result")
     })
-    Approval findById(Integer id);
+    Approval getById(Integer id);
 
     @Select("select * from approval")
     @Results(id = "approvalUserNoteMap", value = {
@@ -58,22 +60,24 @@ public interface ApprovalDao {
 
             )
     })
-    List<Approval> findAll();
+    List<Approval> listAll();
 
     /**
      * 根据user主键id获取user所有申请
+     *
      * @param userId userId
      * @return 查询到的申请集合
      */
     @Select("select * from approval where user_id=#{userId}")
     @ResultMap("approvalMap")
-    List<Approval> findByUserId(Integer userId);
+    List<Approval> listByUserId(Integer userId);
 
     /**
      * 管理员获取所有未处理的笔记审批申请
+     *
      * @return 查询到的申请集合
      */
     @Select("select * from approval where result=-1")
     @ResultMap("approvalUserNoteMap")
-    List<Approval> findUnprocessed();
+    List<Approval> listUnprocessed();
 }

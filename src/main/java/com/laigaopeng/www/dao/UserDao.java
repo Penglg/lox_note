@@ -29,7 +29,7 @@ public interface UserDao {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "create_date", property = "createDate")
     })
-    User findById(Integer id);
+    User getById(Integer id);
 
     @Select("select * from user")
     @ResultMap("userMap")
@@ -51,13 +51,13 @@ public interface UserDao {
                     many = @Many(select = "com.laigaopeng.www.dao.RoleDao.findByUserId")
             )
     })
-    User findUserAndRolesById(Integer userId);
+    User getUserAndRolesById(Integer userId);
 
     @Select("select * from user where account = #{account}")
     @ResultMap("userAndRoleMap")
-    User findByAccount(String account);
+    User getByAccount(String account);
 
     @Select("select * from user where name = #{name}")
     @ResultMap("userMap")
-    User findByName(String name);
+    User getByName(String name);
 }

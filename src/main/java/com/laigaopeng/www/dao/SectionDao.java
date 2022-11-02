@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 卖你想section表的数据访问层
+ *
  */
 public interface SectionDao {
     @Insert("insert into section values(null, #{name}, #{desc})")
@@ -21,9 +22,9 @@ public interface SectionDao {
 
     @Select("select * from section where id=#{id}")
     @Result(column = "id", property = "id", id = true)
-    Section findById(Integer id);
+    Section getById(Integer id);
 
     @Select("select * from section")
     @Result(column = "id", property = "id", id = true)
-    List<Section> findAll();
+    List<Section> listAll();
 }

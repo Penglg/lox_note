@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 面向comment表的数据访问层
+ *
  */
 public interface CommentDao {
     @Insert("insert into comment values(null, #{userId}, #{noteId}, #{content}, #{dateTime})")
@@ -25,10 +26,11 @@ public interface CommentDao {
             @Result(column = "content", property = "content"),
             @Result(column = "datetime", property = "dateTime")
     })
-    Comment findById(Integer id);
+    Comment getById(Integer id);
 
     /**
      * 根据note的id查找此note的所有comment
+     *
      * @param id id
      * @return 集合结果
      */
@@ -46,10 +48,11 @@ public interface CommentDao {
                     one = @One(select = "com.laigaopeng.www.dao.UserDao.findById")
             )
     })
-    List<Comment> findByNoteId(Integer id);
+    List<Comment> listByNoteId(Integer id);
 
     /**
      * 根据user的id查找此user的所有comment
+     *
      * @param userId userId
      * @return 集合结果
      */
@@ -67,5 +70,5 @@ public interface CommentDao {
                     one = @One(select = "com.laigaopeng.www.dao.NoteDao.findById")
             )
     })
-    List<Comment> findByUserId(Integer userId);
+    List<Comment>listByUserId(Integer userId);
 }

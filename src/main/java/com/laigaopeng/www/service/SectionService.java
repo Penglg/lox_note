@@ -40,5 +40,5 @@ public interface SectionService {
      *
      * @return 查询结果
      */
-    List<Section> findAll();
+    List<Section> listAll();
 }

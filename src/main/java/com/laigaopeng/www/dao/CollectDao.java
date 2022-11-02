@@ -21,9 +21,9 @@ public interface CollectDao {
             @Result(column = "user_id", property = "noteId"),
             @Result(column = "note_id", property = "noteId")
     })
-    Collect findById(Integer id);
+    Collect getById(Integer id);
 
     @Select("select * from collect where user_id=#{userId}")
     @ResultMap("collectMap")
-    List<Collect> findByUserId(Integer userId);
+    List<Collect> listByUserId(Integer userId);
 }

@@ -17,7 +17,7 @@ public interface NoteService {
      *
      * @return 查找结果
      */
-    List<Note> findAll();
+    List<Note> listAll();
 
     /**
      * 获取所有非法/合法的笔记
@@ -25,7 +25,7 @@ public interface NoteService {
      * @param isLegal 是否合法，1合法，0不合法
      * @return 查找结果
      */
-    List<Note> findAll(Integer isLegal);
+    List<Note> listAll(Integer isLegal);
 
     /**
      * 获取分区所有笔记
@@ -34,7 +34,7 @@ public interface NoteService {
      * @param isLegal 是否合法
      * @return 查询结果
      */
-    List<Note> findSectionNotes(Integer sectionId, Integer isLegal);
+    List<Note> listSectionNotes(Integer sectionId, Integer isLegal);
 
     /**
      * 查找用户的所有笔记
@@ -42,7 +42,7 @@ public interface NoteService {
      * @param userId 用户id
      * @return 查询结果
      */
-    List<Note> findUserNotes(Integer userId);
+    List<Note> listUserNotes(Integer userId);
 
     /**
      * 修改笔记
@@ -76,7 +76,7 @@ public interface NoteService {
      * @param userId 用户主键
      * @return 结果
      */
-    List<Note> findLikeNotes(Integer userId);
+    List<Note> listLikeNotes(Integer userId);
 
     /**
      * 用户获取收藏笔记
@@ -84,5 +84,5 @@ public interface NoteService {
      * @param userId 用户主键
      * @return 结果
      */
-    List<Note> findCollectNotes(Integer userId);
+    List<Note> listCollectNotes(Integer userId);
 }

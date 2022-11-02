@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 面向note的数据访问层
+ *
  */
 public interface NoteDao {
 
@@ -46,36 +47,39 @@ public interface NoteDao {
                     one = @One(select = "com.laigaopeng.www.dao.SectionDao.findById")
             )
     })
-    Note findById(Integer id);
+    Note getById(Integer id);
 
     @Select("select * from note")
     @ResultMap("noteMap")
-    List<Note> findAll();
+    List<Note> listAll();
 
     /**
      * 根据user主键id获取该user所有笔记
+     *
      * @param userId user主键id
      * @return 集合结果
      */
     @Select("select * from note where user_id=#{userId}")
     @ResultMap("noteMap")
-    List<Note> findByUserId(Integer userId);
+    List<Note> listByUserId(Integer userId);
 
     /**
      * 根据user主键id获取user点赞的笔记
+     *
      * @param userId user主键id
      * @return 集合结果
      */
     @Select("select * from note n, like l where n.id = l.note_id and l.user_id = #{userId}")
     @ResultMap("noteMap")
-    List<Note> findLikes(Integer userId);
+    List<Note> listLikes(Integer userId);
 
     /**
      * 根据user主键id获取user收藏的笔记
+     *
      * @param userId user主键id
      * @return 集合结果
      */
     @Select("select * from note n, connect c where n.id = c.note_id and c.user_id = #{userId}")
     @ResultMap("noteMap")
-    List<Note> findCollections(Integer userId);
+    List<Note> listCollections(Integer userId);
 }
