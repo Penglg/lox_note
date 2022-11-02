@@ -26,6 +26,8 @@ public class Note {
 
     private LocalDateTime dateTime; // 笔记发布时间
 
+    private Integer legal; // 笔记是否被禁止
+
     /* 非数据库表字段属性 */
     private List<Tag> tags; // 笔记的标签
 
@@ -127,6 +129,14 @@ public class Note {
         this.dateTime = dateTime;
     }
 
+    public Integer getLegal() {
+        return legal;
+    }
+
+    public void setLegal(Integer legal) {
+        this.legal = legal;
+    }
+
     @Override
     public String toString() {
         return "Note{" +
@@ -139,6 +149,9 @@ public class Note {
                 ", likes=" + likes +
                 ", collect=" + collect +
                 ", dateTime=" + dateTime +
+                ", legal=" + legal +
+                ", tags=" + tags +
+                ", section=" + section +
                 '}';
     }
 }

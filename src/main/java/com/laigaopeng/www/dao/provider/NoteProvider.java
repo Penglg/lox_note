@@ -26,6 +26,9 @@ public class NoteProvider extends SQL {
             if (!EmptyCheckerUtil.isIntegerEmpty(note.getSectionId())) {
                 SET("section_id = #{note.sectionId}");
             }
+            if (!EmptyCheckerUtil.isIntegerEmpty(note.getLegal())) {
+                SET("legal = #{not.legal}");
+            }
             WHERE("id = #{note.id}");
         }}.toString();
     }

@@ -26,13 +26,8 @@ public interface NoteDao {
     @Select("select * from note where id = #{id}")
     @Results(id = "noteMap",value = {
             @Result(column = "id", property = "id", id = true),
-            @Result(column = "title", property = "tile"),
             @Result(column = "user_id", property = "userId"),
-            @Result(column = "content", property = "content"),
-            @Result(column = "photo", property = "photo"),
             @Result(column = "section_id", property = "sectionId"),
-            @Result(column = "likes", property = "likes"),
-            @Result(column = "collect", property = "collect"),
             @Result(column = "datetime", property = "dateTime"),
             @Result(
                     property = "tags",
