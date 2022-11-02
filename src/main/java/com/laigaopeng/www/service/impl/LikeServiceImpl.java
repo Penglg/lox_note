@@ -19,6 +19,7 @@ public class LikeServiceImpl implements LikeService {
         Like like = new Like();
         like.setNoteId(noteId);
         like.setUserId(userId);
+        // 笔记点赞数加1
         Note note = noteService.getById(noteId);
         note.setLikes(note.getLikes() + 1);
         return likeDao.save(like) == 1 && noteService.updateNote(note);
@@ -26,6 +27,10 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean delete(Integer id) {
-        return false;
+        Like like = likeDao.getById(id);
+        // 笔记点赞数减1
+        Note note = noteService.getById(like.getNoteId());
+        note.setLikes(note.getLikes() - 1);
+        return likeDao.delete(id) == 1 && noteService.updateNote(note);
     }
 }
