@@ -45,6 +45,14 @@ public interface NoteService {
     List<Note> listUserNotes(Integer userId);
 
     /**
+     * 查找笔记
+     *
+     * @param id 笔记主键
+     * @return 查询结果
+     */
+    Note getById(Integer id);
+
+    /**
      * 修改笔记
      *
      * @param note 修改的笔记
