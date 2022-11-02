@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(User user) {
-        return false;
+        if (EmptyCheckerUtil.isIntegerEmpty(user.getId())) return false;
+        return userDao.update(user) == 1;
     }
 
     @Override
@@ -60,6 +61,6 @@ public class UserServiceImpl implements UserService {
         User target = new User();
         target.setId(userId);
         target.setDisabled(disabled);
-        return (userDao.update(target) == 1);
+        return userDao.update(target) == 1;
     }
 }
