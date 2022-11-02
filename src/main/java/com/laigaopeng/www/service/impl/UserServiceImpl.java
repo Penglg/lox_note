@@ -5,7 +5,7 @@ import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.service.UserRoleService;
 import com.laigaopeng.www.service.UserService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
-import com.laigaopeng.www.util.RoleEnum;
+import com.laigaopeng.www.util.enumhelper.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

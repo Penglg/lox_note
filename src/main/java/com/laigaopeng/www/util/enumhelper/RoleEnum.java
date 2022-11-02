@@ -1,4 +1,4 @@
-package com.laigaopeng.www.util;
+package com.laigaopeng.www.util.enumhelper;
 
 /**
  * 角色枚举类

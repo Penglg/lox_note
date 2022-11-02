@@ -1,4 +1,4 @@
-package com.laigaopeng.www.util;
+package com.laigaopeng.www.util.enumhelper;
 
 /**
  * 审批申请的结果枚举类

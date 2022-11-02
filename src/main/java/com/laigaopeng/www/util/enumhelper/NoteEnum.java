@@ -1,4 +1,4 @@
-package com.laigaopeng.www.util;
+package com.laigaopeng.www.util.enumhelper;
 
 public enum NoteEnum {
 

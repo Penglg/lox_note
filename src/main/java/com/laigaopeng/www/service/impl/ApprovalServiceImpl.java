@@ -5,9 +5,9 @@ import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.service.ApprovalService;
 import com.laigaopeng.www.service.NoteService;
-import com.laigaopeng.www.util.ApprovalEnum;
+import com.laigaopeng.www.util.enumhelper.ApprovalEnum;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
-import com.laigaopeng.www.util.NoteEnum;
+import com.laigaopeng.www.util.enumhelper.NoteEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
