@@ -45,11 +45,11 @@ public interface UserService {
     User get(String account, String password);
 
     /**
-     * 禁止用户发布笔记
+     * 禁止或解禁用户发布笔记的功能
      *
      * @param userId 用户主键
      * @return 禁止结果
      */
     @Transactional
-    boolean ban(Integer userId);
+    boolean manageUser(Integer userId, Integer disabled);
 }

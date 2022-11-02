@@ -23,6 +23,9 @@ public class UserProvider extends SQL {
             if (!EmptyCheckerUtil.isStringEmpty(user.getSex())) {
                 SET("sex = #{user.sex}");
             }
+            if (!EmptyCheckerUtil.isIntegerEmpty(user.getDisabled())) {
+                SET("disabled = #{user.disabled}");
+            }
             WHERE("id = #{user.id}");
         }}.toString();
     }

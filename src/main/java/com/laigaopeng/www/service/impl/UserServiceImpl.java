@@ -55,7 +55,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean ban(Integer userId) {
-        return false;
+    public boolean manageUser(Integer userId, Integer disabled) {
+        if (EmptyCheckerUtil.isIntegerEmpty(userId) || EmptyCheckerUtil.isIntegerEmpty(disabled)) return false;
+        User target = new User();
+        target.setId(userId);
+        target.setDisabled(disabled);
+        return (userDao.update(target) == 1);
     }
 }
