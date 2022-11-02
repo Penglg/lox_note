@@ -23,10 +23,10 @@ public interface CommentService {
     /**
      * 删除评论
      *
-     * @param comment 评论
+     * @param id 评论主键
      * @return 删除结果
      */
-    boolean delete(Comment comment);
+    boolean delete(Integer id);
 
     /**
      * 获取笔记下所有评论
