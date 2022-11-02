@@ -26,8 +26,8 @@ public interface ApprovalService {
     /**
      * 审批
      *
-     * @param result  审批结果
+     * @param approval 审批申请
      * @return 执行结果
      */
-    boolean handle(Integer result);
+    boolean handle(Approval approval);
 }
