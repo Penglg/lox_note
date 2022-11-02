@@ -32,4 +32,17 @@ public class NoteProvider extends SQL {
             WHERE("id = #{note.id}");
         }}.toString();
     }
+
+    public String listNote(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal) {
+        return new SQL() {{
+            SELECT("*");
+            FROM("account");
+            if (!EmptyCheckerUtil.isIntegerEmpty(sectionId)) {
+                WHERE("section_id = #{sectionId}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty(legal)) {
+                WHERE ("legal = #{legal}");
+            }
+        }}.toString();
+    }
 }

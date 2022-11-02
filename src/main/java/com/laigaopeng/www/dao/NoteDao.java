@@ -48,6 +48,10 @@ public interface NoteDao {
     @ResultMap("noteMap")
     List<Note> listAll();
 
+    @SelectProvider(type = NoteProvider.class, method = "listNote")
+    @ResultMap("noteMap")
+    List<Note> listByConditions(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal);
+
     /**
      * 根据user主键id获取该user所有笔记
      *
