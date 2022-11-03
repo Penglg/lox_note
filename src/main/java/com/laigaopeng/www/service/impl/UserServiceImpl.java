@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService {
     public boolean save(User user) {
         // 是否重名或重账号
         if (ifRepeatByNameOrAccount(user.getName(), user.getAccount())) return false;
-        userDao.save(user);
         User thisUser;
         if (userDao.save(user) == 1) {
             thisUser = userDao.getByAccount(user.getAccount());
