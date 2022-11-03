@@ -64,10 +64,10 @@ public interface NoteService {
     /**
      * 删除笔记
      *
-     * @param note 删除的笔记
+     * @param id 删除的笔记主键
      * @return 删除结果
      */
-    boolean deleteNote(Note note);
+    boolean deleteNote(Integer id);
 
     /**
      * 新增笔记
