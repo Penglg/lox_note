@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserRoleDao {
     @Insert("insert into user_role values(null, userId, roleId)")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(UserRole userRole);
+    int save(UserRole userRole);
 
     @Delete("delete from user_role where id=#{id}")
     int delete(Integer id);
