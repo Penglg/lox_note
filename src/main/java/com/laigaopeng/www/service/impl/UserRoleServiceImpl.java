@@ -1,0 +1,31 @@
+package com.laigaopeng.www.service.impl;
+
+import com.laigaopeng.www.dao.UserRoleDao;
+import com.laigaopeng.www.pojo.UserRole;
+import com.laigaopeng.www.service.UserRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class UserRoleServiceImpl implements UserRoleService {
+    @Autowired
+    private UserRoleDao userRoleDao;
+
+    @Override
+    public boolean saveUserRole(Integer userId, Integer roleId) {
+        UserRole userRole = new UserRole();
+        userRole.setUserId(userId);
+        userRole.setRoleId(roleId);
+        return userRoleDao.save(userRole) == 1;
+    }
+
+    @Override
+    public boolean deleteUserRole(Integer id) {
+        return userRoleDao.delete(id) == 1;
+    }
+
+    @Override
+    public boolean deleteRoleUser(Integer roleId) {
+        UserRole userRole = new UserRole();
+        userRole.setRoleId(roleId);
+        return userRoleDao.deleteByConditions(userRole) == 1;
+    }
+}
