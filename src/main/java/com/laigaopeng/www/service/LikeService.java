@@ -22,4 +22,12 @@ public interface LikeService {
      * @return 结果
      */
     boolean delete(Integer id);
+
+    /**
+     * 删除笔记下所有的点赞
+     *
+     * @param noteId 笔记主键
+     * @return 执行结果
+     */
+    boolean deleteNoteLikes(Integer noteId);
 }
