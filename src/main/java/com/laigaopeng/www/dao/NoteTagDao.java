@@ -17,6 +17,9 @@ public interface NoteTagDao {
     @Delete("delete from note_tag where id=#{id}")
     int delete(Integer id);
 
+    @DeleteProvider(type = NoteTagProvider.class, method = "deleteNoteTag")
+    int deleteByConditions(@Param("noteTag") NoteTag noteTag);
+
     @UpdateProvider(type = NoteTagProvider.class, method = "updateNoteTag")
     int update(@Param("noteTag") NoteTag noteTag);
 

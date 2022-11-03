@@ -17,4 +17,20 @@ public class NoteTagProvider extends SQL {
             WHERE("id = #{noteTag.id}");
         }}.toString();
     }
+
+    public String deleteNoteTag(@Param("noteTag") NoteTag noteTag) {
+        return new SQL() {{
+            DELETE_FROM("note_tag");
+
+            if (!EmptyCheckerUtil.isIntegerEmpty(noteTag.getNoteId())) {
+                WHERE("id = #{noteTag.id}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty(noteTag.getNoteId())) {
+                WHERE("note_id = #{noteTag.noteId}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty(noteTag.getTagId())) {
+                WHERE("tag_id = #{noteTag.tagId}");
+            }
+        }}.toString();
+    }
 }
