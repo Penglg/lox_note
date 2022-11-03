@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.LikeProvider;
 import com.laigaopeng.www.pojo.Like;
 import org.apache.ibatis.annotations.*;
 
@@ -15,6 +16,9 @@ public interface LikeDao {
 
     @Delete("delete from like where id=#{id}")
     int delete(Integer id);
+
+    @DeleteProvider(type = LikeProvider.class, method = "deleteLike")
+    int deleteByConditions(@Param("like")Like like);
 
     @Select("select * from like where id=#{id}")
     @Results(id = "likeMap", value = {

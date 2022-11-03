@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.CommentProvider;
 import com.laigaopeng.www.pojo.Comment;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.User;
@@ -17,6 +18,9 @@ public interface CommentDao {
 
     @Delete("delete from comment where id=#{id}")
     int delete(Integer id);
+
+    @DeleteProvider(type = CommentProvider.class, method = "deleteComment")
+    int deleteByConditions(@Param("comment") Comment comment);
 
     @Select("select * from comment where id=#{id}")
     @Results({

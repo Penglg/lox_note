@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.CollectProvider;
 import com.laigaopeng.www.pojo.Collect;
 import org.apache.ibatis.annotations.*;
 
@@ -14,6 +15,9 @@ public interface CollectDao {
 
     @Delete("delete from collect where id=#{id}")
     int delete(Integer id);
+
+    @DeleteProvider(type = CollectProvider.class, method = "deleteCollect")
+    int deleteByConditions(@Param("collect") Collect collect);
 
     @Select("select * from collect where id=#{id}")
     @Results(id = "collectMap", value = {
