@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface TagDao {
     @Insert("insert into tag values(null, #{name}, #{desc})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Tag tag);
 
     @Delete("delete from tag where id=#{id}")

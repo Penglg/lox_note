@@ -15,6 +15,7 @@ public interface NoteDao {
 
     @Insert("insert into note values(null, #{tile}, #{userId}, #{content}, null, #{sectionId}, null, null, " +
             "#{dateTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Note note);
 
     @Delete("delete from note where id = #{id}")

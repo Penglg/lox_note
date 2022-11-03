@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface LikeDao {
     @Insert("insert into like values(null, #{userId}, #{noteId})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Like like);
 
     @Delete("delete from like where id=#{id}")

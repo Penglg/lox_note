@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface CommentDao {
     @Insert("insert into comment values(null, #{userId}, #{noteId}, #{content}, #{dateTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Comment comment);
 
     @Delete("delete from comment where id=#{id}")

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface ApprovalDao {
     @Insert("insert into approval values(null, #{noteID}, #{userId}, #{content}, #{result})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Approval approval);
 
     /**

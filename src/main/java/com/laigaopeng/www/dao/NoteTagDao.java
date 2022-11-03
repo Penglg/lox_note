@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface NoteTagDao {
     @Insert("insert into note_tag values(null, noteId, tagId)")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(NoteTag noteTag);
 
     @Delete("delete from note_tag where id=#{id}")

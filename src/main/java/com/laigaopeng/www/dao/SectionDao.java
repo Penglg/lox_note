@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface SectionDao {
     @Insert("insert into section values(null, #{name}, #{desc})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Section section);
 
     @Delete("delete from section where id=#{id}")

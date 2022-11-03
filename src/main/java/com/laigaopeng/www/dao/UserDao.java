@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface UserDao {
     @Insert("insert into user values (null, #{name}, #{account}, #{password}, #{sex}, null, null, #{createDate})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(User user);
 
     @Delete("delete from user where id = #{id}")

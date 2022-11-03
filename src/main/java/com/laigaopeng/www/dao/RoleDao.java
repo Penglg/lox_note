@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface RoleDao {
     @Insert("insert into role values(null, #{name}, #{permissionLevel}, #{desc})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Role role);
 
     @Delete("delete from role where id=#{id}")

@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface CollectDao {
     @Insert("insert into collect values(null, #{userId}, #{noteId})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Collect collection);
 
     @Delete("delete from collect where id=#{id}")
