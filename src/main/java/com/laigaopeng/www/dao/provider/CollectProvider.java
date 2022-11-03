@@ -10,13 +10,13 @@ public class CollectProvider extends SQL {
     public String deleteCollect(@Param("collect")Collect collect) {
         return new SQL() {{
             DELETE_FROM("collect");
-            if (EmptyCheckerUtil.isIntegerEmpty(collect.getId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(collect.getId())) {
                 WHERE("id = #{collect.id}");
             }
-            if (EmptyCheckerUtil.isIntegerEmpty(collect.getNoteId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(collect.getNoteId())) {
                 WHERE("note_id = #{collect.noteId}");
             }
-            if (EmptyCheckerUtil.isIntegerEmpty(collect.getUserId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(collect.getUserId())) {
                 WHERE("user_id = #{collect.userId}");
             }
         }}.toString();

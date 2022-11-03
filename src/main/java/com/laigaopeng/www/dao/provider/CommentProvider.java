@@ -11,13 +11,13 @@ public class CommentProvider extends SQL {
         return new SQL() {{
             DELETE_FROM("comment");
 
-            if (EmptyCheckerUtil.isIntegerEmpty(comment.getId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(comment.getId())) {
                 WHERE("id = #{comment.id}");
             }
-            if (EmptyCheckerUtil.isIntegerEmpty(comment.getNoteId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(comment.getNoteId())) {
                 WHERE("note_id = #{comment.noteId}");
             }
-            if (EmptyCheckerUtil.isIntegerEmpty(comment.getUserId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(comment.getUserId())) {
                 WHERE("user_id = #{comment.userId}");
             }
         }}.toString();

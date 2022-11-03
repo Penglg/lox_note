@@ -11,13 +11,13 @@ public class LikeProvider extends SQL {
         return new SQL() {{
             DELETE_FROM("like");
 
-            if (EmptyCheckerUtil.isIntegerEmpty(like.getId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(like.getId())) {
                 WHERE ("id = #{like.id}");
             }
-            if (EmptyCheckerUtil.isIntegerEmpty(like.getNoteId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(like.getNoteId())) {
                 WHERE ("note_id = #{like.noteId}");
             }
-            if (EmptyCheckerUtil.isIntegerEmpty(like.getUserId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(like.getUserId())) {
                 WHERE ("user_id = #{like.userId}");
             }
         }}.toString();
