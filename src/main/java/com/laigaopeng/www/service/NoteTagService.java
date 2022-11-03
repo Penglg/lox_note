@@ -18,4 +18,12 @@ public interface NoteTagService {
      * @return 执行结果
      */
     boolean delete(Integer id);
+
+    /**
+     * 删除笔记和标签的绑定
+     *
+     * @param noteId 笔记主键
+     * @return 执行结果
+     */
+    boolean deleteNoteTags(Integer noteId);
 }
