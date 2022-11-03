@@ -1,5 +1,6 @@
 package com.laigaopeng.www.dao;
 
+import com.laigaopeng.www.dao.provider.UserRoleProvider;
 import com.laigaopeng.www.pojo.UserRole;
 import org.apache.ibatis.annotations.*;
 
@@ -15,6 +16,9 @@ public interface UserRoleDao {
 
     @Delete("delete from user_role where id=#{id}")
     int delete(Integer id);
+
+    @DeleteProvider(type = UserRoleProvider.class, method = "deleteUserRole")
+    int deleteByConditions(@Param("userRole") UserRole userRole);
 
     @Select("select * from user_role where id=#{id}")
     UserRole findById(Integer id);
