@@ -26,4 +26,12 @@ public interface CollectService {
      */
     @Transactional
     boolean delete(Integer id);
+
+    /**
+     * 删除笔记的所有收藏记录
+     *
+     * @param noteId 笔记主键
+     * @return 执行成功结果
+     */
+    boolean deleteNoteCollects(Integer noteId);
 }

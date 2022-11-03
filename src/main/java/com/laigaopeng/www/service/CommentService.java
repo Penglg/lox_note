@@ -35,4 +35,12 @@ public interface CommentService {
      * @return 查找结果
      */
     List<Comment> listNoteComments(Integer noteId);
+
+    /**
+     * 删除笔记下所有评论
+     *
+     * @param noteId 笔记主键
+     * @return 执行成功结果
+     */
+    boolean deleteNoteComments(Integer noteId);
 }
