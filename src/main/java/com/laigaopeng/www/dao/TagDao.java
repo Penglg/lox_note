@@ -25,6 +25,10 @@ public interface TagDao {
     @Result(column = "id", property = "id", id = true)
     Tag getById(Integer id);
 
+    @Select("select * from tag where name=#{name}")
+    @Result(column = "id", property = "id", id = true)
+    Tag getByName(String name);
+
     @Select("select * from tag")
     @Result(column = "id", property = "id", id = true)
     List<Tag> listAll();
