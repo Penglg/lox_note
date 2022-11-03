@@ -17,10 +17,10 @@ public interface RoleService {
     /**
      * 删除角色
      *
-     * @param role 角色
+     * @param id 角色主键
      * @return 执行结果
      */
-    boolean delete(Role role);
+    boolean delete(Integer id);
 
     /**
      * 更新角色信息
