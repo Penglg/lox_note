@@ -5,9 +5,15 @@ import com.laigaopeng.www.pojo.Section;
 import com.laigaopeng.www.service.SectionService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 分区业务功能实现
+ *
+ */
+@Service("sectionService")
 public class SectionServiceImpl implements SectionService {
     @Autowired
     private SectionDao sectionDao;

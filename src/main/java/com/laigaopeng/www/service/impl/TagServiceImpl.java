@@ -4,9 +4,15 @@ import com.laigaopeng.www.dao.TagDao;
 import com.laigaopeng.www.pojo.Tag;
 import com.laigaopeng.www.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 标签业务功能实现
+ *
+ */
+@Service("tagService")
 public class TagServiceImpl implements TagService {
 
     @Autowired

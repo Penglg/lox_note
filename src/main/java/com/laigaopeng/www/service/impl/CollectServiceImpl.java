@@ -7,7 +7,13 @@ import com.laigaopeng.www.service.CollectService;
 import com.laigaopeng.www.service.NoteService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * 收藏业务功能实现
+ *
+ */
+@Service("collectService")
 public class CollectServiceImpl implements CollectService {
 
     @Autowired

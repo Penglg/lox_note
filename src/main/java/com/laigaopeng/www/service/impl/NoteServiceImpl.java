@@ -5,9 +5,15 @@ import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.Tag;
 import com.laigaopeng.www.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 笔记业务功能实现
+ *
+ */
+@Service("noteService")
 public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteDao noteDao;

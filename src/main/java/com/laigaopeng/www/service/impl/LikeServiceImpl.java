@@ -6,7 +6,13 @@ import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.service.LikeService;
 import com.laigaopeng.www.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * 点赞业务功能实现
+ *
+ */
+@Service("likeService")
 public class LikeServiceImpl implements LikeService {
     @Autowired
     private LikeDao likeDao;

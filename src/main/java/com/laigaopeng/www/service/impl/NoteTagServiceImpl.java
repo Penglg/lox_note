@@ -4,7 +4,13 @@ import com.laigaopeng.www.dao.NoteTagDao;
 import com.laigaopeng.www.pojo.NoteTag;
 import com.laigaopeng.www.service.NoteTagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * 笔记-标签绑定业务功能实现
+ *
+ */
+@Service("noteTagService")
 public class NoteTagServiceImpl implements NoteTagService {
 
     @Autowired

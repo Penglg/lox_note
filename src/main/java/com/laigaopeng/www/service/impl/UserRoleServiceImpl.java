@@ -4,7 +4,12 @@ import com.laigaopeng.www.dao.UserRoleDao;
 import com.laigaopeng.www.pojo.UserRole;
 import com.laigaopeng.www.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * 角色-用户绑定业务功能实现
+ */
+@Service("userRoleService")
 public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     private UserRoleDao userRoleDao;

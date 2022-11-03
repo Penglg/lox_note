@@ -4,9 +4,15 @@ import com.laigaopeng.www.dao.CommentDao;
 import com.laigaopeng.www.pojo.Comment;
 import com.laigaopeng.www.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 评论业务功能实现
+ *
+ */
+@Service("commentService")
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentDao commentDao;

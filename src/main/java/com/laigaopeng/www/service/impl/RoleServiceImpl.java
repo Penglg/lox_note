@@ -5,9 +5,15 @@ import com.laigaopeng.www.pojo.Role;
 import com.laigaopeng.www.service.RoleService;
 import com.laigaopeng.www.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 角色业务功能实现
+ *
+ */
+@Service("roleService")
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleDao roleDao;
