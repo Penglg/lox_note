@@ -26,6 +26,7 @@ public class UserDaoTest {
         user.setSex("男");
         int result = userDao.save(user);
         System.out.println("result:" + result);
+        System.out.println("User.id:" + user.getId());
     }
 
     @Test
