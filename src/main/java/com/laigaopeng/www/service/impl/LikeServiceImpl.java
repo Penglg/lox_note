@@ -33,4 +33,11 @@ public class LikeServiceImpl implements LikeService {
         note.setLikes(note.getLikes() - 1);
         return likeDao.delete(id) == 1 && noteService.updateNote(note);
     }
+
+    @Override
+    public boolean deleteNoteLikes(Integer noteId) {
+        Like like = new Like();
+        like.setNoteId(noteId);
+        return likeDao.deleteByConditions(like) == 1;
+    }
 }

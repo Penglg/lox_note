@@ -25,4 +25,11 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> listNoteComments(Integer noteId) {
         return commentDao.listByNoteId(noteId);
     }
+
+    @Override
+    public boolean deleteNoteComments(Integer noteId) {
+        Comment comment = new Comment();
+        comment.setNoteId(noteId);
+        return commentDao.deleteByConditions(comment) == 1;
+    }
 }

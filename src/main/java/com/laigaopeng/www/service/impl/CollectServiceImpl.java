@@ -36,4 +36,11 @@ public class CollectServiceImpl implements CollectService {
         note.setCollect(note.getCollect() - 1);
         return collectDao.delete(id) == 1 && noteService.updateNote(note);
     }
+
+    @Override
+    public boolean deleteNoteCollects(Integer noteId) {
+        Collect collect = new Collect();
+        collect.setNoteId(noteId);
+        return collectDao.deleteByConditions(collect) == 1;
+    }
 }
