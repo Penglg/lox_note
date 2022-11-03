@@ -25,6 +25,10 @@ public interface SectionDao {
     @Result(column = "id", property = "id", id = true)
     Section getById(Integer id);
 
+    @Select("select * from section where name=#{name}")
+    @Result(column = "id", property = "id", id = true)
+    Section getByName(String name);
+
     @Select("select * from section")
     @Result(column = "id", property = "id", id = true)
     List<Section> listAll();

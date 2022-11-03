@@ -29,11 +29,18 @@ public interface SectionService {
     /**
      * 修改分区名或描述
      *
-     * @param name 分区名
-     * @param desc 分区描述
+     * @param section 分区
      * @return 执行结果
      */
-    boolean update(String name, String desc);
+    boolean update(Section section);
+
+    /**
+     * 判断分区名是否重复
+     *
+     * @param sectionName 分区名
+     * @return 重复返回true，否则返回false
+     */
+    boolean isNameRepeat(String sectionName);
 
     /**
      * 查看所有分区
