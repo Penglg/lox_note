@@ -20,8 +20,8 @@ public class UserDaoTest {
     @Test
     public void testSave() {
         User user = new User();
-        user.setName("saveTest");
-        user.setAccount("saveTest");
+        user.setName("saveDaoTest");
+        user.setAccount("saveDaoTest");
         user.setPassword("123456");
         user.setSex("男");
         int result = userDao.save(user);
