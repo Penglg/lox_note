@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 public interface NoteTagDao {
-    @Insert("insert into note_tag values(null, noteId, tagId)")
+    @Insert("insert into note_tag (note_id, tag_id) values (#{noteId}, #{tagId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(NoteTag noteTag);
 

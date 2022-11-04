@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 public interface TagDao {
-    @Insert("insert into tag values(null, #{name}, #{desc})")
+    @Insert("insert into tag (name, desc) values (#{name}, #{desc})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Tag tag);
 

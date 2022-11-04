@@ -13,7 +13,8 @@ import java.util.List;
  *
  */
 public interface CommentDao {
-    @Insert("insert into comment values(null, #{userId}, #{noteId}, #{content}, #{dateTime})")
+    @Insert("insert into comment (user_id, note_id, content, datetime) values " +
+            "(null, #{userId}, #{noteId}, #{content}, #{dateTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Comment comment);
 

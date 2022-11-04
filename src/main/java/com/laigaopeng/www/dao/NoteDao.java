@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface NoteDao {
 
-    @Insert("insert into note values(null, #{tile}, #{userId}, #{content}, null, #{sectionId}, null, null, " +
-            "#{dateTime})")
+    @Insert("insert into note (title, user_id, content, section_id, datetime) values " +
+            "(#{title}, #{userId}, #{content}, #{sectionId}, #{dateTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Note note);
 

@@ -10,7 +10,7 @@ import java.util.List;
  * 面向user_role表的数据访问层实现
  */
 public interface UserRoleDao {
-    @Insert("insert into user_role values(null, #{userId}, #{roleId})")
+    @Insert("insert into user_role (user_id, role_id) values(#{userId}, #{roleId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(UserRole userRole);
 

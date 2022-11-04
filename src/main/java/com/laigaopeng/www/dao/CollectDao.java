@@ -10,7 +10,7 @@ import java.util.List;
  * 面向collection表的数据访问层
  */
 public interface CollectDao {
-    @Insert("insert into collect values(null, #{userId}, #{noteId})")
+    @Insert("insert into collect (user_id, note_id) values (#{userId}, #{noteId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Collect collection);
 

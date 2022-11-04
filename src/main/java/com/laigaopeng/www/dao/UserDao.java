@@ -10,7 +10,8 @@ import java.util.List;
  * 面向user表的数据访问层
  */
 public interface UserDao {
-    @Insert("insert into user values (null, #{name}, #{account}, #{password}, #{sex}, null, null, #{createDate})")
+    @Insert("insert into user (name, account, password, sex, create_date) values " +
+            "(#{name}, #{account}, #{password}, #{sex}, #{createDate})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(User user);
 
