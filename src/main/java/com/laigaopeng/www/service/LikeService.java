@@ -30,4 +30,13 @@ public interface LikeService {
      * @return 执行结果
      */
     boolean deleteNoteLikes(Integer noteId);
+
+    /**
+     * 点赞是否重复
+     *
+     * @param userId
+     * @param noteId
+     * @return
+     */
+    boolean isLikeRepeat(Integer userId, Integer noteId);
 }

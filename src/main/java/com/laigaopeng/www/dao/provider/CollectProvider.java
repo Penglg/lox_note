@@ -21,4 +21,21 @@ public class CollectProvider extends SQL {
             }
         }}.toString();
     }
+
+    public String getCollect(@Param("collect")Collect collect) {
+        return new SQL() {{
+            SELECT("*");
+            FROM("collect");
+
+            if (!EmptyCheckerUtil.isIntegerEmpty(collect.getId())) {
+                WHERE("id = #{collect.id}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty(collect.getNoteId())) {
+                WHERE("note_id = #{collect.noteId}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty(collect.getUserId())) {
+                WHERE("user_id = #{collect.userId}");
+            }
+        }}.toString();
+    }
 }

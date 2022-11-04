@@ -29,6 +29,10 @@ public interface LikeDao {
     })
     Like getById(Integer id);
 
+    @SelectProvider(type = LikeProvider.class, method = "getLike")
+    @ResultMap("likeMap")
+    Like getByConditions(@Param("like")Like like);
+
     @Select("select * from like where user_id=#{userId}")
     @ResultMap("likeMap")
     List<Like> listByUserId(Integer userId);

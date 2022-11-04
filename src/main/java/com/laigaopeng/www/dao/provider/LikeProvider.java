@@ -22,4 +22,21 @@ public class LikeProvider extends SQL {
             }
         }}.toString();
     }
+
+    public String getLike(@Param("like")Like like) {
+        return new SQL() {{
+            SELECT("*");
+            LikeProvider.this.FROM("like");
+
+            if (!EmptyCheckerUtil.isIntegerEmpty(like.getId())) {
+                WHERE("id = #{like.id}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty(like.getUserId())) {
+                WHERE("user_id = #{like.userId}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty(like.getNoteId())) {
+                WHERE("note_id = #{like.noteId}");
+            }
+        }}.toString();
+    }
 }

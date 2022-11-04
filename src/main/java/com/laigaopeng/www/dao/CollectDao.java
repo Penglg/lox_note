@@ -28,6 +28,10 @@ public interface CollectDao {
     })
     Collect getById(Integer id);
 
+    @SelectProvider(type = CollectProvider.class, method = "getCollect")
+    @ResultMap("collectMap")
+    Collect getByConditions(@Param("collect")Collect collect);
+
     @Select("select * from collect where user_id=#{userId}")
     @ResultMap("collectMap")
     List<Collect> listByUserId(Integer userId);

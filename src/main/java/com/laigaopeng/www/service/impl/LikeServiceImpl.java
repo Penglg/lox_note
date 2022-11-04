@@ -46,4 +46,12 @@ public class LikeServiceImpl implements LikeService {
         like.setNoteId(noteId);
         return likeDao.deleteByConditions(like) == 1;
     }
+
+    @Override
+    public boolean isLikeRepeat(Integer userId, Integer noteId) {
+        Like like = new Like();
+        like.setUserId(userId);
+        like.setNoteId(noteId);
+        return likeDao.getByConditions(like) != null;
+    }
 }

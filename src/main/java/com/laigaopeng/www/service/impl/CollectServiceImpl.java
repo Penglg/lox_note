@@ -49,4 +49,12 @@ public class CollectServiceImpl implements CollectService {
         collect.setNoteId(noteId);
         return collectDao.deleteByConditions(collect) == 1;
     }
+
+    @Override
+    public boolean isCollectRepeat(Integer userId, Integer noteId) {
+        Collect collect = new Collect();
+        collect.setUserId(userId);
+        collect.setNoteId(noteId);
+        return collectDao.getByConditions(collect) != null;
+    }
 }
