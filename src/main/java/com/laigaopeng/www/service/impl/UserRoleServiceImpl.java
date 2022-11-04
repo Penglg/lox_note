@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("userRoleService")
 public class UserRoleServiceImpl implements UserRoleService {
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private UserRoleDao userRoleDao;
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private UserDao userDao;
 
@@ -25,10 +26,8 @@ public class UserServiceImpl implements UserService {
     public boolean save(User user) {
         // 是否重名或重账号
         if (ifRepeatByNameOrAccount(user.getName(), user.getAccount())) return false;
-        User thisUser;
         if (userDao.save(user) == 1) {
-            thisUser = userDao.getByAccount(user.getAccount());
-            return userRoleService.saveUserRole(thisUser.getId(), RoleEnum.NORMAL_USER.getPermissionLevel());
+            return userRoleService.saveUserRole(user.getId(), RoleEnum.NORMAL_USER.getPermissionLevel());
         }
         return false;
     }
