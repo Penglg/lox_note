@@ -15,7 +15,7 @@ public class SectionProvider extends SQL {
                 SET("name = #{section.name}");
             }
             if (!EmptyCheckerUtil.isStringEmpty(section.getDesc())) {
-                SET("desc = #{section.desc}");
+                SET("`desc` = #{section.desc}");
             }
             WHERE("id = #{section.id}");
         }}.toString();

@@ -15,7 +15,7 @@ public class TagProvider extends SQL {
                 SET("name = #{tag.name}");
             }
             if (!EmptyCheckerUtil.isStringEmpty(tag.getDesc())) {
-                SET("desc = #{tag.desc}");
+                SET("`desc` = #{tag.desc}");
             }
             WHERE("id = #{tag.id}");
         }}.toString();

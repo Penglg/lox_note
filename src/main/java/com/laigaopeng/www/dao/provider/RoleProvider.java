@@ -18,7 +18,7 @@ public class RoleProvider extends SQL {
                 SET("permission_level = #{role.permissionLevel}");
             }
             if (!EmptyCheckerUtil.isStringEmpty(role.getDesc())) {
-                SET("desc = #{role.desc}");
+                SET("`desc` = #{role.desc}");
             }
             WHERE("id = #{role.id}");
         }}.toString();

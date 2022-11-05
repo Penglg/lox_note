@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 public interface RoleDao {
-    @Insert("insert into role (name, permission_level, desc) values (#{name}, #{permissionLevel}, #{desc})")
+    @Insert("insert into role (name, permission_level, `desc`) values (#{name}, #{permissionLevel}, #{desc})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Role role);
 
