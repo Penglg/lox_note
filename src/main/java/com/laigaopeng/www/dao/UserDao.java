@@ -33,10 +33,6 @@ public interface UserDao {
     })
     User getById(Integer id);
 
-    @Select("select * from user where account = #{account} and password = #{password}")
-    @ResultMap("userAndRoleMap")
-    User getByAccAndPwd(String account, String password);
-
     /**
      * 查找User及其所有角色
      * @param userId user主键id
@@ -50,10 +46,14 @@ public interface UserDao {
                     property = "roles",
                     column = "id",
                     javaType = List.class,
-                    many = @Many(select = "com.laigaopeng.www.dao.RoleDao.findByUserId")
+                    many = @Many(select = "com.laigaopeng.www.dao.RoleDao.listByUserId")
             )
     })
     User getUserAndRolesById(Integer userId);
+
+    @Select("select * from user where account = #{acc} and password = #{pwd}")
+    @ResultMap("userAndRoleMap")
+    User getByAccAndPwd(@Param("acc") String account, @Param("pwd") String password);
 
     @Select("select * from user where account = #{account}")
     @ResultMap("userMap")
