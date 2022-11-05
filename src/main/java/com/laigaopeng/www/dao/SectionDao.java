@@ -19,7 +19,7 @@ public interface SectionDao {
     int delete(Integer id);
 
     @UpdateProvider(type = SectionProvider.class, method = "updateSection")
-    int update(Section section);
+    int update(@Param("section") Section section);
 
     @Select("select * from section where id=#{id}")
     @Result(column = "id", property = "id", id = true)
