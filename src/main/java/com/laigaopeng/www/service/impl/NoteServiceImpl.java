@@ -66,17 +66,6 @@ public class NoteServiceImpl implements NoteService {
     public Note getById(Integer id) {
         return noteDao.getById(id);
     }
-
-    @Override
-    public List<Note> listLikeNotes(Integer userId) {
-        return noteDao.listByUserId(userId);
-    }
-
-    @Override
-    public List<Note> listCollectNotes(Integer userId) {
-        return noteDao.listCollections(userId);
-    }
-
     @Override
     public List<Note> listAll() {
         return noteDao.listAll();
@@ -96,4 +85,15 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> listUserNotes(Integer userId) {
         return noteDao.listByUserId(userId);
     }
+
+    @Override
+    public List<Note> listLikeNotes(Integer userId) {
+        return noteDao.listByUserId(userId);
+    }
+
+    @Override
+    public List<Note> listCollectNotes(Integer userId) {
+        return noteDao.listCollections(userId);
+    }
+
 }

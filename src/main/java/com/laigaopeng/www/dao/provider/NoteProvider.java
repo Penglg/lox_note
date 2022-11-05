@@ -27,7 +27,7 @@ public class NoteProvider extends SQL {
                 SET("section_id = #{note.sectionId}");
             }
             if (!EmptyCheckerUtil.isIntegerEmpty(note.getLegal())) {
-                SET("legal = #{not.legal}");
+                SET("legal = #{note.legal}");
             }
             WHERE("id = #{note.id}");
         }}.toString();
@@ -36,7 +36,7 @@ public class NoteProvider extends SQL {
     public String listNote(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal) {
         return new SQL() {{
             SELECT("*");
-            FROM("account");
+            FROM("note");
             if (!EmptyCheckerUtil.isIntegerEmpty(sectionId)) {
                 WHERE("section_id = #{sectionId}");
             }
