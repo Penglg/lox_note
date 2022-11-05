@@ -32,6 +32,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     public boolean deleteRoleUser(Integer roleId) {
         UserRole userRole = new UserRole();
         userRole.setRoleId(roleId);
-        return userRoleDao.deleteByConditions(userRole) == 1;
+        userRoleDao.deleteByConditions(userRole);
+        return true;
     }
 }
