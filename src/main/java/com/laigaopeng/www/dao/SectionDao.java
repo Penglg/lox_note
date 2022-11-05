@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 public interface SectionDao {
-    @Insert("insert into section (name, desc) values(#{name}, #{desc})")
+    @Insert("insert into section (name, desc) values (#{name}, #{desc})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Section section);
 
