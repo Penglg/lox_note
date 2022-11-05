@@ -12,7 +12,7 @@ public class NoteProvider extends SQL {
             UPDATE("note");
 
             if (!EmptyCheckerUtil.isStringEmpty(note.getTitle())) {
-                SET("title = #{note.tile}");
+                SET("title = #{note.title}");
             }
             if (!EmptyCheckerUtil.isStringEmpty(note.getContent())) {
                 SET("content = #{note.content}");

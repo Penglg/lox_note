@@ -5,6 +5,7 @@ import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.Tag;
 import com.laigaopeng.www.service.*;
+import com.laigaopeng.www.util.EmptyCheckerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,12 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public boolean save(Note note, List<Tag> tags, String approvalContent) {
+        if (EmptyCheckerUtil.isStringEmpty(approvalContent)) return false;
         if (noteDao.save(note) != 1) return false;
-        for (Tag tag : tags) { // 建立笔记和标签的绑定
-            noteTagService.save(note.getId(), tag.getId());
+        if (tags != null) {
+            for (Tag tag : tags) { // 建立笔记和标签的绑定
+                noteTagService.save(note.getId(), tag.getId());
+            }
         }
         Approval approval = new Approval();
         approval.setNoteId(note.getId());
