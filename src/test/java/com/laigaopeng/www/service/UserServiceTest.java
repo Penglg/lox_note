@@ -39,4 +39,50 @@ public class UserServiceTest {
         boolean result = userService.update(user);
         System.out.println("com.laigaopeng.www.service.UserServiceTest.testUpdate:" + result);
     }
+
+    @Test
+    public void testIfRepeatByNameOrAccount() {
+        User user = new User();
+        user.setName("repeatNameTest");
+        user.setAccount("repeatAccountTest");
+        user.setPassword("repeatTest");
+        user.setSex("男");
+        userService.save(user);
+
+        boolean result1 = userService.ifRepeatByNameOrAccount(user.getName(), user.getAccount());
+        boolean result2 = userService.ifRepeatByNameOrAccount(user.getName(), null);
+        boolean result3 = userService.ifRepeatByNameOrAccount(null, user.getAccount());
+
+        System.out.println("com.laigaopeng.www.service.UserServiceTest.testIfRepeatByNameOrAccount: " +
+                "result1(name and account):" + result1 + ", result2(name only):" + result2 + ", result3(" +
+                "account only):" + result3);
+    }
+
+    @Test
+    public void testGet() {
+        User user = new User();
+        user.setName("getTest");
+        user.setAccount("getTest");
+        user.setPassword("getTest");
+        user.setSex("男");
+        userService.save(user);
+
+        User result = userService.get(user.getAccount(), user.getPassword());
+        System.out.println("com.laigaopeng.www.service.UserServiceTest.testGet: " + result);
+    }
+
+    @Test
+    public void testManageUser() {
+        User user = new User();
+        user.setName("manageTest");
+        user.setAccount("manageTest");
+        user.setPassword("manageTest");
+        user.setSex("男");
+        userService.save(user);
+
+        boolean result = userService.manageUser(user.getId(), 1);
+        User user1 = userService.get(user.getAccount(), user.getPassword());
+        System.out.println("com.laigaopeng.www.service.UserServiceTest.testManageUser: " + result + ", " +
+                "user.disabled: " + user1.getDisabled());
+    }
 }
