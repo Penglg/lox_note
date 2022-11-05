@@ -16,7 +16,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     private UserRoleDao userRoleDao;
 
     @Override
-    public boolean saveUserRole(Integer userId, Integer roleId) {
+    public boolean save(Integer userId, Integer roleId) {
         UserRole userRole = new UserRole();
         userRole.setUserId(userId);
         userRole.setRoleId(roleId);

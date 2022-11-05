@@ -9,7 +9,7 @@ public interface UserRoleService {
      * @param roleId 角色主键
      * @return 执行结果
      */
-    boolean saveUserRole(Integer userId, Integer roleId);
+    boolean save(Integer userId, Integer roleId);
 
     /**
      * 删除用户和角色的绑定

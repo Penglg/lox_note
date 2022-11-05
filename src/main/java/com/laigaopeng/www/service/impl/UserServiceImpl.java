@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         // 是否重名或重账号
         if (ifRepeatByNameOrAccount(user.getName(), user.getAccount())) return false;
         if (userDao.save(user) == 1) {
-            return userRoleService.saveUserRole(user.getId(), RoleEnum.NORMAL_USER.getPermissionLevel());
+            return userRoleService.save(user.getId(), RoleEnum.NORMAL_USER.getPermissionLevel());
         }
         return false;
     }
