@@ -31,8 +31,10 @@ public class SectionServiceImpl implements SectionService {
 
     @Override
     public boolean update(Section section) {
-        // 判断分区名是否重复
-        if ((!EmptyCheckerUtil.isStringEmpty(section.getName())) && (isNameRepeat(section.getName()))) return false;
+        // 名不为空则要判断名是否重复，重复则修改为原名
+        if ((!EmptyCheckerUtil.isStringEmpty(section.getName())) && isNameRepeat(section.getName())) {
+            section.setName(sectionDao.getById(section.getId()).getName()); // 修改为原名
+        }
         return sectionDao.update(section) == 1;
     }
 
