@@ -28,6 +28,9 @@ public interface RoleDao {
     })
     Role getById(Integer id);
 
+    @Select("select * from role where name=#{name}")
+    Role getByName(String name);
+
     @Select("select * from role")
     @ResultMap("roleMap")
     List<Role> listAll();

@@ -36,4 +36,12 @@ public interface RoleService {
      * @return 查询结果
      */
     List<Role> listAll();
+
+    /**
+     * 判断角色名是否重复
+     *
+     * @param name 角色名
+     * @return 重复返回true，否则返回false
+     */
+    boolean isNameRepeat(String name);
 }

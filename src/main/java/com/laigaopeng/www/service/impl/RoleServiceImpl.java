@@ -4,6 +4,7 @@ import com.laigaopeng.www.dao.RoleDao;
 import com.laigaopeng.www.pojo.Role;
 import com.laigaopeng.www.service.RoleService;
 import com.laigaopeng.www.service.UserRoleService;
+import com.laigaopeng.www.util.EmptyCheckerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean save(Role role) {
+        // 判断是否重名
+        if (isNameRepeat(role.getName())) return false;
         return roleDao.save(role) == 1;
     }
 
@@ -34,11 +37,20 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean update(Role role) {
+        // 判断是否重名
+        if ((!EmptyCheckerUtil.isStringEmpty(role.getName())) && isNameRepeat(role.getName())) {
+            role.setName(roleDao.getById(role.getId()).getName());
+        }
         return roleDao.update(role) == 1;
     }
 
     @Override
     public List<Role> listAll() {
         return roleDao.listAll();
+    }
+
+    @Override
+    public boolean isNameRepeat(String name) {
+        return roleDao.getByName(name) != null;
     }
 }
