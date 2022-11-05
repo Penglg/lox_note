@@ -19,7 +19,7 @@ public interface TagDao {
     int delete(Integer id);
 
     @UpdateProvider(type = TagProvider.class, method = "updateTag")
-    int update(Tag tag);
+    int update(@Param("tag") Tag tag);
 
     @Select("select * from tag where id=#{id}")
     @Result(column = "id", property = "id", id = true)
