@@ -101,4 +101,30 @@ public class NoteServiceTest {
         List<Note> notes = noteService.listAll(NoteEnum.LEGAL.getCode());
         System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListAllByLegal: " + notes);
     }
+
+    @Test
+    public void testListSectionNotes() {
+        Note note = new Note();
+        note.setTitle("noteListSectionTest");
+        note.setContent("noteListSectionTest");
+        note.setUserId(0);
+        note.setSectionId(-1);
+        noteService.save(note, null,  "noteListSectionTest");
+
+        List<Note> notes = noteService.listSectionNotes(-1, 0);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListSectionNotes: " + notes);
+    }
+
+    @Test
+    public void testListUserNotes() {
+        Note note = new Note();
+        note.setTitle("noteListUserTest");
+        note.setContent("noteListUserTest");
+        note.setUserId(-1);
+        note.setSectionId(0);
+        noteService.save(note, null,  "noteListLegalTest");
+
+        List<Note> notes = noteService.listUserNotes(-1);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListUserNotes: " + notes);
+    }
 }
