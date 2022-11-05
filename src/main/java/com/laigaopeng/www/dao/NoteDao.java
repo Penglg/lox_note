@@ -34,13 +34,13 @@ public interface NoteDao {
                     property = "tags",
                     column = "id",
                     javaType = List.class,
-                    many = @Many(select = "com.laigaopeng.www.dao.TagDao.findByNoteId")
+                    many = @Many(select = "com.laigaopeng.www.dao.TagDao.listByNoteId")
             ),
             @Result(
                     property = "section",
                     column = "section_id",
                     javaType = Section.class,
-                    one = @One(select = "com.laigaopeng.www.dao.SectionDao.findById")
+                    one = @One(select = "com.laigaopeng.www.dao.SectionDao.getById")
             )
     })
     Note getById(Integer id);
