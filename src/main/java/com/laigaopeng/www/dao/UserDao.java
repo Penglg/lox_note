@@ -33,9 +33,9 @@ public interface UserDao {
     })
     User getById(Integer id);
 
-    @Select("select * from user")
-    @ResultMap("userMap")
-    List<User> findAll();
+    @Select("select * from user where account = #{account} and password = #{password}")
+    @ResultMap("userAndRoleMap")
+    User getByAccAndPwd(String account, String password);
 
     /**
      * 查找User及其所有角色
@@ -63,7 +63,7 @@ public interface UserDao {
     @ResultMap("userMap")
     User getByName(String name);
 
-    @Select("select * from user where account = #{account} and password = #{password}")
-    @ResultMap("userAndRoleMap")
-    User getByAccAndPwd(String account, String password);
+    @Select("select * from user")
+    @ResultMap("userMap")
+    List<User> listAll();
 }

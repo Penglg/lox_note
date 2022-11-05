@@ -46,32 +46,32 @@ public class UserDaoTest {
     }
 
     @Test
-    public void testFindById() {
+    public void testGetById() {
         User user = userDao.getById(1);
         System.out.println(user);
     }
 
     @Test
-    public void testFindAll() {
-        List<User> userList = userDao.findAll();
+    public void testListAll() {
+        List<User> userList = userDao.listAll();
         System.out.println(userList);
     }
 
     @Test
-    public void testFindUserAndRoleById() {
+    public void testGetUserAndRoleById() {
         User user = userDao.getUserAndRolesById(1);
         System.out.println("user:" + user);
         System.out.println("roles:" + user.getRoles());
     }
 
     @Test
-    public void testFindByAccount() {
+    public void testGetByAccount() {
         User user = userDao.getByAccount("111111");
         System.out.println("user:" + user);
     }
 
     @Test
-    public void testFindByName() {
+    public void testGetByName() {
         User user = userDao.getByName("testUpdate");
         System.out.println("user:" + user);
     }
