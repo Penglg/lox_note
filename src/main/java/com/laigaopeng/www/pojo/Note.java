@@ -1,6 +1,6 @@
 package com.laigaopeng.www.pojo;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -24,7 +24,7 @@ public class Note {
 
     private Integer collect; // 笔记获得收藏数，默认0
 
-    private LocalDateTime dateTime; // 笔记发布时间
+    private Timestamp dateTime; // 笔记发布时间
 
     private Integer legal; // 笔记是否被禁止
 
@@ -33,11 +33,11 @@ public class Note {
 
     private Section section; // 笔记所在分区
 
-    public LocalDateTime getDateTime() {
+    public Timestamp getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -119,14 +119,6 @@ public class Note {
 
     public void setCollect(Integer collect) {
         this.collect = collect;
-    }
-
-    public LocalDateTime getDatetime() {
-        return dateTime;
-    }
-
-    public void setDatetime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 
     public Integer getLegal() {
