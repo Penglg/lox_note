@@ -16,7 +16,7 @@ public interface ApprovalDao {
     @Insert("insert into approval (note_id, user_id, content, result) values " +
             "(#{noteId}, #{userId}, #{content}, #{result})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(Approval approval);
+    int save(Approval approval);
 
     /**
      * 对approval进行更新

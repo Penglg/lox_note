@@ -25,7 +25,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     public boolean save(Approval approval) {
-        return approvalDao.insert(approval) == 1;
+        return approvalDao.save(approval) == 1;
     }
 
     @Override
