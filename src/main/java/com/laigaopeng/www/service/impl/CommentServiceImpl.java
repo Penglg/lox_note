@@ -3,6 +3,7 @@ package com.laigaopeng.www.service.impl;
 import com.laigaopeng.www.dao.CommentDao;
 import com.laigaopeng.www.pojo.Comment;
 import com.laigaopeng.www.service.CommentService;
+import com.laigaopeng.www.util.EmptyCheckerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +35,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean deleteNoteComments(Integer noteId) {
+        if (EmptyCheckerUtil.isIntegerEmpty(noteId)) return false;
         Comment comment = new Comment();
         comment.setNoteId(noteId);
-        return commentDao.deleteByConditions(comment) == 1;
+        commentDao.deleteByConditions(comment);
+        return true;
     }
 }
