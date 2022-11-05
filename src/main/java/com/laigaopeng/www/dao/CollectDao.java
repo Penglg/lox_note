@@ -12,7 +12,7 @@ import java.util.List;
 public interface CollectDao {
     @Insert("insert into collect (user_id, note_id) values (#{userId}, #{noteId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(Collect collection);
+    int save(Collect collection);
 
     @Delete("delete from collect where id=#{id}")
     int delete(Integer id);

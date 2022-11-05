@@ -31,7 +31,7 @@ public class CollectServiceImpl implements CollectService {
         // 笔记收藏量加1
         Note note = noteService.getById(noteId);
         note.setCollect(note.getCollect() + 1);
-        return collectDao.insert(collect) == 1 && noteService.updateNote(note);
+        return collectDao.save(collect) == 1 && noteService.updateNote(note);
     }
 
     @Override
