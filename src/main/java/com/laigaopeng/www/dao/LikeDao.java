@@ -11,17 +11,17 @@ import java.util.List;
  *
  */
 public interface LikeDao {
-    @Insert("insert into like (user_id, note_id) values (#{userId}, #{noteId})")
+    @Insert("insert into `like` (user_id, note_id) values (#{userId}, #{noteId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Like like);
 
-    @Delete("delete from like where id=#{id}")
+    @Delete("delete from `like` where id=#{id}")
     int delete(Integer id);
 
     @DeleteProvider(type = LikeProvider.class, method = "deleteLike")
     int deleteByConditions(@Param("like")Like like);
 
-    @Select("select * from like where id=#{id}")
+    @Select("select * from `like` where id=#{id}")
     @Results(id = "likeMap", value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "user_id", property = "userId"),
@@ -33,7 +33,7 @@ public interface LikeDao {
     @ResultMap("likeMap")
     Like getByConditions(@Param("like")Like like);
 
-    @Select("select * from like where user_id=#{userId}")
+    @Select("select * from `like` where user_id=#{userId}")
     @ResultMap("likeMap")
     List<Like> listByUserId(Integer userId);
 }

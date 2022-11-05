@@ -9,7 +9,7 @@ public class LikeProvider extends SQL {
 
     public String deleteLike(@Param("like")Like like) {
         return new SQL() {{
-            DELETE_FROM("like");
+            DELETE_FROM("`like`");
 
             if (!EmptyCheckerUtil.isIntegerEmpty(like.getId())) {
                 WHERE ("id = #{like.id}");
@@ -26,7 +26,7 @@ public class LikeProvider extends SQL {
     public String getLike(@Param("like")Like like) {
         return new SQL() {{
             SELECT("*");
-            LikeProvider.this.FROM("like");
+            LikeProvider.this.FROM("`like`");
 
             if (!EmptyCheckerUtil.isIntegerEmpty(like.getId())) {
                 WHERE("id = #{like.id}");
