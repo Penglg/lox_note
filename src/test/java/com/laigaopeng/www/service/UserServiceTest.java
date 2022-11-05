@@ -15,13 +15,28 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    public void save() {
+    public void testSave() {
         User user = new User();
         user.setName("saveTest");
         user.setAccount("saveTest");
         user.setPassword("saveTest");
         user.setSex("男");
-        Boolean result = userService.save(user);
-        System.out.println("com.laigaopeng.www.service.UserServiceTest.save: " + result);
+        boolean result = userService.save(user);
+        System.out.println("com.laigaopeng.www.service.UserServiceTest.testSave: " + result);
+    }
+
+    @Test
+    public void testUpdate() {
+        User user = new User();
+        user.setName("updateTest");
+        user.setAccount("updateTest");
+        user.setPassword("updateTest");
+        user.setSex("男");
+        userService.save(user);
+
+        // 修改
+        user.setSex("女");
+        boolean result = userService.update(user);
+        System.out.println("com.laigaopeng.www.service.UserServiceTest.testUpdate:" + result);
     }
 }
