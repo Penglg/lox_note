@@ -38,7 +38,7 @@ public class CollectServiceImpl implements CollectService {
     public boolean delete(Integer id) {
         if (EmptyCheckerUtil.isIntegerEmpty(id)) return false;
         // 笔记收藏量减1
-        Note note = noteService.getById(id);
+        Note note = noteService.getById(collectDao.getById(id).getNoteId());
         note.setCollect(note.getCollect() - 1);
         return collectDao.delete(id) == 1 && noteService.updateNote(note);
     }
@@ -47,7 +47,10 @@ public class CollectServiceImpl implements CollectService {
     public boolean deleteNoteCollects(Integer noteId) {
         Collect collect = new Collect();
         collect.setNoteId(noteId);
-        return collectDao.deleteByConditions(collect) == 1;
+        Note note = noteService.getById(noteId);
+        note.setCollect(0);
+        collectDao.deleteByConditions(collect);
+        return noteService.updateNote(note);
     }
 
     @Override
