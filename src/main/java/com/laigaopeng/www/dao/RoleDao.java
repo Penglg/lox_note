@@ -19,7 +19,7 @@ public interface RoleDao {
     int delete(Integer id);
 
     @UpdateProvider(type = RoleProvider.class, method = "updateRole")
-    int update(Role role);
+    int update(@Param("role") Role role);
 
     @Select("select * from role where id=#{id}")
     @Results(id = "roleMap", value = {
