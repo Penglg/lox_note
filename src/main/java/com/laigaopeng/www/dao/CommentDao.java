@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface CommentDao {
     @Insert("insert into comment (user_id, note_id, content, datetime) values " +
-            "(null, #{userId}, #{noteId}, #{content}, #{dateTime})")
+            "(#{userId}, #{noteId}, #{content}, #{dateTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Comment comment);
 
@@ -51,7 +51,7 @@ public interface CommentDao {
                     property = "user",
                     column = "user_id",
                     javaType = User.class,
-                    one = @One(select = "com.laigaopeng.www.dao.UserDao.findById")
+                    one = @One(select = "com.laigaopeng.www.dao.UserDao.getById")
             )
     })
     List<Comment> listByNoteId(Integer id);
@@ -73,7 +73,7 @@ public interface CommentDao {
                     property = "note",
                     column = "note_id",
                     javaType = Note.class,
-                    one = @One(select = "com.laigaopeng.www.dao.NoteDao.findById")
+                    one = @One(select = "com.laigaopeng.www.dao.NoteDao.getById")
             )
     })
     List<Comment>listByUserId(Integer userId);
