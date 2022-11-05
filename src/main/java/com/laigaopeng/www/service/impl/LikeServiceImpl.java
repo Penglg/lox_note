@@ -5,6 +5,7 @@ import com.laigaopeng.www.pojo.Like;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.service.LikeService;
 import com.laigaopeng.www.service.NoteService;
+import com.laigaopeng.www.util.EmptyCheckerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,9 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean delete(Integer id) {
-        Like like = likeDao.getById(id);
+        if (EmptyCheckerUtil.isIntegerEmpty(id)) return false;
         // 笔记点赞数减1
-        Note note = noteService.getById(like.getNoteId());
+        Note note = noteService.getById(likeDao.getById(id).getNoteId());
         note.setLikes(note.getLikes() - 1);
         return likeDao.delete(id) == 1 && noteService.updateNote(note);
     }
@@ -44,7 +45,11 @@ public class LikeServiceImpl implements LikeService {
     public boolean deleteNoteLikes(Integer noteId) {
         Like like = new Like();
         like.setNoteId(noteId);
-        return likeDao.deleteByConditions(like) == 1;
+        likeDao.deleteByConditions(like);
+
+        Note note = noteService.getById(noteId);
+        note.setLikes(0);
+        return noteService.updateNote(note);
     }
 
     @Override
