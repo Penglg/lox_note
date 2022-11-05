@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.NoteDao;
+import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.Tag;
 import com.laigaopeng.www.service.*;
@@ -19,6 +20,8 @@ public class NoteServiceImpl implements NoteService {
     private NoteDao noteDao;
 
     @Autowired
+    private ApprovalService approvalService;
+    @Autowired
     private LikeService likeService;
     @Autowired
     private CollectService collectService;
@@ -28,11 +31,16 @@ public class NoteServiceImpl implements NoteService {
     private CommentService commentService;
 
     @Override
-    public boolean save(Note note, List<Tag> tags) {
+    public boolean save(Note note, List<Tag> tags, String approvalContent) {
         if (noteDao.save(note) != 1) return false;
         for (Tag tag : tags) { // 建立笔记和标签的绑定
             noteTagService.save(note.getId(), tag.getId());
         }
+        Approval approval = new Approval();
+        approval.setNoteId(note.getId());
+        approval.setUserId(note.getUserId());
+        approval.setContent(approvalContent);
+        approvalService.save(approval);
         return true;
     }
 

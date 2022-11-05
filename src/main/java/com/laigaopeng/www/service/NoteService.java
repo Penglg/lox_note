@@ -76,7 +76,7 @@ public interface NoteService {
      * @param tags 笔记的标签
      * @return 新增结果
      */
-    boolean save(Note note, List<Tag> tags);
+    boolean save(Note note, List<Tag> tags, String approvalContent);
 
     /**
      * 获取点赞的笔记
