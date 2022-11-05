@@ -1,5 +1,6 @@
 package com.laigaopeng.www.pojo;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -17,7 +18,7 @@ public class Comment {
     private String content;
 
     // 评论时间
-    private LocalDateTime dateTime;
+    private Timestamp dateTime;
 
     /* 非数据库表字段属性 */
     private Note note;
@@ -72,11 +73,11 @@ public class Comment {
         this.content = content;
     }
 
-    public LocalDateTime getDateTime() {
+    public Timestamp getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 
