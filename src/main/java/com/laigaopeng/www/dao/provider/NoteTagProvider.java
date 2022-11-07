@@ -23,9 +23,6 @@ public class NoteTagProvider extends SQL {
             DELETE_FROM("note_tag");
 
             if (!EmptyCheckerUtil.isIntegerEmpty(noteTag.getNoteId())) {
-                WHERE("id = #{noteTag.id}");
-            }
-            if (!EmptyCheckerUtil.isIntegerEmpty(noteTag.getNoteId())) {
                 WHERE("note_id = #{noteTag.noteId}");
             }
             if (!EmptyCheckerUtil.isIntegerEmpty(noteTag.getTagId())) {
