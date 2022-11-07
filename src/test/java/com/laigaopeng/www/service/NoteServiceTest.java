@@ -21,6 +21,10 @@ public class NoteServiceTest {
 
     @Autowired
     private NoteService noteService;
+    @Autowired
+    private LikeService likeService;
+    @Autowired
+    private CollectService collectService;
 
     @Test
     public void testSave() {
@@ -126,5 +130,49 @@ public class NoteServiceTest {
 
         List<Note> notes = noteService.listUserNotes(-1);
         System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListUserNotes: " + notes);
+    }
+
+    @Test
+    public void testListLikeNotes() {
+        Note note1 = new Note();
+        note1.setTitle("noteListLikeTest1");
+        note1.setContent("noteListLikeTest1");
+        note1.setUserId(0);
+        note1.setSectionId(0);
+        noteService.save(note1, null, "noteListLikeTest1");
+        likeService.save(-10, note1.getId());
+
+        Note note2 = new Note();
+        note2.setTitle("noteListLikeTest2");
+        note2.setContent("noteListLikeTest2");
+        note2.setUserId(0);
+        note2.setSectionId(0);
+        noteService.save(note2, null, "noteListLikeTest2");
+        likeService.save(-10, note2.getId());
+
+        List<Note> likeNotes = noteService.listLikeNotes(-10);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListLikeNotes: " + likeNotes);
+    }
+
+    @Test
+    public void testListCollectNotes() {
+        Note note1 = new Note();
+        note1.setTitle("noteListCollTest1");
+        note1.setContent("noteListCollTest1");
+        note1.setUserId(0);
+        note1.setSectionId(0);
+        noteService.save(note1, null, "noteListCollTest1");
+        collectService.save(-10, note1.getId());
+
+        Note note2 = new Note();
+        note2.setTitle("noteListCollTest2");
+        note2.setContent("noteListCollTest2");
+        note2.setUserId(0);
+        note2.setSectionId(0);
+        noteService.save(note2, null, "noteListCollTest2");
+        collectService.save(-10, note2.getId());
+
+        List<Note> collectNotes = noteService.listCollectNotes(-10);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListCollectNotes: " + collectNotes);
     }
 }
