@@ -88,7 +88,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<Note> listLikeNotes(Integer userId) {
-        return noteDao.listByUserId(userId);
+        return noteDao.listLikes(userId);
     }
 
     @Override
