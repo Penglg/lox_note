@@ -79,7 +79,7 @@ public interface NoteDao {
      * @param userId user主键id
      * @return 集合结果
      */
-    @Select("select * from note n, connect c where n.id = c.note_id and c.user_id = #{userId}")
+    @Select("select * from note n, collect c where n.id = c.note_id and c.user_id = #{userId}")
     @ResultMap("noteMap")
     List<Note> listCollections(Integer userId);
 }
