@@ -33,6 +33,7 @@ public class NoteTagServiceImpl implements NoteTagService {
     public boolean deleteNoteTags(Integer noteId) {
         NoteTag noteTag = new NoteTag();
         noteTag.setNoteId(noteId);
-        return noteTagDao.deleteByConditions(noteTag) == 1;
+        noteTagDao.deleteByConditions(noteTag);
+        return true;
     }
 }
