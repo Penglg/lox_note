@@ -13,8 +13,8 @@ import java.util.List;
  *
  */
 public interface ApprovalDao {
-    @Insert("insert into approval (note_id, user_id, content, result) values " +
-            "(#{noteId}, #{userId}, #{content}, #{result})")
+    @Insert("insert into approval (note_id, user_id, content) values " +
+            "(#{noteId}, #{userId}, #{content})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Approval approval);
 
