@@ -69,7 +69,7 @@ public interface NoteDao {
      * @param userId user主键id
      * @return 集合结果
      */
-    @Select("select * from note n, like l where n.id = l.note_id and l.user_id = #{userId}")
+    @Select("select * from note n, `like` l where n.id = l.note_id and l.user_id = #{userId}")
     @ResultMap("noteMap")
     List<Note> listLikes(Integer userId);
 
