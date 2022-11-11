@@ -1,11 +1,15 @@
 package com.laigaopeng.www.util.enumhelper;
 
+/**
+ * 返回前端的结果状态码及状态信息
+ *
+ */
 public enum CodeEnum {
 
     SUCCESS(30001, "成功"),
     FAIL(30002, "失败"),
     NO_PERMISSION(30003, "没有权限"),
-    EMPTY_PARAMETER(30004, "没有参数"),
+    WRONG_PARAMETER(30004, "参数不合法"),
     EXCEPTION(30005, "出现异常");
 
 

@@ -1,5 +1,9 @@
 package com.laigaopeng.www.pojo.vo;
 
+/**
+ * 返回前端的结果类对象
+ *
+ */
 public class Result {
 
     private Object data; // 返回前端的数据
