@@ -128,7 +128,7 @@ public class NoteServiceTest {
         note.setSectionId(0);
         noteService.save(note, null,  "noteListLegalTest");
 
-        List<Note> notes = noteService.listUserNotes(-1);
+        List<Note> notes = noteService.listUserNotes(-1, 0);
         System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListUserNotes: " + notes);
     }
 

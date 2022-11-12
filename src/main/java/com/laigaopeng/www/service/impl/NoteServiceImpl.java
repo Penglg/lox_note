@@ -32,12 +32,12 @@ public class NoteServiceImpl implements NoteService {
     private CommentService commentService;
 
     @Override
-    public boolean save(Note note, List<Tag> tags, String approvalContent) {
+    public boolean save(Note note, List<Integer> tagIds, String approvalContent) {
         if (EmptyCheckerUtil.isStringEmpty(approvalContent)) return false;
         if (noteDao.save(note) != 1) return false;
-        if (tags != null) {
-            for (Tag tag : tags) { // 建立笔记和标签的绑定
-                noteTagService.save(note.getId(), tag.getId());
+        if (tagIds != null) {
+            for (int tag : tagIds) { // 建立笔记和标签的绑定
+                noteTagService.save(note.getId(), tag);
             }
         }
         Approval approval = new Approval();
@@ -82,8 +82,8 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<Note> listUserNotes(Integer userId) {
-        return noteDao.listByUserId(userId);
+    public List<Note> listUserNotes(Integer userId, Integer isLegal) {
+        return noteDao.listByUserId(userId, isLegal);
     }
 
     @Override

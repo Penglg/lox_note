@@ -40,9 +40,10 @@ public interface NoteService {
      * 查找用户的所有笔记
      *
      * @param userId 用户id
+     * @param isLegal 是否合法
      * @return 查询结果
      */
-    List<Note> listUserNotes(Integer userId);
+    List<Note> listUserNotes(Integer userId, Integer isLegal);
 
     /**
      * 查找笔记
@@ -73,10 +74,10 @@ public interface NoteService {
      * 新增笔记
      *
      * @param note 新增的笔记
-     * @param tags 笔记的标签
+     * @param tagIds 笔记的标签
      * @return 新增结果
      */
-    boolean save(Note note, List<Tag> tags, String approvalContent);
+    boolean save(Note note, List<Integer> tagIds, String approvalContent);
 
     /**
      * 获取点赞的笔记

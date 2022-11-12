@@ -57,11 +57,12 @@ public interface NoteDao {
      * 根据user主键id获取该user所有笔记
      *
      * @param userId user主键id
+     * @param isLegal 笔记是否合法
      * @return 集合结果
      */
-    @Select("select * from note where user_id=#{userId}")
+    @Select("select * from note where user_id=#{userId} and legal = #{isLegal}")
     @ResultMap("noteMap")
-    List<Note> listByUserId(Integer userId);
+    List<Note> listByUserId(@Param("userId") Integer userId, @Param("isLegal") Integer isLegal);
 
     /**
      * 根据user主键id获取user点赞的笔记
@@ -69,7 +70,7 @@ public interface NoteDao {
      * @param userId user主键id
      * @return 集合结果
      */
-    @Select("select * from note n, `like` l where n.id = l.note_id and l.user_id = #{userId}")
+    @Select("select * from note n, `like` l where n.id = l.note_id and l.user_id = #{userId} and n.legal = 1")
     @ResultMap("noteMap")
     List<Note> listLikes(Integer userId);
 
@@ -79,7 +80,7 @@ public interface NoteDao {
      * @param userId user主键id
      * @return 集合结果
      */
-    @Select("select * from note n, collect c where n.id = c.note_id and c.user_id = #{userId}")
+    @Select("select * from note n, collect c where n.id = c.note_id and c.user_id = #{userId} and legal = 1")
     @ResultMap("noteMap")
     List<Note> listCollections(Integer userId);
 }
