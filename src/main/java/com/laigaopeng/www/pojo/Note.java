@@ -33,6 +33,16 @@ public class Note {
 
     private Section section; // 笔记所在分区
 
+    private String approvalContent;  // 笔记申请说明
+
+    public String getApprovalContent() {
+        return approvalContent;
+    }
+
+    public void setApprovalContent(String approvalContent) {
+        this.approvalContent = approvalContent;
+    }
+
     public Timestamp getDateTime() {
         return dateTime;
     }
