@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  * 用户业务功能前端控制器
  *
  */
-@RestController
+@RestController("userController")
 @RequestMapping("/users")
 public class UserController {
     @Autowired

@@ -17,7 +17,7 @@ import java.util.List;
  * 笔记业务功能前端控制器
  *
  */
-@RestController
+@RestController("noteController")
 @RequestMapping("/notes")
 public class NoteController {
     @Autowired
@@ -91,5 +91,82 @@ public class NoteController {
         boolean result = noteService.save(note, tagIds, note.getApprovalContent());
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+
+    /**
+     * 更新笔记信息
+     *
+     * @param note 笔记
+     * @return 结果
+     */
+    @PutMapping
+    public Result update(@RequestBody Note note) {
+        boolean result = noteService.updateNote(note);
+        return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
+                new Result(false, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 删除笔记
+     *
+     * @param id 笔记主键
+     * @return 结果
+     */
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable int id) {
+        boolean result = noteService.deleteNote(id);
+        return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
+                new Result(false, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 获取指定笔记
+     *
+     * @param id 笔记主键
+     * @return 结果
+     */
+    @GetMapping("/{id}")
+    public Result get(@PathVariable int id) {
+        Note note = noteService.getById(id);
+        return note != null ? new Result(note, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
+                new Result(null, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 获取分区内笔记
+     *
+     * @param id 分区id
+     * @return 结果
+     */
+    @GetMapping("/section/{id}")
+    public Result listSectionNotes(@PathVariable int id, @RequestParam(value = "isLegal", required = false,
+            defaultValue = "1") int isLegal) {
+        List<Note> notes = noteService.listSectionNotes(id, isLegal);
+        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 获取用户点赞笔记
+     *
+     * @param userId 用户
+     * @return 结果
+     */
+    @GetMapping("/user/{userId}/like")
+    public Result listLikeNotes(@PathVariable int userId) {
+        List<Note> notes = noteService.listLikeNotes(userId);
+        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 获取用户收藏笔记
+     *
+     * @param userId 用户
+     * @return 结果
+     */
+    @GetMapping("/user/{userId}/collect")
+    public Result listCollectNotes(@PathVariable int userId) {
+        List<Note> notes = noteService.listCollectNotes(userId);
+        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }
