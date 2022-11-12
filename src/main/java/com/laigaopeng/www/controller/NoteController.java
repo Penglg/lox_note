@@ -90,7 +90,7 @@ public class NoteController {
         }
         boolean result = noteService.save(note, tagIds, note.getApprovalContent());
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(false, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
 
 
@@ -104,7 +104,7 @@ public class NoteController {
     public Result update(@RequestBody Note note) {
         boolean result = noteService.updateNote(note);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(false, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
 
     /**
@@ -117,7 +117,7 @@ public class NoteController {
     public Result delete(@PathVariable int id) {
         boolean result = noteService.deleteNote(id);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(false, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
 
     /**
@@ -130,7 +130,7 @@ public class NoteController {
     public Result get(@PathVariable int id) {
         Note note = noteService.getById(id);
         return note != null ? new Result(note, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(null, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+                new Result(null, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
 
     /**
