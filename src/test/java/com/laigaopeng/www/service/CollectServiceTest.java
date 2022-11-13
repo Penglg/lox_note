@@ -32,7 +32,10 @@ public class CollectServiceTest {
         note.setSectionId(0);
         noteDao.save(note);
 
-        boolean result = collectService.save(0, note.getId());
+        Collect collect = new Collect();
+        collect.setNoteId(note.getId());
+        collect.setUserId(-10);
+        boolean result = collectService.save(collect);
         System.out.println("com.laigaopeng.www.service.CollectServiceTest.testSave: " + result);
     }
 
@@ -65,8 +68,13 @@ public class CollectServiceTest {
         note.setSectionId(0);
         noteDao.save(note);
         // 增加收藏
-        collectService.save(-3, note.getId());
-        collectService.save(-2, note.getId());
+        Collect collect = new Collect();
+        collect.setUserId(-3); collect.setNoteId(note.getId());
+        collectService.save(collect);
+
+        Collect collect1 = new Collect();
+        collect1.setUserId(-4); collect.setNoteId(note.getId());
+        collectService.save(collect1);
 
         boolean result = collectService.deleteNoteCollects(note.getId());
         System.out.println("com.laigaopeng.www.service.CollectServiceTest.testDeleteNoteCollects: " + result);
@@ -81,7 +89,10 @@ public class CollectServiceTest {
         note.setUserId(0);
         note.setSectionId(0);
         noteDao.save(note);
-        collectService.save(0, note.getId());
+
+        Collect collect = new Collect();
+        collect.setUserId(0); collect.setNoteId(note.getId());
+        collectService.save(collect);
 
         boolean result1 = collectService.isCollectRepeat(-10, -10);
         boolean result2 = collectService.isCollectRepeat(0, note.getId());

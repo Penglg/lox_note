@@ -1,5 +1,6 @@
 package com.laigaopeng.www.service;
 
+import com.laigaopeng.www.pojo.Collect;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -11,12 +12,11 @@ public interface CollectService {
     /**
      * 用户收藏笔记
      *
-     * @param userId 用户主键
-     * @param noteId 笔记主键
+     * @param collect 收藏
      * @return 结果
      */
     @Transactional
-    boolean save(Integer userId, Integer noteId);
+    boolean save(Collect collect);
 
     /**
      * 用户取消收藏

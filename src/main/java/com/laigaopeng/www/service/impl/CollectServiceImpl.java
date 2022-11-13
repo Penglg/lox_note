@@ -23,13 +23,11 @@ public class CollectServiceImpl implements CollectService {
     private NoteService noteService;
 
     @Override
-    public boolean save(Integer userId, Integer noteId) {
-        if (EmptyCheckerUtil.isIntegerEmpty(userId) || EmptyCheckerUtil.isIntegerEmpty(noteId)) return false;
-        Collect collect = new Collect();
-        collect.setUserId(userId);
-        collect.setNoteId(noteId);
+    public boolean save(Collect collect) {
+        if (EmptyCheckerUtil.isIntegerEmpty(collect.getUserId()) || EmptyCheckerUtil.isIntegerEmpty(collect.getNoteId()))
+            return false;
         // 笔记收藏量加1
-        Note note = noteService.getById(noteId);
+        Note note = noteService.getById(collect.getNoteId());
         note.setCollect(note.getCollect() + 1);
         return collectDao.save(collect) == 1 && noteService.updateNote(note);
     }
@@ -48,9 +46,12 @@ public class CollectServiceImpl implements CollectService {
         Collect collect = new Collect();
         collect.setNoteId(noteId);
         Note note = noteService.getById(noteId);
-        note.setCollect(0);
-        collectDao.deleteByConditions(collect);
-        return noteService.updateNote(note);
+        if (note != null) { // 将笔记收藏数置为0
+            note.setCollect(0);
+            noteService.updateNote(note);
+            collectDao.deleteByConditions(collect);
+        }
+        return true;
     }
 
     @Override

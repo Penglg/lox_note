@@ -2,6 +2,7 @@ package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.config.SpringConfig;
 import com.laigaopeng.www.dao.NoteDao;
+import com.laigaopeng.www.pojo.Collect;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.util.enumhelper.NoteEnum;
 import org.junit.Test;
@@ -162,7 +163,11 @@ public class NoteServiceTest {
         note1.setUserId(0);
         note1.setSectionId(0);
         noteService.save(note1, null, "noteListCollTest1");
-        collectService.save(-10, note1.getId());
+
+        Collect collect = new Collect();
+        collect.setNoteId(note1.getId());
+        collect.setUserId(-10);
+        collectService.save(collect);
 
         Note note2 = new Note();
         note2.setTitle("noteListCollTest2");
@@ -170,7 +175,10 @@ public class NoteServiceTest {
         note2.setUserId(0);
         note2.setSectionId(0);
         noteService.save(note2, null, "noteListCollTest2");
-        collectService.save(-10, note2.getId());
+        Collect collect2 = new Collect();
+        collect2.setNoteId(note2.getId());
+        collect2.setUserId(-10);
+        collectService.save(collect2);
 
         List<Note> collectNotes = noteService.listCollectNotes(-10);
         System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListCollectNotes: " + collectNotes);
