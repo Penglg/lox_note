@@ -1,5 +1,7 @@
 package com.laigaopeng.www.service;
 
+import com.laigaopeng.www.pojo.Like;
+
 /**
  * 点赞业务逻辑层
  *
@@ -9,11 +11,10 @@ public interface LikeService {
     /**
      * 用户点赞笔记
      *
-     * @param userId 用户
-     * @param noteId 笔记
+     * @param like 点赞
      * @return 结果
      */
-    boolean save(Integer userId, Integer noteId);
+    boolean save(Like like);
 
     /**
      * 取消点赞

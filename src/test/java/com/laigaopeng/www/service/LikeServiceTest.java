@@ -32,7 +32,10 @@ public class LikeServiceTest {
         note.setSectionId(0);
         noteDao.save(note);
 
-        boolean result = likeService.save(0, note.getId());
+        Like like = new Like();
+        like.setUserId(0);
+        like.setNoteId(note.getId());
+        boolean result = likeService.save(like);
         System.out.println("com.laigaopeng.www.service.LikeServiceTest.testSave: " + result);
     }
 
@@ -63,8 +66,14 @@ public class LikeServiceTest {
         note.setSectionId(0);
         noteDao.save(note);
 
-        likeService.save(-3, note.getId());
-        likeService.save(-2, note.getId());
+        Like like = new Like();
+        like.setUserId(-2);
+        like.setNoteId(note.getId());
+        likeService.save(like);
+        Like like1 = new Like();
+        like1.setUserId(-3);
+        like1.setNoteId(note.getId());
+        likeService.save(like1);
 
         boolean result = likeService.deleteNoteLikes(note.getId());
         System.out.println("com.laigaopeng.www.service.LikeServiceTest.testDeleteNoteLikes: " + result);
@@ -78,7 +87,11 @@ public class LikeServiceTest {
         note.setUserId(0);
         note.setSectionId(0);
         noteDao.save(note);
-        likeService.save(0, note.getId());
+
+        Like like = new Like();
+        like.setUserId(0);
+        like.setNoteId(note.getId());
+        likeService.save(like);
 
         boolean result1 = likeService.isLikeRepeat(-10, -10);
         boolean result2 = likeService.isLikeRepeat(0, note.getId());

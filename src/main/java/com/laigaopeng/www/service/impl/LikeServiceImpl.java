@@ -22,12 +22,9 @@ public class LikeServiceImpl implements LikeService {
     private NoteService noteService;
 
     @Override
-    public boolean save(Integer userId, Integer noteId) {
-        Like like = new Like();
-        like.setNoteId(noteId);
-        like.setUserId(userId);
+    public boolean save(Like like) {
         // 笔记点赞数加1
-        Note note = noteService.getById(noteId);
+        Note note = noteService.getById(like.getNoteId());
         note.setLikes(note.getLikes() + 1);
         return likeDao.save(like) == 1 && noteService.updateNote(note);
     }
