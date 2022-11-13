@@ -3,6 +3,7 @@ package com.laigaopeng.www.service.impl;
 import com.laigaopeng.www.dao.NoteDao;
 import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
+import com.laigaopeng.www.pojo.NoteTag;
 import com.laigaopeng.www.pojo.Tag;
 import com.laigaopeng.www.service.*;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -37,7 +38,10 @@ public class NoteServiceImpl implements NoteService {
         if (noteDao.save(note) != 1) return false;
         if (tagIds != null) {
             for (int tag : tagIds) { // 建立笔记和标签的绑定
-                noteTagService.save(note.getId(), tag);
+                NoteTag noteTag = new NoteTag();
+                noteTag.setNoteId(note.getId());
+                noteTag.setTagId(tag);
+                noteTagService.save(noteTag);
             }
         }
         Approval approval = new Approval();
