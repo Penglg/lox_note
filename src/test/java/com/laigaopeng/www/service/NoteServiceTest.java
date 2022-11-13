@@ -3,6 +3,7 @@ package com.laigaopeng.www.service;
 import com.laigaopeng.www.config.SpringConfig;
 import com.laigaopeng.www.dao.NoteDao;
 import com.laigaopeng.www.pojo.Collect;
+import com.laigaopeng.www.pojo.Like;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.util.enumhelper.NoteEnum;
 import org.junit.Test;
@@ -141,7 +142,11 @@ public class NoteServiceTest {
         note1.setUserId(0);
         note1.setSectionId(0);
         noteService.save(note1, null, "noteListLikeTest1");
-        likeService.save(-10, note1.getId());
+
+        Like like = new Like();
+        like.setNoteId(note1.getId());
+        like.setUserId(-10);
+        likeService.save(like);
 
         Note note2 = new Note();
         note2.setTitle("noteListLikeTest2");
@@ -149,7 +154,11 @@ public class NoteServiceTest {
         note2.setUserId(0);
         note2.setSectionId(0);
         noteService.save(note2, null, "noteListLikeTest2");
-        likeService.save(-10, note2.getId());
+
+        Like like1 = new Like();
+        like1.setNoteId(note2.getId());
+        like1.setUserId(-10);
+        likeService.save(like1);
 
         List<Note> likeNotes = noteService.listLikeNotes(-10);
         System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListLikeNotes: " + likeNotes);
