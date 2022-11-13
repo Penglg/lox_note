@@ -56,4 +56,17 @@ public class LikeController {
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false ,CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
+
+    /**
+     * 判断是否重复点赞
+     *
+     * @param like 点赞
+     * @return 结果
+     */
+    @PostMapping("/check")
+    public Result isLikeRepeat(@RequestBody Like like) {
+        boolean result = likeService.isLikeRepeat(like.getUserId(), like.getNoteId());
+        return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
+                new Result(false ,CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+    }
 }
