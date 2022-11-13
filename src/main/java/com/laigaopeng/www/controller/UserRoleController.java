@@ -25,7 +25,7 @@ public class UserRoleController {
      * @return 结果
      */
     @PostMapping
-    public Result save(@RequestParam UserRole userRole) {
+    public Result save(@RequestBody UserRole userRole) {
         boolean result = userRoleService.save(userRole.getUserId(), userRole.getRoleId());
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
@@ -44,10 +44,9 @@ public class UserRoleController {
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
 
-    @DeleteMapping("/role/{roleId}}")
+    @DeleteMapping("/role/{roleId}")
     public Result deleteRoleUser(@PathVariable Integer roleId) {
         boolean result = userRoleService.deleteRoleUser(roleId);
-        return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+        return new Result(result, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }

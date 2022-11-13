@@ -72,8 +72,7 @@ public class SectionController {
     @GetMapping("/check")
     public Result isNameRepeat(@RequestParam String sectionName) {
         boolean result = sectionService.isNameRepeat(sectionName);
-        return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+        return new Result(result, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
 }

@@ -79,7 +79,6 @@ public class RoleController {
     @GetMapping("/check")
     public Result isNameRepeat(@RequestParam String name) {
         boolean result = roleService.isNameRepeat(name);
-        return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+        return new Result(result, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }

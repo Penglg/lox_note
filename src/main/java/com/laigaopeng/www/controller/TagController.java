@@ -14,7 +14,7 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping
+@RequestMapping("/tags")
 public class TagController {
 
     @Autowired
@@ -79,7 +79,6 @@ public class TagController {
     @GetMapping("/check")
     public Result isNameRepeat(@RequestParam String name) {
         boolean result = tagService.isNameRepeat(name);
-        return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
-                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+        return new Result(result, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }
