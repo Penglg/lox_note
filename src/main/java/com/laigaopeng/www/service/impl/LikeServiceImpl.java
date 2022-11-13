@@ -33,6 +33,8 @@ public class LikeServiceImpl implements LikeService {
     public boolean delete(Integer id) {
         if (EmptyCheckerUtil.isIntegerEmpty(id)) return false;
         // 笔记点赞数减1
+        Like like = likeDao.getById(id);
+        if (like == null) return false; // 此条记录不存在
         Note note = noteService.getById(likeDao.getById(id).getNoteId());
         note.setLikes(note.getLikes() - 1);
         return likeDao.delete(id) == 1 && noteService.updateNote(note);
