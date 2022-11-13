@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 分区控制类
  */
-@RestController
+@RestController("sectionController")
 @RequestMapping("/sections")
 public class SectionController {
 
@@ -69,7 +69,7 @@ public class SectionController {
         return new Result(sections, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
-    @GetMapping
+    @GetMapping("/check")
     public Result isNameRepeat(@RequestParam String sectionName) {
         boolean result = sectionService.isNameRepeat(sectionName);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :

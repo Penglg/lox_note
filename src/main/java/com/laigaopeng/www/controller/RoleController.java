@@ -13,7 +13,7 @@ import java.util.List;
  * 角色功能控制器类
  *
  */
-@RestController
+@RestController("roleController")
 @RequestMapping("/roles")
 public class RoleController {
 
@@ -53,7 +53,7 @@ public class RoleController {
      * @return Result
      */
     @PutMapping
-    public Result udpate(@RequestBody Role role) {
+    public Result update(@RequestBody Role role) {
         boolean result = roleService.update(role);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
@@ -76,7 +76,7 @@ public class RoleController {
      * @param name 名
      * @return 结果
      */
-    @GetMapping()
+    @GetMapping("/check")
     public Result isNameRepeat(@RequestParam String name) {
         boolean result = roleService.isNameRepeat(name);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
