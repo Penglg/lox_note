@@ -21,7 +21,10 @@ public class NoteTagServiceTest {
 
     @Test
     public void testSave() {
-        boolean result = noteTagService.save(0, 0);
+        NoteTag noteTag = new NoteTag();
+        noteTag.setNoteId(0);
+        noteTag.setTagId(0);
+        boolean result = noteTagService.save(noteTag);
         System.out.println("com.laigaopeng.www.service.NoteTagServiceTest.testSave: " + result);
     }
 
@@ -37,9 +40,18 @@ public class NoteTagServiceTest {
 
     @Test
     public void testDeleteNoteTags() {
-        noteTagService.save(-1, 0);
-        noteTagService.save(-1, -1);
-        noteTagService.save(-1, -2);
+        NoteTag noteTag = new NoteTag();
+        noteTag.setNoteId(-1);
+        noteTag.setTagId(0);
+        noteTagService.save(noteTag);
+        NoteTag noteTag1 = new NoteTag();
+        noteTag1.setNoteId(-1);
+        noteTag1.setTagId(-1);
+        noteTagService.save(noteTag1);
+        NoteTag noteTag2= new NoteTag();
+        noteTag2.setNoteId(-1);
+        noteTag2.setTagId(-2);
+        noteTagService.save(noteTag2);
 
         boolean result = noteTagService.deleteNoteTags(-1);
         System.out.println("com.laigaopeng.www.service.NoteTagServiceTest.testDeleteNoteTags: " + result);

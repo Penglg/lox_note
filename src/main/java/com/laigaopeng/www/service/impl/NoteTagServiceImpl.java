@@ -17,10 +17,7 @@ public class NoteTagServiceImpl implements NoteTagService {
     private NoteTagDao noteTagDao;
 
     @Override
-    public boolean save(Integer noteId, Integer tagId) {
-        NoteTag noteTag = new NoteTag();
-        noteTag.setNoteId(noteId);
-        noteTag.setTagId(tagId);
+    public boolean save(NoteTag noteTag) {
         return noteTagDao.save(noteTag) == 1;
     }
 

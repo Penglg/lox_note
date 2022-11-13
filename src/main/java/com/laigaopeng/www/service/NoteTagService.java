@@ -1,15 +1,16 @@
 package com.laigaopeng.www.service;
 
+import com.laigaopeng.www.pojo.NoteTag;
+
 public interface NoteTagService {
 
     /**
      * 新增笔记和标签的绑定
      *
-     * @param noteId 笔记主键
-     * @param tagId 标签主键
+     * @param noteTag 笔记和标签的绑定
      * @return 执行结果
      */
-    boolean save(Integer noteId, Integer tagId);
+    boolean save(NoteTag noteTag);
 
     /**
      * 删除笔记和标签的绑定
