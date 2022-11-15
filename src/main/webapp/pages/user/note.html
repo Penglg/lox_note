@@ -7,6 +7,7 @@
 <body>
 <div style="text-align: center">
     <h1>lox笔记</h1><br>
+    <a href="http://localhost:8080/pages/user/new_note.html">发布新笔记</a>
     <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a><br><br>
 
 <!--新增笔记-->
@@ -55,7 +56,7 @@
                             "<td>" + result.data.items[i].likes + "</td>" +
                             "<td>" + result.data.items[i].collect + "</td>" +
                             "<td>" + result.data.items[i].dateTime + "</td>" +
-                            "<td><button id=" + buttonId + ">查看</button>" + "</td>" +
+                            "<td><button id=" + buttonId + " type=>查看</button>" + "</td>" +
                             "</tr>";
                         table = table + line;
                     }
@@ -68,7 +69,7 @@
 
                         // 查看功能，即笔记详细页
                         $("#" + buttonId).click(function () {
-                            alert("hey!!!");
+                            location.href='http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
                         })
                     }
                 }
@@ -116,7 +117,7 @@
 
                         // 查看功能，即笔记详细页
                         $("#" + detailBtnId).click(function () {
-                            alert("detail!!!");
+                            location.href='http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
                         })
 
                         // 修改功能
@@ -174,7 +175,7 @@
 
                         // 查看功能，即笔记详细页
                         $("#" + detailBtnId).click(function () {
-                            alert("detail!!!");
+                            location.href='http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
                         })
 
                         // 修改功能
@@ -229,7 +230,7 @@
 
                         // 查看功能，即笔记详细页
                         $("#" + detailBtnId).click(function () {
-                            alert("detail!!!");
+                            location.href='http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
                         })
 
                         // 取消点赞功能
@@ -279,7 +280,7 @@
 
                         // 查看功能，即笔记详细页
                         $("#" + detailBtnId).click(function () {
-                            alert("detail!!!");
+                            location.href='http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
                         })
 
                         // 取消点赞功能
