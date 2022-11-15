@@ -16,6 +16,23 @@ public class Page<T> {
 
     private List<T> items; // 当前页记录数据
 
+    private Integer begin; // LIMIT begin使用
+
+    public Page(Integer pageNum, Integer recordSum) {
+        this.pageNum = pageNum;
+        this.recordSum = recordSum;
+        this.pageSum = this.recordSum / this.pageSize + ((this.recordSum % this.pageSize > 0) ? 1 : 0);
+        this.begin = (this.pageNum - 1) * this.pageSize;
+    }
+
+    public Integer getBegin() {
+        return begin;
+    }
+
+    public void setBegin(Integer begin) {
+        this.begin = begin;
+    }
+
     public Integer getPageNum() {
         return pageNum;
     }
