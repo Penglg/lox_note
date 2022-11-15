@@ -51,7 +51,8 @@ public interface NoteDao {
 
     @SelectProvider(type = NoteProvider.class, method = "listNote")
     @ResultMap("noteMap")
-    List<Note> listByConditions(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal);
+    List<Note> listByConditions(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal, @Param("begin")
+                                Integer begin, @Param("pageSize")Integer pageSize);
 
     /**
      * 根据user主键id获取该user所有笔记
@@ -60,9 +61,14 @@ public interface NoteDao {
      * @param isLegal 笔记是否合法
      * @return 集合结果
      */
-    @Select("select * from note where user_id=#{userId} and legal = #{isLegal}")
+    @Select("select * from note where user_id=#{userId} and legal = #{isLegal} limit #{begin}, #{pageSize}")
     @ResultMap("noteMap")
-    List<Note> listByUserId(@Param("userId") Integer userId, @Param("isLegal") Integer isLegal);
+    List<Note> listByUserId(@Param("userId") Integer userId, @Param("isLegal") Integer isLegal, @Param("begin")
+                            Integer begin, @Param("pageSize")Integer pageSize);
+
+
+    @Select("select count(*) from note where user_id=#{userId} and legal=#{isLegal}")
+    int recordTotalByUserId(@Param("userId")Integer userId, @Param("isLegal")Integer isLegal);
 
     /**
      * 根据user主键id获取user点赞的笔记
@@ -70,9 +76,14 @@ public interface NoteDao {
      * @param userId user主键id
      * @return 集合结果
      */
-    @Select("select * from note n, `like` l where n.id = l.note_id and l.user_id = #{userId} and n.legal = 1")
+    @Select("select * from note n, `like` l where n.id = l.note_id and l.user_id = #{userId} and n.legal = 1 limit " +
+            "#{begin}, #{pageSize}")
     @ResultMap("noteMap")
-    List<Note> listLikes(Integer userId);
+    List<Note> listLikes(@Param("userId") Integer userId, @Param("begin")Integer begin,
+                         @Param("pageSize")Integer pageSize);
+
+    @Select("select count(*) from note n, `like` l where n.id = l.note_id and l.user_id = #{userId} and n.legal = 1")
+    int recordTotalLikes(Integer userId);
 
     /**
      * 根据user主键id获取user收藏的笔记
@@ -80,19 +91,32 @@ public interface NoteDao {
      * @param userId user主键id
      * @return 集合结果
      */
-    @Select("select * from note n, collect c where n.id = c.note_id and c.user_id = #{userId} and legal = 1")
+    @Select("select * from note n, collect c where n.id = c.note_id and c.user_id = #{userId} and n.legal = 1 limit " +
+            "#{begin}, #{pageSize}")
     @ResultMap("noteMap")
-    List<Note> listCollections(Integer userId);
+    List<Note> listCollections(@Param("userId") Integer userId, @Param("begin")Integer begin,
+                               @Param("pageSize")Integer pageSize);
 
 
-    @Select("select * from note limit #{begin}, #{pageSize}")
-    @ResultMap("noteMap")
-    List<Note> listAllInPages(@Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
+    @Select("select count(*) from note n, collect c where n.id = c.note_id and c.user_id = #{userId} and n.legal = 1")
+    int recordTotalCollect(Integer userId);
 
+    /**
+     * 获取所有记录总数
+     *
+     * @return 记录总数
+     */
     @Select("select count(*) from note")
     int recordTotalCount();
 
-
+    /**
+     * 根据条件获取记录总数
+     *
+     * @param note 条件
+     * @return 记录总数
+     */
+    @SelectProvider(type = NoteProvider.class, method = "countNote")
+    int recordTotalCountByConditions(@Param("note") Note note);
 
 
 
