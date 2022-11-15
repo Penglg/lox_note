@@ -83,4 +83,20 @@ public interface NoteDao {
     @Select("select * from note n, collect c where n.id = c.note_id and c.user_id = #{userId} and legal = 1")
     @ResultMap("noteMap")
     List<Note> listCollections(Integer userId);
+
+
+    @Select("select * from note limit #{begin}, #{pageSize}")
+    @ResultMap("noteMap")
+    List<Note> listAllInPages(@Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
+
+    @Select("select count(*) from note")
+    int recordTotalCount();
+
+
+
+
+
+
+
+
 }
