@@ -13,41 +13,73 @@
         <input id="n-title" type="text" placeholder="请输入标题"><br><br>
         <label for="n-content">内容</label>
         <input id="n-content" type="text" placeholder="请输入内容"><br><br>
-        <div id="section-choose"></div>
-
-        <button id="submit-btn" type="button">新建</button>
-
-
+        <input id="n-sectionId" type="hidden">
+        <label for="n-approvalContent">申请审批内容说明（可为空）</label><br><br>
+        <input id="n-approvalContent" type="text">
+        <button id="submit-btn">提交</button>
     </form>
+
+
+
+    <button id="showSections-btn">展示并选择分区</button>
+    <div style="text-align: center">
+        <table id="section"></table>
+    </div>
 </div>
 
 <script src="../../js/jquery-3.6.0.js" type="text/javascript"></script>
 <script>
     $(function () {
-        $.ready(function () {
+        let title;
+        let content;
+        let sectionId = "";
+        let approvalContent;
+
+        $("#showSections-btn").click(function () {
             $.ajax({
-                type:"get",
-                url:"http://localhost:8080/sections",
-                success:function (result) {
-                    let radios = "选择分区<br>";
+                type: "get",
+                url: "http://localhost:8080/sections",
+                async: false,
+                success: function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>分区名</th>" + "<th>分区描述</th>" + "<th>选择（点哪个选哪个，只会选最后点的那个）</th>" +
+                        "</tr>";
 
                     for (let i = 0; i < result.data.length; ++i) {
-                        let radioId = 'session' + i;
-                        let radio = "<input id=" + radioId + "name='sessionId' value=" + result.data[i].id + ">" +
-                            "<label for=" + radioId + ">" + result.data[i].name + "</label><br><br>";
+                        let buttonId = "choose-btn" + i;
 
-                        radios = radios + radio;
+                        let line = "<tr>" +
+                            "<td>" + result.data[i].name + "</td>" +
+                            "<td>" + result.data[i].desc + "</td>" +
+                            "<td><button id=" + buttonId + ">选择</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
                     }
 
-                    $("section-choose").html(radios);
+                    $("#section").html(table);
+
+                    // 给每个按钮绑定操作
+                    for (let i = 0; i < result.data.length; ++i) {
+                        let buttonId = "choose-btn" + i;
+
+                        $("#" + buttonId).click(function () {
+                            sectionId = result.data[i].id;
+                            $("#n-sectionId").val(result.data[i].id);
+                        })
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，稍后再试");
                 }
             })
         })
 
         $("#submit-btn").click(function () {
-            let title = $("#n-title").val();
-            let content = $("#n-content").val();
-            let sectionId = $('input[type=radio][name=seesionId]:checked').val();
+            title = $("#n-title").val();
+            content = $("#n-content").val();
+            approvalContent = $("#n-content").val();
 
             // 标题
             let titlePatt = /^\w{6,12}$/;
@@ -63,23 +95,26 @@
             }
 
             // 分区
-            if (sessionId == null || sectionId === "") {
+            if (sectionId == null || sectionId === "") {
                 alert("不可不选择分区！");
                 return false;
             }
 
+
+
             $.ajax({
-                type:"post",
-                url:"http://localhost:8080/notes",
-                async:"false",
-                data:JSON.stringify({
-                    title:title,
-                    content:content,
-                    sectionId:sectionId
+                type: "post",
+                url: "/notes",
+                headers: {"Content-Type": "application/json;charset=UTF-8"},
+                async: false,
+                data: JSON.stringify({
+                    title: title,
+                    content: content,
+                    sectionId: $("#n-sectionId").val(),
+                    approvalContent: approvalContent
                 }),
-                headers:{"Content-Type":"application/json;charset=UTF-8"},
-                dataType:"json",
-                success:function (result) {
+                dataType: "json",
+                success: function (result) {
                     if (result.code == 30001) {
                         alert("新建成功！");
                         history.go(-1);
@@ -92,9 +127,9 @@
                 }
             })
         })
-
-
     })
+
+
 
 </script>
 </body>
