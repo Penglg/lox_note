@@ -49,10 +49,27 @@ public interface NoteDao {
     @ResultMap("noteMap")
     List<Note> listAll(@Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
 
+    /**
+     * 获取所有记录总数
+     *
+     * @return 记录总数
+     */
+    @Select("select count(*) from note")
+    int recordTotalCount();
+
     @SelectProvider(type = NoteProvider.class, method = "listNote")
     @ResultMap("noteMap")
     List<Note> listByConditions(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal, @Param("begin")
                                 Integer begin, @Param("pageSize")Integer pageSize);
+
+    /**
+     * 根据条件获取记录总数
+     *
+     * @param note 条件
+     * @return 记录总数
+     */
+    @SelectProvider(type = NoteProvider.class, method = "countNote")
+    int recordTotalCountByConditions(@Param("note") Note note);
 
     /**
      * 根据user主键id获取该user所有笔记
@@ -67,6 +84,13 @@ public interface NoteDao {
                             Integer begin, @Param("pageSize")Integer pageSize);
 
 
+    /**
+     * 根据user主键id获取该user所有笔记总数
+     *
+     * @param userId user主键id
+     * @param isLegal 笔记是否合法
+     * @return 集合结果
+     */
     @Select("select count(*) from note where user_id=#{userId} and legal=#{isLegal}")
     int recordTotalByUserId(@Param("userId")Integer userId, @Param("isLegal")Integer isLegal);
 
@@ -82,6 +106,12 @@ public interface NoteDao {
     List<Note> listLikes(@Param("userId") Integer userId, @Param("begin")Integer begin,
                          @Param("pageSize")Integer pageSize);
 
+    /**
+     * 根据user主键id获取user点赞的笔记总数
+     *
+     * @param userId user主键id
+     * @return 集合结果
+     */
     @Select("select count(*) from note n, `like` l where n.id = l.note_id and l.user_id = #{userId} and n.legal = 1")
     int recordTotalLikes(Integer userId);
 
@@ -98,29 +128,12 @@ public interface NoteDao {
                                @Param("pageSize")Integer pageSize);
 
 
+    /**
+     * 根据user主键id获取user收藏的笔记总数
+     *
+     * @param userId user主键id
+     * @return 集合结果
+     */
     @Select("select count(*) from note n, collect c where n.id = c.note_id and c.user_id = #{userId} and n.legal = 1")
     int recordTotalCollect(Integer userId);
-
-    /**
-     * 获取所有记录总数
-     *
-     * @return 记录总数
-     */
-    @Select("select count(*) from note")
-    int recordTotalCount();
-
-    /**
-     * 根据条件获取记录总数
-     *
-     * @param note 条件
-     * @return 记录总数
-     */
-    @SelectProvider(type = NoteProvider.class, method = "countNote")
-    int recordTotalCountByConditions(@Param("note") Note note);
-
-
-
-
-
-
 }
