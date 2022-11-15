@@ -38,7 +38,7 @@
             $.ajax({
                 type:"get",
                 url:"http://localhost:8080/notes/all/1?pageNum=1",
-                async:"false",
+                async:false,
                 success: function (result) {
                     let table;
 
@@ -55,7 +55,7 @@
                             "<td>" + result.data.items[i].likes + "</td>" +
                             "<td>" + result.data.items[i].collect + "</td>" +
                             "<td>" + result.data.items[i].dateTime + "</td>" +
-                            "<td><button id=" + buttonId + ">查看</button>" + "</td>"
+                            "<td><button id=" + buttonId + ">查看</button>" + "</td>" +
                             "</tr>";
                         table = table + line;
                     }
@@ -80,7 +80,7 @@
             $.ajax({
                 type:"get",
                 url:"http://localhost:8080/notes/my_notes/legal?pageNum=1",
-                async:"false",
+                async:false,
                 success:function (result) {
                     let table;
 
@@ -138,7 +138,7 @@
             $.ajax({
                 type:"get",
                 url:"http://localhost:8080/notes/my_notes/illegal?pageNum=1",
-                async:"false",
+                async:false,
                 success:function (result) {
                     let table;
 
@@ -196,7 +196,7 @@
             $.ajax({
                 type:"get",
                 url:"http://localhost:8080/notes/my_notes/like?pageNum=1",
-                async:"false",
+                async:false,
                 success:function (result) {
                     let table;
 
@@ -246,7 +246,7 @@
             $.ajax({
                 type:"get",
                 url:"http://localhost:8080/notes/my_notes/collect?pageNum=1",
-                async:"false",
+                async:false,
                 success:function (result) {
                     let table;
 
