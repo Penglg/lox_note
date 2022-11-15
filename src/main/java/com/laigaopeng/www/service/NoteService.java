@@ -2,6 +2,7 @@ package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.Tag;
+import com.laigaopeng.www.pojo.vo.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,9 +16,10 @@ public interface NoteService {
     /**
      * 获取所有笔记
      *
+     * @param pageNum 第几页笔记
      * @return 查找结果
      */
-    List<Note> listAll();
+    Page<Note> listAll(Integer pageNum);
 
     /**
      * 获取所有非法/合法的笔记
@@ -25,7 +27,7 @@ public interface NoteService {
      * @param isLegal 是否合法，1合法，0不合法
      * @return 查找结果
      */
-    List<Note> listAll(Integer isLegal);
+    List<Note> listAll(Integer pageNum, Integer isLegal);
 
     /**
      * 获取分区所有笔记

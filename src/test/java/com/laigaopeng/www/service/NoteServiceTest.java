@@ -5,6 +5,7 @@ import com.laigaopeng.www.dao.NoteDao;
 import com.laigaopeng.www.pojo.Collect;
 import com.laigaopeng.www.pojo.Like;
 import com.laigaopeng.www.pojo.Note;
+import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.util.enumhelper.NoteEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,8 +90,8 @@ public class NoteServiceTest {
         note.setSectionId(0);
         noteService.save(note, null,  "noteListAllTest");
 
-        List<Note> notes = noteService.listAll();
-        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListAll: " + notes);
+        Page<Note> page = noteService.listAll(1);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListAll: " + page.getItems());
     }
 
     @Test
@@ -104,7 +105,7 @@ public class NoteServiceTest {
         note.setLegal(NoteEnum.LEGAL.getCode());
         noteDao.update(note);
 
-        List<Note> notes = noteService.listAll(NoteEnum.LEGAL.getCode());
+        List<Note> notes = noteService.listAll(1, NoteEnum.LEGAL.getCode());
         System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListAllByLegal: " + notes);
     }
 

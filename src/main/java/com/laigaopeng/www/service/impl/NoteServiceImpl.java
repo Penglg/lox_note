@@ -5,6 +5,7 @@ import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.NoteTag;
 import com.laigaopeng.www.pojo.Tag;
+import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.service.*;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,13 +71,20 @@ public class NoteServiceImpl implements NoteService {
     public Note getById(Integer id) {
         return noteDao.getById(id);
     }
+
     @Override
-    public List<Note> listAll() {
-        return noteDao.listAll();
+    public Page<Note> listAll(Integer pageNum) {
+        Page<Note> page = new Page<>();
+        page.setPageNum(pageNum);
+        page.setRecordSum(noteDao.recordTotalCount());
+        page.setPageSum(page.getRecordSum() / page.getPageSize() + ((page.getRecordSum() % page.getPageSize() > 0) ?
+                1 : 0));
+        page.setItems(noteDao.listAll((page.getPageNum() - 1) % page.getPageSize(), page.getPageSize()));
+        return page;
     }
 
     @Override
-    public List<Note> listAll(Integer isLegal) {
+    public List<Note> listAll(Integer pageNum, Integer isLegal) {
         return noteDao.listByConditions(null, isLegal);
     }
 

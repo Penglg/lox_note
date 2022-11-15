@@ -45,9 +45,9 @@ public interface NoteDao {
     })
     Note getById(Integer id);
 
-    @Select("select * from note")
+    @Select("select * from note limit #{begin}, #{pageSize}")
     @ResultMap("noteMap")
-    List<Note> listAll();
+    List<Note> listAll(@Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
 
     @SelectProvider(type = NoteProvider.class, method = "listNote")
     @ResultMap("noteMap")

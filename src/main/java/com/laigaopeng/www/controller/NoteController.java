@@ -2,6 +2,7 @@ package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.Tag;
+import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.NoteService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -30,9 +31,9 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/all")
-    public Result list() {
-        List<Note> notes = noteService.listAll();
-        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    public Result list(@RequestParam Integer pageNum) {
+        Page<Note> page = noteService.listAll(pageNum);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -42,11 +43,11 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/all/{isLegal}")
-    public Result list(@PathVariable Integer isLegal) {
+    public Result list(@PathVariable Integer isLegal, @RequestParam Integer pageNum) {
         if (EmptyCheckerUtil.isIntegerEmpty(isLegal) || (!isLegal.equals(NoteEnum.LEGAL.getCode())
                 && !isLegal.equals(NoteEnum.ILLEGAL.getCode()))) // 参数不合法
                 return new Result(false, CodeEnum.WRONG_PARAMETER.getCode(), CodeEnum.WRONG_PARAMETER.getMsg());
-        List<Note> notes = noteService.listAll(isLegal);
+        List<Note> notes = noteService.listAll(1, isLegal);
         return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
