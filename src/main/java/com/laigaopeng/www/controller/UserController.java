@@ -4,7 +4,6 @@ import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.UserService;
 import com.laigaopeng.www.util.enumhelper.CodeEnum;
-import jdk.nashorn.internal.ir.EmptyNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
