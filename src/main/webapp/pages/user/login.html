@@ -13,12 +13,11 @@
         <label for="u-password">密码 </label>
         <input type="password" id="u-password" name="password" placeholder="请输入密码"><br><br>
         <div>
-            <button id="login-btn">登录</button>
+            <button id="login-btn" type="button">登录</button>
         </div>
     </form>
     <br><br>
     <a href="http://localhost:8080/pages/user/register.html">还没有账号？点击此处注册</a>
-
 </div>
 
 
@@ -54,6 +53,7 @@
                 success:function (data) {
                     if (data.code === 30001) {
                         alert("登录成功！");
+                        location.href='note.html';
                     } else {
                         alert("登录失败！");
                     }

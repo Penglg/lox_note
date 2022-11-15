@@ -4,6 +4,7 @@ import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.UserService;
 import com.laigaopeng.www.util.enumhelper.CodeEnum;
+import jdk.nashorn.internal.ir.EmptyNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,7 +73,10 @@ public class UserController {
      * @return 结果
      */
     @PutMapping
-    public Result update(@RequestBody User user) {
+    public Result update(@RequestBody User user, HttpSession session) {
+        User userObj = (User)session.getAttribute("user");
+        if (userObj == null) return new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+        user.setId(userObj.getId());
         boolean result = userService.update(user);
         return result ?  new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
              new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
