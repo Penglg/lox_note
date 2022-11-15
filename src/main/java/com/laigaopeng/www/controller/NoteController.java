@@ -47,8 +47,8 @@ public class NoteController {
         if (EmptyCheckerUtil.isIntegerEmpty(isLegal) || (!isLegal.equals(NoteEnum.LEGAL.getCode())
                 && !isLegal.equals(NoteEnum.ILLEGAL.getCode()))) // 参数不合法
                 return new Result(false, CodeEnum.WRONG_PARAMETER.getCode(), CodeEnum.WRONG_PARAMETER.getMsg());
-        List<Note> notes = noteService.listAll(1, isLegal);
-        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+        Page<Note> page = noteService.listAll(pageNum, isLegal);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -58,9 +58,9 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/user/{userId}")
-    public Result listUserLegalNotes(@PathVariable Integer userId) {
-        List<Note> notes = noteService.listUserNotes(userId, NoteEnum.LEGAL.getCode());
-        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    public Result listUserLegalNotes(@PathVariable Integer userId, @RequestParam Integer pageNum) {
+        Page<Note> page = noteService.listUserNotes(userId, NoteEnum.LEGAL.getCode(), pageNum);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -70,11 +70,9 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/user/illegal/{userId}")
-    public Result listUserIllegalNotes(@PathVariable(required = false) Integer userId) {
-        if (EmptyCheckerUtil.isIntegerEmpty(userId)) // 参数不合法
-            return new Result(false, CodeEnum.WRONG_PARAMETER.getCode(), CodeEnum.WRONG_PARAMETER.getMsg());
-        List<Note> notes = noteService.listUserNotes(userId, NoteEnum.ILLEGAL.getCode());
-        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    public Result listUserIllegalNotes(@PathVariable Integer userId) {
+        Page<Note> page = noteService.listUserNotes(userId, NoteEnum.ILLEGAL.getCode(), 1);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -115,7 +113,7 @@ public class NoteController {
      * @return 结果
      */
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable int id) {
+    public Result delete(@PathVariable Integer id) {
         boolean result = noteService.deleteNote(id);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
@@ -141,10 +139,10 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/section/{id}")
-    public Result listSectionNotes(@PathVariable int id, @RequestParam(value = "isLegal", required = false,
-            defaultValue = "1") int isLegal) {
-        List<Note> notes = noteService.listSectionNotes(id, isLegal);
-        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    public Result listSectionNotes(@PathVariable Integer id, @RequestParam(value = "isLegal", required = false,
+            defaultValue = "1") int isLegal, @RequestParam Integer pageNum) {
+        Page<Note> page = noteService.listSectionNotes(id, isLegal, pageNum);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -154,9 +152,9 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/user/{userId}/like")
-    public Result listLikeNotes(@PathVariable int userId) {
-        List<Note> notes = noteService.listLikeNotes(userId);
-        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    public Result listLikeNotes(@PathVariable Integer userId, @RequestParam Integer pageNum) {
+        Page<Note> page = noteService.listLikeNotes(userId, pageNum);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -166,8 +164,8 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/user/{userId}/collect")
-    public Result listCollectNotes(@PathVariable int userId) {
-        List<Note> notes = noteService.listCollectNotes(userId);
-        return new Result(notes, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    public Result listCollectNotes(@PathVariable int userId, @RequestParam Integer pageNum) {
+        Page<Note> page = noteService.listCollectNotes(userId, pageNum);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }
