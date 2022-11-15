@@ -2,9 +2,14 @@ package com.laigaopeng.www.pojo.vo;
 
 import java.util.List;
 
+/**
+ * 页面对象
+ *
+ * @param <T>
+ */
 public class Page<T> {
 
-    public static final Integer PAGE_SIZE = 20;
+    public static final Integer PAGE_SIZE = 20; // 默认一页展示的数据数目
 
     private Integer pageNum; // 当前页数
 
@@ -20,8 +25,11 @@ public class Page<T> {
 
     public Page(Integer pageNum, Integer recordSum) {
         this.pageNum = pageNum;
+        if (pageNum < 1) this.pageNum = 1;
         this.recordSum = recordSum;
+        // 计算页面总数和begin
         this.pageSum = this.recordSum / this.pageSize + ((this.recordSum % this.pageSize > 0) ? 1 : 0);
+        if (pageNum > pageSum ) this.pageNum = pageSize;
         this.begin = (this.pageNum - 1) * this.pageSize;
     }
 
