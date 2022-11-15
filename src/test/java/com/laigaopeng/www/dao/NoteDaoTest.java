@@ -18,12 +18,9 @@ public class NoteDaoTest {
 
     @Test
     public void testPages() {
-        Page<Note> page = new Page<>();
-        page.setPageNum(2);
-        page.setPageSize(3);
-        page.setRecordSum(noteDao.recordTotalCount());
+        Page<Note> page = new Page<>(1, noteDao.recordTotalCount());
         page.setPageSum(page.getRecordSum() / page.getPageSize() + ((page.getRecordSum() % page.getPageSize() != 0) ? 1 : 0));
-        page.setItems(noteDao.listAllInPages((page.getPageNum() - 1) % page.getPageSize(), page.getPageSize()));
+        page.setItems(noteDao.listAll((page.getPageNum() - 1) % page.getPageSize(), page.getPageSize()));
 
         System.out.println(page.getItems());
     }
