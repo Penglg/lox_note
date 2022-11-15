@@ -33,7 +33,8 @@ public class NoteProvider extends SQL {
         }}.toString();
     }
 
-    public String listNote(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal) {
+    public String listNote(@Param("sectionId") Integer sectionId, @Param("legal")Integer legal, @Param("begin")
+            Integer begin, @Param("pageSize")Integer pageSize) {
         return new SQL() {{
             SELECT("*");
             FROM("note");
@@ -42,6 +43,20 @@ public class NoteProvider extends SQL {
             }
             if (!EmptyCheckerUtil.isIntegerEmpty(legal)) {
                 WHERE ("legal = #{legal}");
+            }
+            LIMIT("#{begin}, #{pageSize}");
+        }}.toString();
+    }
+
+    public String countNote(@Param("note") Note note) {
+        return new SQL() {{
+            SELECT("count(*)");
+            FROM("note");
+            if (!EmptyCheckerUtil.isIntegerEmpty((note.getSectionId()))) {
+                WHERE("section_id = #{note.sectionId}");
+            }
+            if (!EmptyCheckerUtil.isIntegerEmpty((note.getLegal()))) {
+                WHERE("legal = #{note.legal}");
             }
         }}.toString();
     }

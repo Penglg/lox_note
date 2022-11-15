@@ -27,25 +27,27 @@ public interface NoteService {
      * @param isLegal 是否合法，1合法，0不合法
      * @return 查找结果
      */
-    List<Note> listAll(Integer pageNum, Integer isLegal);
+    Page<Note> listAll(Integer pageNum, Integer isLegal);
 
     /**
      * 获取分区所有笔记
      *
      * @param sectionId sectionid
      * @param isLegal 是否合法
+     * @param pageNum 页数
      * @return 查询结果
      */
-    List<Note> listSectionNotes(Integer sectionId, Integer isLegal);
+    Page<Note> listSectionNotes(Integer sectionId, Integer isLegal, Integer pageNum);
 
     /**
      * 查找用户的所有笔记
      *
      * @param userId 用户id
      * @param isLegal 是否合法
+     * @param pageNum 页数
      * @return 查询结果
      */
-    List<Note> listUserNotes(Integer userId, Integer isLegal);
+    Page<Note> listUserNotes(Integer userId, Integer isLegal, Integer pageNum);
 
     /**
      * 查找笔记
@@ -85,15 +87,17 @@ public interface NoteService {
      * 获取点赞的笔记
      *
      * @param userId 用户主键
+     * @param pageNum 页数
      * @return 结果
      */
-    List<Note> listLikeNotes(Integer userId);
+    Page<Note> listLikeNotes(Integer userId, Integer pageNum);
 
     /**
      * 用户获取收藏笔记
      *
      * @param userId 用户主键
+     * @param pageNum 页数
      * @return 结果
      */
-    List<Note> listCollectNotes(Integer userId);
+    Page<Note> listCollectNotes(Integer userId, Integer pageNum);
 }

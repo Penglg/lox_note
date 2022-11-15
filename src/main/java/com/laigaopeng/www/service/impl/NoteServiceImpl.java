@@ -4,7 +4,6 @@ import com.laigaopeng.www.dao.NoteDao;
 import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.NoteTag;
-import com.laigaopeng.www.pojo.Tag;
 import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.service.*;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -74,38 +73,53 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Page<Note> listAll(Integer pageNum) {
-        Page<Note> page = new Page<>();
-        page.setPageNum(pageNum);
-        page.setRecordSum(noteDao.recordTotalCount());
-        page.setPageSum(page.getRecordSum() / page.getPageSize() + ((page.getRecordSum() % page.getPageSize() > 0) ?
-                1 : 0));
-        page.setItems(noteDao.listAll((page.getPageNum() - 1) % page.getPageSize(), page.getPageSize()));
+        Page<Note> page = new Page<>(pageNum, noteDao.recordTotalCount());
+        page.setItems(noteDao.listAll(page.getBegin(), page.getPageSize()));
         return page;
     }
 
     @Override
-    public List<Note> listAll(Integer pageNum, Integer isLegal) {
-        return noteDao.listByConditions(null, isLegal);
+    public Page<Note> listAll(Integer pageNum, Integer isLegal) {
+        Note note = new Note();
+        note.setLegal(isLegal);
+        Page<Note> page = new Page<>(pageNum, noteDao.recordTotalCountByConditions(note));
+        List<Note> notes = noteDao.listByConditions(null, isLegal, page.getBegin(), page.getPageSize());
+        page.setItems(notes);
+        return page;
     }
 
     @Override
-    public List<Note> listSectionNotes(Integer sectionId, Integer isLegal) {
-        return noteDao.listByConditions(sectionId, isLegal);
+    public Page<Note> listSectionNotes(Integer sectionId, Integer isLegal, Integer pageNum) {
+        Note note = new Note();
+        note.setSectionId(sectionId);
+        note.setLegal(isLegal);
+        Page<Note> page = new Page<>(pageNum, noteDao.recordTotalCountByConditions(note));
+        List<Note> notes = noteDao.listByConditions(sectionId, isLegal, page.getBegin(), page.getPageSize());
+        page.setItems(notes);
+        return page;
     }
 
     @Override
-    public List<Note> listUserNotes(Integer userId, Integer isLegal) {
-        return noteDao.listByUserId(userId, isLegal);
+    public Page<Note> listUserNotes(Integer userId, Integer isLegal, Integer pageNum) {
+        Page<Note> page = new Page<>(pageNum, noteDao.recordTotalByUserId(userId, isLegal));
+        List<Note> notes = noteDao.listByUserId(userId, isLegal, page.getBegin(), page.getPageSize());
+        page.setItems(notes);
+        return page;
     }
 
     @Override
-    public List<Note> listLikeNotes(Integer userId) {
-        return noteDao.listLikes(userId);
+    public Page<Note> listLikeNotes(Integer userId, Integer pageNum) {
+        Page<Note> page = new Page<>(pageNum, noteDao.recordTotalLikes(userId));
+        page.setItems(noteDao.listLikes(userId, page.getBegin(), page.getPageSize()));
+        return page;
     }
 
     @Override
-    public List<Note> listCollectNotes(Integer userId) {
-        return noteDao.listCollections(userId);
+    public Page<Note> listCollectNotes(Integer userId, Integer pageNum) {
+        Page<Note> page = new Page<>(pageNum, noteDao.recordTotalCollect(userId));
+        page.setItems(noteDao.listCollections(userId, page.getBegin(), page.getPageSize()));
+        return page;
     }
+
 
 }
