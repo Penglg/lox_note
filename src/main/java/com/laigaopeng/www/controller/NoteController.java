@@ -2,6 +2,7 @@ package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.Tag;
+import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.NoteService;
@@ -11,6 +12,7 @@ import com.laigaopeng.www.util.enumhelper.NoteEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,24 +56,26 @@ public class NoteController {
     /**
      * 获取用户合法的笔记
      *
-     * @param userId 用户主键
+     * @param session session域中存有user
      * @return 结果
      */
-    @GetMapping("/user/{userId}")
-    public Result listUserLegalNotes(@PathVariable Integer userId, @RequestParam Integer pageNum) {
-        Page<Note> page = noteService.listUserNotes(userId, NoteEnum.LEGAL.getCode(), pageNum);
+    @GetMapping("/my_notes/legal")
+    public Result listUserLegalNotes(@RequestParam Integer pageNum, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Page<Note> page = noteService.listUserNotes(user.getId(), NoteEnum.LEGAL.getCode(), pageNum);
         return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
      * 获取用户不合法笔记
      *
-     * @param userId 用户主键
+     * @param session session域中存有user
      * @return 结果
      */
-    @GetMapping("/user/illegal/{userId}")
-    public Result listUserIllegalNotes(@PathVariable Integer userId) {
-        Page<Note> page = noteService.listUserNotes(userId, NoteEnum.ILLEGAL.getCode(), 1);
+    @GetMapping("/my_notes/illegal")
+    public Result listUserIllegalNotes(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Page<Note> page = noteService.listUserNotes(user.getId(), NoteEnum.ILLEGAL.getCode(), 1);
         return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
@@ -148,24 +152,26 @@ public class NoteController {
     /**
      * 获取用户点赞笔记
      *
-     * @param userId 用户
+     * @param session session域中存有user
      * @return 结果
      */
-    @GetMapping("/user/{userId}/like")
-    public Result listLikeNotes(@PathVariable Integer userId, @RequestParam Integer pageNum) {
-        Page<Note> page = noteService.listLikeNotes(userId, pageNum);
+    @GetMapping("/my_notes/like")
+    public Result listLikeNotes(@RequestParam Integer pageNum, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        Page<Note> page = noteService.listLikeNotes(user.getId(), pageNum);
         return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
     /**
      * 获取用户收藏笔记
      *
-     * @param userId 用户
+     * @param session session域中存有user
      * @return 结果
      */
-    @GetMapping("/user/{userId}/collect")
-    public Result listCollectNotes(@PathVariable int userId, @RequestParam Integer pageNum) {
-        Page<Note> page = noteService.listCollectNotes(userId, pageNum);
+    @GetMapping("/my_notes/collect")
+    public Result listCollectNotes(@RequestParam Integer pageNum, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        Page<Note> page = noteService.listCollectNotes(user.getId(), pageNum);
         return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }
