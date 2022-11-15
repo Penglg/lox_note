@@ -105,8 +105,8 @@ public class NoteServiceTest {
         note.setLegal(NoteEnum.LEGAL.getCode());
         noteDao.update(note);
 
-        List<Note> notes = noteService.listAll(1, NoteEnum.LEGAL.getCode());
-        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListAllByLegal: " + notes);
+        Page<Note> page = noteService.listAll(1, NoteEnum.LEGAL.getCode());
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListAllByLegal: " + page.getItems());
     }
 
     @Test
@@ -118,8 +118,8 @@ public class NoteServiceTest {
         note.setSectionId(-1);
         noteService.save(note, null,  "noteListSectionTest");
 
-        List<Note> notes = noteService.listSectionNotes(-1, 0);
-        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListSectionNotes: " + notes);
+        Page<Note> page = noteService.listSectionNotes(-1, 0, 1);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListSectionNotes: " + page.getItems());
     }
 
     @Test
@@ -131,8 +131,8 @@ public class NoteServiceTest {
         note.setSectionId(0);
         noteService.save(note, null,  "noteListLegalTest");
 
-        List<Note> notes = noteService.listUserNotes(-1, 0);
-        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListUserNotes: " + notes);
+        Page<Note> page = noteService.listUserNotes(-1, 0, 1);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListUserNotes: " + page.getItems());
     }
 
     @Test
@@ -161,8 +161,8 @@ public class NoteServiceTest {
         like1.setUserId(-10);
         likeService.save(like1);
 
-        List<Note> likeNotes = noteService.listLikeNotes(-10);
-        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListLikeNotes: " + likeNotes);
+        Page<Note> page = noteService.listLikeNotes(-10, 1);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListLikeNotes: " + page.getItems());
     }
 
     @Test
@@ -190,7 +190,7 @@ public class NoteServiceTest {
         collect2.setUserId(-10);
         collectService.save(collect2);
 
-        List<Note> collectNotes = noteService.listCollectNotes(-10);
-        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListCollectNotes: " + collectNotes);
+        Page<Note> page = noteService.listCollectNotes(-10, 1);
+        System.out.println("com.laigaopeng.www.service.NoteServiceTest.testListCollectNotes: " + page.getItems());
     }
 }
