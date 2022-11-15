@@ -82,11 +82,14 @@ public class NoteController {
     /**
      * 新增笔记
      *
+     * @param session session域中存有user
      * @param note 笔记
      * @return 结果
      */
     @PostMapping
-    public Result save(@RequestBody Note note) {
+    public Result save(@RequestBody Note note, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        note.setUserId(user.getId());
         List<Integer> tagIds = new LinkedList<>();
         for (Tag tag : note.getTags()) {
             tagIds.add(tag.getId());
