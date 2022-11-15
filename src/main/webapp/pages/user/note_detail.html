@@ -22,8 +22,6 @@
         let id = args[1];
 
         $("#show-btn").click(function () {
-            alert(id);
-
             $.ajax({
                 type:"get",
                 url:"/notes/" + id,
