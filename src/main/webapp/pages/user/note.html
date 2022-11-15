@@ -7,13 +7,289 @@
 <body>
 <div style="text-align: center">
     <h1>lox笔记</h1><br>
-    <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a>
+    <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a><br><br>
+
+<!--新增笔记-->
+
+
+    <button id="legalNotes-btn">获取所有合法笔记</button>
+
+<!--按分区获取笔记功能未实现-->
+
+    <button id="userLegalNotes-btn">用户所有合法笔记</button>
+
+    <button id="userIllegalNotes-btn">用户所有不合法笔记</button>
+
+    <button id="likeNotes-btn">用户点赞的笔记</button>
+
+    <button id="collectNotes-btn">用户收藏笔记</button><br><br>
+
+    <div style="text-align: center">
+        <table id="show" style="text-align: center"></table>
+    </div>
 </div>
 
 <script src="../../js/jquery-3.6.0.js" type="text/javascript"></script>
 <script>
     $(function () {
 
+        // 查看所有合法笔记
+        $("#legalNotes-btn").click(function () {
+            $.ajax({
+                type:"get",
+                url:"http://localhost:8080/notes/all/1?pageNum=1",
+                async:"false",
+                success: function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>标题</th>" + "<th>分区</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                        "<th>查看</th>" +
+                        "</tr>";
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let buttonId = "detail-btn" + i;
+                        let line = "<tr>" +
+                            "<td>" + result.data.items[i].title + "</td>" +
+                            "<td>" + result.data.items[i].section.name + "</td>" +
+                            "<td>" + result.data.items[i].likes + "</td>" +
+                            "<td>" + result.data.items[i].collect + "</td>" +
+                            "<td>" + result.data.items[i].dateTime + "</td>" +
+                            "<td><button id=" + buttonId + ">查看</button>" + "</td>"
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#show").html(table);
+
+                    // 给每个按钮绑定操作
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let buttonId = "detail-btn" + i;
+
+                        // 查看功能，即笔记详细页
+                        $("#" + buttonId).click(function () {
+                            alert("hey!!!");
+                        })
+                    }
+                }
+            })
+        })
+
+        // 查看用户合法笔记
+        $("#userLegalNotes-btn").click(function () {
+            $.ajax({
+                type:"get",
+                url:"http://localhost:8080/notes/my_notes/legal?pageNum=1",
+                async:"false",
+                success:function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>标题</th>" + "<th>分区</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                        +"<th>查看</th>" + "<th>修改</th>" + "<th>删除</th>" +
+                        "</tr>";
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let updateBtnId = "update-btn" + i;
+                        let deleteBtnId = "delete-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data.items[i].title + "</td>" +
+                            "<td>" + result.data.items[i].section.name + "</td>" +
+                            "<td>" + result.data.items[i].likes + "</td>" +
+                            "<td>" + result.data.items[i].collect + "</td>" +
+                            "<td>" + result.data.items[i].dateTime + "</td>" +
+                            "<td><button id=" + detailBtnId + ">查看</button>" + "</td>" +
+                            "<td><button id=" + updateBtnId + ">修改</button>" + "</td>" +
+                            "<td><button id=" + deleteBtnId + ">删除</button>" + "</td>" +
+                        "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#show").html(table);
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let updateBtnId = "update-btn" + i;
+                        let deleteBtnId = "delete-btn" + i;
+
+                        // 查看功能，即笔记详细页
+                        $("#" + detailBtnId).click(function () {
+                            alert("detail!!!");
+                        })
+
+                        // 修改功能
+                        $("#" + updateBtnId).click(function () {
+                            alert("update!!!");
+                        })
+
+                        // 删除功能
+                        $("#" + deleteBtnId).click(function () {
+                            alert("delete!!!");
+                        })
+                    }
+                }
+            })
+        })
+
+        // 查看用户不合法笔记
+        $("#userIllegalNotes-btn").click(function () {
+            $.ajax({
+                type:"get",
+                url:"http://localhost:8080/notes/my_notes/illegal?pageNum=1",
+                async:"false",
+                success:function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>标题</th>" + "<th>分区</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                        +"<th>查看</th>" + "<th>修改</th>" + "<th>删除</th>" +
+                        "</tr>";
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let updateBtnId = "update-btn" + i;
+                        let deleteBtnId = "delete-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data.items[i].title + "</td>" +
+                            "<td>" + result.data.items[i].section.name + "</td>" +
+                            "<td>" + result.data.items[i].likes + "</td>" +
+                            "<td>" + result.data.items[i].collect + "</td>" +
+                            "<td>" + result.data.items[i].dateTime + "</td>" +
+                            "<td><button id=" + detailBtnId + ">查看</button>" + "</td>" +
+                            "<td><button id=" + updateBtnId + ">修改</button>" + "</td>" +
+                            "<td><button id=" + deleteBtnId + ">删除</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#show").html(table);
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let updateBtnId = "update-btn" + i;
+                        let deleteBtnId = "delete-btn" + i;
+
+                        // 查看功能，即笔记详细页
+                        $("#" + detailBtnId).click(function () {
+                            alert("detail!!!");
+                        })
+
+                        // 修改功能
+                        $("#" + updateBtnId).click(function () {
+                            alert("update!!!");
+                        })
+
+                        // 删除功能
+                        $("#" + deleteBtnId).click(function () {
+                            alert("delete!!!");
+                        })
+                    }
+                }
+            })
+        })
+
+        // 查看用户点赞的笔记
+        $("#likeNotes-btn").click(function () {
+            $.ajax({
+                type:"get",
+                url:"http://localhost:8080/notes/my_notes/like?pageNum=1",
+                async:"false",
+                success:function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>标题</th>" + "<th>分区</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                        +"<th>查看</th>" + "<th>取消点赞</th>" +
+                        "</tr>";
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let unlikeBtnId = "unlike-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data.items[i].title + "</td>" +
+                            "<td>" + result.data.items[i].section.name + "</td>" +
+                            "<td>" + result.data.items[i].likes + "</td>" +
+                            "<td>" + result.data.items[i].collect + "</td>" +
+                            "<td>" + result.data.items[i].dateTime + "</td>" +
+                            "<td><button id=" + detailBtnId + ">查看</button>" + "</td>" +
+                            "<td><button id=" + unlikeBtnId + ">取消点赞</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#show").html(table);
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let unlikeBtnId = "unlike-btn" + i;
+
+                        // 查看功能，即笔记详细页
+                        $("#" + detailBtnId).click(function () {
+                            alert("detail!!!");
+                        })
+
+                        // 取消点赞功能
+                        $("#" + unlikeBtnId).click(function () {
+                            alert("unlike!!!");
+                        })
+                    }
+                }
+            })
+        })
+
+        // 获取收藏的笔记
+        $("#collectNotes-btn").click(function () {
+            $.ajax({
+                type:"get",
+                url:"http://localhost:8080/notes/my_notes/collect?pageNum=1",
+                async:"false",
+                success:function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>标题</th>" + "<th>分区</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                        +"<th>查看</th>" + "<th>取消点赞</th>" +
+                        "</tr>";
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let noteCollectBtnId = "notCollect-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data.items[i].title + "</td>" +
+                            "<td>" + result.data.items[i].section.name + "</td>" +
+                            "<td>" + result.data.items[i].likes + "</td>" +
+                            "<td>" + result.data.items[i].collect + "</td>" +
+                            "<td>" + result.data.items[i].dateTime + "</td>" +
+                            "<td><button id=" + detailBtnId + ">查看</button>" + "</td>" +
+                            "<td><button id=" + noteCollectBtnId + ">取消收藏</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#show").html(table);
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let detailBtnId = "detail-btn" + i;
+                        let noteCollectBtnId = "notCollect-btn" + i;
+
+                        // 查看功能，即笔记详细页
+                        $("#" + detailBtnId).click(function () {
+                            alert("detail!!!");
+                        })
+
+                        // 取消点赞功能
+                        $("#" + noteCollectBtnId).click(function () {
+                            alert("notCollect!!!");
+                        })
+                    }
+                }
+            })
+        })
     })
 
 </script>
