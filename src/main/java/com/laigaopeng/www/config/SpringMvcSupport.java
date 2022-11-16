@@ -1,6 +1,9 @@
 package com.laigaopeng.www.config;
 
+import com.laigaopeng.www.interceptor.LoginInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -11,6 +14,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  */
 @Configuration
 public class SpringMvcSupport extends WebMvcConfigurationSupport {
+
+    @Autowired
+    private LoginInterceptor loginInterceptor;
+
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**");
+    }
+
     /**
      * 配置静态资源的放行
      *

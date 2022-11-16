@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  *
  */
 @Configuration
-@ComponentScan({"com.laigaopeng.www.controller", "com.laigaopeng.www.config"})
+@ComponentScan({"com.laigaopeng.www.controller", "com.laigaopeng.www.config", "com.laigaopeng.www.interceptor"})
 @EnableWebMvc
 public class SpringMvcConfig {
 }
