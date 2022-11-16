@@ -71,7 +71,10 @@ public interface UserDao {
     @ResultMap("userMap")
     User getByName(String name);
 
-    @Select("select * from user")
-    @ResultMap("userMap")
-    List<User> listAll();
+    @Select("select * from user limit #{begin}, #{pageSize}")
+    @ResultMap("userAndRoleMap")
+    List<User> listAll(@Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
+
+    @Select("select count(*) from user")
+    int totalRecord();
 }

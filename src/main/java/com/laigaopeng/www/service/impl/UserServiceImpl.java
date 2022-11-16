@@ -2,6 +2,7 @@ package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.UserDao;
 import com.laigaopeng.www.pojo.User;
+import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.service.UserRoleService;
 import com.laigaopeng.www.service.UserService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -60,5 +61,12 @@ public class UserServiceImpl implements UserService {
         target.setId(userId);
         target.setDisabled(disabled);
         return userDao.update(target) == 1;
+    }
+
+    @Override
+    public Page<User> listAll(Integer pageNum) {
+        Page<User> page = new Page<>(pageNum, userDao.totalRecord());
+        page.setItems(userDao.listAll(page.getBegin(), page.getPageSize()));
+        return page;
     }
 }

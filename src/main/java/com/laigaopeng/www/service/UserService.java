@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.User;
+import com.laigaopeng.www.pojo.vo.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -53,6 +54,11 @@ public interface UserService {
     @Transactional
     boolean manageUser(Integer userId, Integer disabled);
 
-
-
+    /**
+     * 获取所有user
+     *
+     * @param pageNum 页数
+     * @return 结果
+     */
+    Page<User> listAll(Integer pageNum);
 }

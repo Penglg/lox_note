@@ -1,6 +1,7 @@
 package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.User;
+import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.UserService;
 import com.laigaopeng.www.util.enumhelper.CodeEnum;
@@ -79,5 +80,19 @@ public class UserController {
         boolean result = userService.update(user);
         return result ?  new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
              new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+    }
+
+
+    @GetMapping
+    public Result listAll(@RequestParam Integer pageNum) {
+        Page<User> page = userService.listAll(pageNum);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    @PutMapping("/manage")
+    public Result manage(@RequestBody User user) {
+        boolean result = userService.manageUser(user.getId(), user.getDisabled());
+        return result ?  new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
+                new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
 }

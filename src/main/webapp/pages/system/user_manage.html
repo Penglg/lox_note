@@ -5,7 +5,7 @@
     <title>lox笔记-系统管理</title>
 </head>
 <body>
-<div>
+<div style="text-align: center">
     <h1>人员管理</h1>
     <br><br>
 
@@ -17,13 +17,209 @@
     <!--可发笔记用户 - 禁-->
     <!--不可发笔记用户 - 解禁-->
 
+    <label for="page">选择页数</label>
+    <input type="text" id="page">
+    <br><br>
+    <br><br>
+
+    <!--未审核的笔记且在区域内，通过/不通过， 操作后重新加载页面-->
+    <button id="show-user-btn" type="button">展示所有成员</button>
+    <br><br>
+    <div style="text-align: center">
+        <table id="show-user"></table>
+    </div>
+    <br><br>
+
+    <button id="showSections-btn">展示并选择分区</button>
+    <div style="text-align: center">
+        <table id="section"></table>
+    </div>
+
 </div>
 
 </body>
 
 <script src="../../js/jquery-3.6.0.js" type="text/javascript"></script>
 <script>
+    $(function () {
 
+        let sectionId = "";
+
+        $("#showSections-btn").click(function () {
+
+            $.ajax({
+                type: "get",
+                url: "http://localhost:8080/sections",
+                async: false,
+                success: function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>分区名</th>" + "<th>分区描述</th>" + "<th>选择（点哪个选哪个，只会选最后点的那个）</th>" +
+                        "</tr>";
+
+                    for (let i = 0; i < result.data.length; ++i) {
+                        let buttonId = "choose-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data[i].name + "</td>" +
+                            "<td>" + result.data[i].desc + "</td>" +
+                            "<td><button id=" + buttonId + ">选择</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#section").html(table);
+
+                    // 给每个按钮绑定操作
+                    for (let i = 0; i < result.data.length; ++i) {
+                        let buttonId = "choose-btn" + i;
+
+                        $("#" + buttonId).click(function () {
+                            sectionId = result.data[i].id;
+                        })
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，稍后再试");
+                }
+            })
+        })
+
+        $("#show-user-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
+
+            $.ajax({
+                type:"get",
+                url:"/users?pageNum=" + pageNum,
+                async:false,
+                success: function (result) {
+                    if (result.code === 30001) {
+                        let table;
+
+                        table = "<tr>" +
+                            "<th>用户昵称</th>" + "<th>用户账号</th>" + "<th>性别</th>" + "<th>是否可发布笔记</th>" +
+                            "<th>封禁发笔记</th>" + "<th>解封发笔记</th>" + "<th>封为管理员</th>" + "<th>解封管理员</th>" +
+                            "</tr>";
+
+                        for (let i = 0; i < result.data.items.length; ++i) {
+                            let banBtnId = "ban-btn" + i;
+                            let unbanBtnId = "unban-btn" + i;
+                            let adminBtnId = "admin-btn" + i;
+                            let notAdminBtnId = "not-admin-btn" + i;
+
+                            let line = "<tr>" +
+                                "<td>" + result.data.items[i].name + "</td>" +
+                                "<td>" + result.data.items[i].account + "</td>" +
+                                "<td>" + result.data.items[i].sex + "</td>" +
+                                "<td>" + result.data.items[i].disabled + "</td>" +
+                                "<td><button id=" + banBtnId + " >封禁发笔记</button>" + "</td>" +
+                                "<td><button id=" + unbanBtnId + " >解封发笔记</button>" + "</td>" +
+                                "<td><button id=" + adminBtnId + " >封为管理员</button>" + "</td>" +
+                                "<td><button id=" + notAdminBtnId + " >解封管理员</button>" + "</td>" +
+                                "</tr>";
+                            table = table + line;
+                        }
+
+                        $("#show-user").html(table);
+
+                        for (let i = 0; i < result.data.items.length; ++i) {
+                            let banBtnId = "ban-btn" + i;
+                            let unbanBtnId = "unban-btn" + i;
+                            let adminBtnId = "admin-btn" + i;
+                            let notAdminBtnId = "not-admin-btn" + i;
+
+                            $("#" + banBtnId).click(function () {
+                                if (result.data.items[i].disabled === 1) {
+                                    alert("已经封禁了！");
+                                    return false;
+                                }
+
+                                // 发送请求
+                                $.ajax({
+                                    type:"put",
+                                    url:"/users/manage",
+                                    async:false,
+                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                    data:JSON.stringify({
+                                        id:result.data.items[i].id,
+                                        disabled:1
+                                    }),
+                                    dataType:"json",
+                                    success: function (result) {
+                                        if (result.code === 30001) alert("封禁成功！");
+                                        else alert("封禁失败！");
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
+
+                            })
+
+                            $("#" + unbanBtnId).click(function () {
+                                if (result.data.items[i].disabled === 0) {
+                                    alert("此用户没有封禁！");
+                                    return false;
+                                }
+                                $.ajax({
+                                    type:"put",
+                                    url:"/users/manage",
+                                    async:false,
+                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                    data:JSON.stringify({
+                                        id:result.data.items[i].id,
+                                        disabled:0
+                                    }),
+                                    dataType:"json",
+                                    success: function (result) {
+                                        if (result.code === 30001) alert("解封成功！");
+                                        else alert("解封失败！");
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
+                            })
+
+                            $("#" + adminBtnId).click(function () {
+                                if (result.data.items[i].managerSection != null) {
+                                    alert("已经是管理员了！");
+                                    return false;
+                                }
+                                // 分区
+                                if (sectionId == null || sectionId === "") {
+                                    alert("要选择管理哪个分区，不可不选择分区！");
+                                    return false;
+                                }
+
+                            })
+
+                            $("#" + notAdminBtnId).click(function () {
+                                if (result.data.items[i].managerSection == null) {
+                                    alert("本来就不是管理员！");
+                                    return false;
+                                }
+                            })
+                        }
+
+
+                    } else {
+                        alert("操作失败！");
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，稍后再试")
+                }
+            })
+        })
+    })
 
 </script>
 </html>

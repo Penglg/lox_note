@@ -53,7 +53,7 @@ public class UserDaoTest {
 
     @Test
     public void testListAll() {
-        List<User> userList = userDao.listAll();
+        List<User> userList = userDao.listAll(0, 5);
         System.out.println(userList);
     }
 
