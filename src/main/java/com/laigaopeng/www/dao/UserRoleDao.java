@@ -21,7 +21,7 @@ public interface UserRoleDao {
     int deleteByConditions(@Param("userRole") UserRole userRole);
 
     @Select("select * from user_role where id=#{id}")
-    UserRole findById(Integer id);
+    UserRole getById(Integer id);
 
     /**
      * 根据用户主键id获取user_role数据
@@ -34,7 +34,7 @@ public interface UserRoleDao {
             @Result(column = "user_id", property = "userId"),
             @Result(column = "role_id", property = "roleId")
     })
-    List<UserRole> findByUserId(Integer userId);
+    List<UserRole> listByUserId(Integer userId);
 
     /**
      * 根据角色主键id获取user_role数据
@@ -43,5 +43,5 @@ public interface UserRoleDao {
      */
     @Select("select * from user_role where role_id=#{roleId}")
     @ResultMap("userRoleMap")
-    List<UserRole> findByRoleId(Integer roleId);
+    List<UserRole> listByRoleId(Integer roleId);
 }
