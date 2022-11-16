@@ -8,7 +8,8 @@
 <div style="text-align: center">
     <h1>笔记详细</h1><br><br>
     <a href="http://localhost:8080/pages/user/note.html">返回主页</a>
-    <button id="back" type="button">返回上一页</button><br><br>
+    <button id="back" type="button">返回上一页</button>
+    <br><br>
 
     <button id="show-btn" type="button">展示</button>
     <div style="text-align: center">
@@ -19,6 +20,12 @@
     <label for="comment">评论内容</label>
     <input type="text" id="comment"><br><br>
     <button id="new-comment" type="button">发表评论</button>
+    <br><br>
+
+    标签
+    <div style="text-align: center">
+        <table id="show-tag"></table>
+    </div>
     <br><br>
 
     <button id="show-comment-btn" type="button">展示评论</button>
@@ -36,9 +43,9 @@
 
         $("#show-btn").click(function () {
             $.ajax({
-                type:"get",
-                url:"/notes/" + id,
-                async:false,
+                type: "get",
+                url: "/notes/" + id,
+                async: false,
                 success: function (result) {
                     if (result.code === 30001) {
                         let table;
@@ -55,11 +62,27 @@
                             "</tr>";
 
                         $("#show").html(table);
+
+                        let table1 = "<tr>" +
+                            "<th>标签名</th>" + "<th>标签描述</th>" +
+                            "</tr>";
+                        for (let i = 0; i < result.data.tags.length; ++i) {
+                            let line1 = "<tr>" +
+                                "<td>" + result.data.tags[i].name + "</td>" +
+                                "<td>" + result.data.tags[i].desc + "</td>" +
+                                "</tr>";
+
+                            table1 = table1 + line1;
+                        }
+
+                        $("#show-tag").html(table1);
+
+
                     } else {
                         alert("获取失败！请重新载入");
                     }
                 },
-                error:function () {
+                error: function () {
                     alert("系统繁忙，稍后再试");
                 }
             })
@@ -67,10 +90,10 @@
 
         $("#show-comment-btn").click(function () {
             $.ajax({
-                type:"get",
-                url:"http://localhost:8080/comments/note/" + id,
-                async:false,
-                success:function (result) {
+                type: "get",
+                url: "http://localhost:8080/comments/note/" + id,
+                async: false,
+                success: function (result) {
                     if (result.code === 30001) {
                         let table;
 
@@ -80,10 +103,10 @@
 
                         for (let i = 0; i < result.data.length; ++i) {
                             let line = "<tr>" +
-                            "<td>" + result.data[i].user.name + "</td>" +
-                            "<td>" + result.data[i].content + "</td>" +
-                            "<td>" + result.data[i].dateTime + "</td>" +
-                            "</tr>";
+                                "<td>" + result.data[i].user.name + "</td>" +
+                                "<td>" + result.data[i].content + "</td>" +
+                                "<td>" + result.data[i].dateTime + "</td>" +
+                                "</tr>";
 
                             table = table + line;
                         }
@@ -93,7 +116,7 @@
                         alert("获取失败！请重新载入");
                     }
                 },
-                error:function () {
+                error: function () {
                     alert("系统繁忙，稍后再试");
                 }
             })
@@ -112,15 +135,14 @@
                 async: false,
                 headers: {"Content-Type": "application/json;charset=UTF-8"},
                 data: JSON.stringify({
-                    noteId:id,
-                    content:content
+                    noteId: id,
+                    content: content
                 }),
-                dataType:"json",
+                dataType: "json",
                 success: function (result) {
                     if (result.code === 30001) {
                         alert("发表成功！");
-                    }
-                    else {
+                    } else {
                         alert("发表失败");
                     }
                 },
