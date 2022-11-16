@@ -1,14 +1,17 @@
 package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.Collect;
+import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.CollectService;
 import com.laigaopeng.www.util.enumhelper.CodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
- * 评论功能控制类
+ * 收藏功能控制类
  *
  */
 @RestController
@@ -18,10 +21,13 @@ public class CollectController {
     @Autowired
     private CollectService collectService;
 
+    @Autowired
+    private HttpSession session;
+
     /**
-     * 保存评论
+     * 保存收藏
      *
-     * @param collect 评论
+     * @param collect 收藏
      * @return 结果
      */
     @PostMapping
@@ -32,14 +38,15 @@ public class CollectController {
     }
 
     /**
-     * 删除评论
+     * 删除收藏的笔记
      *
-     * @param id 评论
+     * @param noteId 收藏的笔记
      * @return 结果
      */
-    @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Integer id) {
-        boolean result = collectService.delete(id);
+    @DeleteMapping("/{noteId}")
+    public Result delete(@PathVariable Integer noteId) {
+        User user = (User) session.getAttribute("user");
+        boolean result = collectService.delete(noteId, user.getId());
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }

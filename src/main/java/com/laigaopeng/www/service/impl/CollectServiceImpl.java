@@ -33,12 +33,18 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        if (EmptyCheckerUtil.isIntegerEmpty(id)) return false;
-        // 笔记收藏量减1
-        Note note = noteService.getById(collectDao.getById(id).getNoteId());
-        note.setCollect(note.getCollect() - 1);
-        return collectDao.delete(id) == 1 && noteService.updateNote(note);
+    public boolean delete(Integer noteId, Integer userId) {
+        if (EmptyCheckerUtil.isIntegerEmpty(noteId)) return false;
+        Note note = noteService.getById(noteId);
+        if (note != null) { // 收藏数减1
+            note.setCollect(note.getCollect() - 1);
+            noteService.updateNote(note);
+        }
+
+        Collect collect = new Collect();
+        collect.setNoteId(noteId);
+        collect.setUserId(userId);
+        return collectDao.deleteByConditions(collect) == 1;
     }
 
     @Override

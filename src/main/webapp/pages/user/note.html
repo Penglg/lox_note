@@ -334,7 +334,21 @@
 
                         // 取消点赞功能
                         $("#" + noteCollectBtnId).click(function () {
-                            alert("notCollect!!!");
+                            let r = confirm("您确定取消收藏吗？");
+                            if (r === true) {
+                                $.ajax({
+                                    type:"delete",
+                                    url: "/collects/" + result.data.items[i].id,
+                                    async:true,
+                                    success: function (result) {
+                                        if (result.code === 30001) alert("取消收藏成功！");
+                                        else alert("取消收藏失败！");
+                                    },
+                                    error : function () {
+                                        alert("系统繁忙，稍后再试！");
+                                    }
+                                })
+                            }
                         })
                     }
                 }

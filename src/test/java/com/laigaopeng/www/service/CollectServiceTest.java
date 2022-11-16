@@ -54,7 +54,7 @@ public class CollectServiceTest {
         collect.setUserId(0);
         collectDao.save(collect);
 
-        boolean result = collectService.delete(collect.getId());
+        boolean result = collectService.delete(collect.getId(), 0);
         System.out.println("com.laigaopeng.www.service.CollectServiceTest.testDelete: " + result);
     }
 

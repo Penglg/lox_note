@@ -21,11 +21,12 @@ public interface CollectService {
     /**
      * 用户取消收藏
      *
-     * @param id 收藏id
+     * @param noteId 笔记
+     * @param userId 用户
      * @return 执行结果
      */
     @Transactional
-    boolean delete(Integer id);
+    boolean delete(Integer noteId, Integer userId);
 
     /**
      * 删除笔记的所有收藏记录
