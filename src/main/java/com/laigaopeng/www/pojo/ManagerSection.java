@@ -35,4 +35,13 @@ public class ManagerSection {
     public void setSectionId(Integer sectionId) {
         this.sectionId = sectionId;
     }
+
+    @Override
+    public String toString() {
+        return "ManagerSection{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", sectionId=" + sectionId +
+                '}';
+    }
 }

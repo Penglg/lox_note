@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lox笔记-后台管理</title>
+</head>
+<body>
+<div style="text-align: center">
+    <h1>分区笔记管理</h1>
+    <br><br>
+
+    <button id="show-section-btn" type="button">展示分区信息</button>
+    <div style="text-align: center">
+        <table id="show-section"></table>
+    </div>
+    <br><br>
+
+    <label for="page">选择页数</label>
+    <input type="text" id="page">
+    <br><br>
+
+    <button id="show-legal-note-btn" type="button">展示分区所有合法笔记</button>
+    <button id="show-illegal-note-btn" type="button">展示分区所有非法笔记</button>
+    <div style="text-align: center">
+        <table id="show-notes"></table>
+    </div>
+</div>
+
+<script src="../../js/jquery-3.6.0.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        let url = decodeURI(location.href);
+        let args = url.split("?sectionId="); // 获取url携带参数
+        let id = args[1];
+
+        $("#show-section-btn").click(function () {
+            $.ajax({
+                type:"get",
+                url:"/sections/" + id,
+                async:false,
+                success: function (result) {
+                    if (result.code === 30001) {
+                        let table;
+
+                        table = "<tr>" +
+                            "<th>分区名</th>" + "<th>分区描述</th>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>" + result.data.name + "</td>" +
+                            "<td>" + result.data.desc + "</td>" +
+                            "</tr>";
+
+                        $("#show-section").html(table);
+                    } else {
+                        alert("获取失败！");
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，稍后再试")
+                }
+            })
+        })
+
+        $("#show-legal-note-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
+
+            $.ajax({
+                type: "get",
+                url: "/notes/section/" + id + "?isLegal=" + 1 + "&pageNum=" + pageNum,
+                async: false,
+                success: function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>标题</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                        "<th>查看</th>" + "<th>删除</th>"
+                        "</tr>";
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let buttonId1 = "detail-btn" + i;
+                        let deleteBtnId = "like-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data.items[i].title + "</td>" +
+                            "<td>" + result.data.items[i].likes + "</td>" +
+                            "<td>" + result.data.items[i].collect + "</td>" +
+                            "<td>" + result.data.items[i].dateTime + "</td>" +
+                            "<td><button id=" + buttonId1 + " >查看</button>" + "</td>" +
+                            "<td><button id=" + deleteBtnId + " >删除</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#show-notes").html(table);
+
+                    // 给每个按钮绑定操作
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let buttonId1 = "detail-btn" + i;
+                        let deleteBtnId = "like-btn" + i;
+
+                        // 查看功能，即笔记详细页
+                        $("#" + buttonId1).click(function () {
+                            location.href = 'http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
+                        })
+
+                        // 删除功能
+                        $("#" + deleteBtnId).click(function () {
+                            $.ajax({
+                                type:"delete",
+                                url:"/notes/" + result.data.items[i].id,
+                                async:false,
+                                success: function (result) {
+                                    if (result.code === 30001) alert("删除成功！");
+                                    else alert("删除失败！");
+                                },
+                                error: function () {
+                                    alert("系统繁忙，稍后再试");
+                                }
+                            })
+                        })
+                    }
+                }
+            })
+        })
+
+        $("#show-illegal-note-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
+
+            $.ajax({
+                type: "get",
+                url: "/notes/section/" + id + "?isLegal=" + 0 + "&pageNum=" + pageNum,
+                async: false,
+                success: function (result) {
+                    let table;
+
+                    table = "<tr>" +
+                        "<th>标题</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                        "<th>查看</th>" + "<th>删除</th>"
+                    "</tr>";
+
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let buttonId1 = "detail-btn" + i;
+                        let deleteBtnId = "like-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data.items[i].title + "</td>" +
+                            "<td>" + result.data.items[i].likes + "</td>" +
+                            "<td>" + result.data.items[i].collect + "</td>" +
+                            "<td>" + result.data.items[i].dateTime + "</td>" +
+                            "<td><button id=" + buttonId1 + " >查看</button>" + "</td>" +
+                            "<td><button id=" + deleteBtnId + " >删除</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#show-notes").html(table);
+
+                    // 给每个按钮绑定操作
+                    for (let i = 0; i < result.data.items.length; ++i) {
+                        let buttonId1 = "detail-btn" + i;
+                        let deleteBtnId = "like-btn" + i;
+
+                        // 查看功能，即笔记详细页
+                        $("#" + buttonId1).click(function () {
+                            location.href = 'http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
+                        })
+
+                        // 删除功能
+                        $("#" + deleteBtnId).click(function () {
+                            $.ajax({
+                                type:"delete",
+                                url:"/notes/" + result.data.items[i].id,
+                                async:false,
+                                success: function (result) {
+                                    if (result.code === 30001) alert("删除成功！");
+                                    else alert("删除失败！");
+                                },
+                                error: function () {
+                                    alert("系统繁忙，稍后再试");
+                                }
+                            })
+                        })
+                    }
+                }
+            })
+        })
+    })
+
+</script>
+
+</body>
+</html>
