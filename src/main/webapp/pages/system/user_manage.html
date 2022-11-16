@@ -199,6 +199,24 @@
                                     return false;
                                 }
 
+                                $.ajax({
+                                    type:"post",
+                                    url:"/user_roles?sectionId=" + sectionId,
+                                    async:false,
+                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                    data:JSON.stringify({
+                                        userId:result.data.items[i].id,
+                                        roleId:2
+                                    }),
+                                    dataType:"json",
+                                    success: function (result) {
+                                        if (result.code === 30001) alert("封为管理员成功！");
+                                        else alert("封为管理员失败！");
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
                             })
 
                             $("#" + notAdminBtnId).click(function () {
@@ -206,6 +224,25 @@
                                     alert("本来就不是管理员！");
                                     return false;
                                 }
+
+                                /*$.ajax({
+                                    type:"delete",
+                                    url:"/user_roles/save?sectionId=" + sectionId,
+                                    async:false,
+                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                    data:JSON.stringify({
+                                        userId:result.data.items[i].id,
+                                        roleId:2
+                                    }),
+                                    dataType:"json",
+                                    success: function (result) {
+                                        if (result.code === 30001) alert("封为管理员成功！");
+                                        else alert("封为管理员失败！");
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })*/
                             })
                         }
 
