@@ -92,7 +92,9 @@ public class NoteController {
         note.setUserId(user.getId());
         List<Integer> tagIds = new LinkedList<>();
         if (note.getTags() != null) {
-            for (Tag tag : note.getTags()) tagIds.add(tag.getId());
+            for (Tag tag : note.getTags()){
+                if (tag != null && tag.getId() != -1) tagIds.add(tag.getId());
+            }
         } else tagIds = null;
         boolean result = noteService.save(note, tagIds, note.getApprovalContent());
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
