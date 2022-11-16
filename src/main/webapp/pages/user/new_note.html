@@ -80,7 +80,7 @@
         $("#submit-btn").click(function () {
             title = $("#n-title").val();
             content = $("#n-content").val();
-            approvalContent = $("#n-content").val();
+            approvalContent = $("#n-approvalContent").val();
 
             // 标题
             let titlePatt = /^\w{6,12}$/;
@@ -116,7 +116,7 @@
                 }),
                 dataType: "json",
                 success: function (result) {
-                    if (result.code == 30001) {
+                    if (result.code === 30001) {
                         alert("新建成功！");
                         history.go(-1);
                     } else {

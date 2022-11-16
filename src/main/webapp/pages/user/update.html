@@ -32,7 +32,7 @@
             alert(user);
 
             // 用户名
-            if (name != null && name != '') {
+            if (name != null && name !== '') {
                 let namePatt = /^\w{6,12}$/;
                 if (!namePatt.test(name)) {
                     alert("昵称不合法！");
@@ -41,7 +41,7 @@
             }
 
             // 用户邮箱
-            if (account != null && account != '') {
+            if (account != null && account !== '') {
                 let accountPatt = /^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/;
                 if (!accountPatt.test(account)) {
                     alert("邮箱不合法！");
@@ -50,7 +50,7 @@
             }
 
             // 用户密码
-            if (password != null && password != '') {
+            if (password != null && password !== '') {
             let passwordPatt = /^\w{6,15}$/;
             if (!passwordPatt.test(password)) {
                 alert("密码不合法！");
@@ -70,7 +70,7 @@
                 }),
                 dataType:"json",
                 success: function (result) {
-                    if (result.code == 30001) {
+                    if (result.code === 30001) {
                         alert("修改成功！");
                     } else {
                         alert("修改失败！");
