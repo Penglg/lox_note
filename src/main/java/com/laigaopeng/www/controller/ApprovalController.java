@@ -59,7 +59,7 @@ public class ApprovalController {
     }
 
     @GetMapping("/section/{sectionId}")
-    public Result listAll(@PathVariable Integer sectionId, @RequestParam Integer pageNum) {
+    public Result listAll(@PathVariable("sectionId") Integer sectionId, @RequestParam Integer pageNum) {
         Page<Approval> page = approvalService.listUnprocessedBySectionId(sectionId, pageNum);
         return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }

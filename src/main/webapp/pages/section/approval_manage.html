@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lox笔记-后台管理</title>
+</head>
+<body>
+<div style="text-align: center">
+    <h1>审批区域内笔记</h1>
+    <br><br>
+
+    <a href="http://localhost:8080/pages/user/note.html">返回首页</a>
+    <br><br>
+
+    <label for="page">选择页数</label>
+    <input type="text" id="page">
+    <br><br>
+
+    <!--未审核的笔记且在区域内，通过/不通过， 操作后重新加载页面-->
+    <button id="show-approval-btn" type="button">展示未审核笔记申请</button>
+    <div style="text-align: center">
+        <table id="show-approval"></table>
+    </div>
+    <br><br>
+</div>
+
+<script src="../../js/jquery-3.6.0.js" type="text/javascript"></script>
+<script>
+    $(function() {
+        let url = decodeURI(location.href);
+        let args = url.split("?sectionId="); // 获取url携带参数
+        let id = args[1];
+
+        $("#show-approval-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
+
+            $.ajax({
+                type:"get",
+                url:"/approvals/section/" + id + "?pageNum=" + pageNum,
+                async:false,
+                success: function (result) {
+                    if (result.code === 30001) {
+                        let table;
+
+                        table = "<tr>" +
+                            "<th>笔记标题</th>" + "<th>笔记内容</th>" + "<th>用户名</th>" +
+                            "<th>查看详细</th>" + "<th>通过</th>" + "<th>不通过</th>" +
+                            "</tr>";
+
+                        for (let i = 0; i < result.data.items.length; ++i) {
+                            let buttonId = "detail-btn" + i;
+                            let passBtnId = "pass-btn" + i;
+                            let unPassBtnId = "un-passe-btn" + i;
+
+                            let line = "<tr>" +
+                                "<td>" + result.data.items[i].note.title + "</td>" +
+                                "<td>" + result.data.items[i].note.content + "</td>" +
+                                "<td>" + result.data.items[i].user.name + "</td>" +
+                                "<td><button id=" + buttonId + " >查看详细</button>" + "</td>" +
+                                "<td><button id=" + passBtnId + " >通过</button>" + "</td>" +
+                                "<td><button id=" + unPassBtnId + " >不通过</button>" + "</td>" +
+                                "</tr>";
+                            table = table + line;
+                        }
+
+                        $("#show-approval").html(table);
+
+                        for (let i = 0; i < result.data.items.length; ++i) {
+                            let buttonId1 = "detail-btn" + i;
+                            let passBtnId = "pass-btn" + i;
+                            let unPassBtnId = "un-passe-btn" + i;
+
+                            // 查看功能，即笔记详细页
+                            $("#" + buttonId1).click(function () {
+                                location.href = 'http://localhost:8080/pages/user/note_detail.html?id=' +
+                                    result.data.items[i].noteId;
+                            })
+
+                        }
+
+                    } else {
+                        alert("获取失败！");
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，稍后再试")
+                }
+            })
+        })
+    })
+
+
+</script>
+</body>
+</html>

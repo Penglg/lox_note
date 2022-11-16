@@ -9,6 +9,10 @@
     <h1>分区笔记管理</h1>
     <br><br>
 
+    <a href="http://localhost:8080/pages/user/note.html">返回首页</a>
+    <button id="approval-manage-btn" type="button">管理审批</button>
+    <br><br>
+
     <button id="show-section-btn" type="button">展示分区信息</button>
     <div style="text-align: center">
         <table id="show-section"></table>
@@ -195,6 +199,9 @@
                     }
                 }
             })
+        })
+        $("#approval-manage-btn").click(function () {
+            location.href='http://localhost:8080/pages/section/approval_manage.html?sectionId=' + id;
         })
     })
 

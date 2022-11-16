@@ -52,13 +52,13 @@ public interface ApprovalDao {
                     column = "user_id",
                     javaType = User.class,
                     // select属性
-                    one = @One(select = "com.laigaopeng.www.dao.UserDao.findById")
+                    one = @One(select = "com.laigaopeng.www.dao.UserDao.getById")
             ),
             @Result(
                     property = "note", // 封装的Note属性
                     column = "note_id",
                     javaType = Note.class,
-                    one = @One(select = "com.laigaopeng.www.dao.NoteDao.findById")
+                    one = @One(select = "com.laigaopeng.www.dao.NoteDao.getById")
 
             )
     })
@@ -82,7 +82,7 @@ public interface ApprovalDao {
     @Select("select * from approval a, note n where a.result=-1 and n.section_id = #{sectionId} limit #{begin}, " +
             "#{pageSize}")
     @ResultMap("approvalUserNoteMap")
-    List<Approval> listUnprocessed(@Param("sectionId") Integer sectionId, @Param("sectionId") Integer begin,
+    List<Approval> listUnprocessed(@Param("sectionId") Integer sectionId, @Param("begin") Integer begin,
                                    @Param("pageSize") Integer pageSize);
 
     /**
