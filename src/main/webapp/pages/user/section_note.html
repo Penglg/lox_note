@@ -67,17 +67,22 @@
 
                                         table = "<tr>" +
                                             "<th>标题</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
-                                            "<th>查看</th>" +
+                                            "<th>查看</th>" + "<th>点赞</th>" + "<th>收藏</th>" +
                                             "</tr>";
 
                                         for (let i = 0; i < result.data.items.length; ++i) {
                                             let buttonId1 = "detail-btn" + i;
+                                            let likeBtnId = "like-btn" + i;
+                                            let collectBtnId = "collect-btn" + i;
+
                                             let line = "<tr>" +
                                                 "<td>" + result.data.items[i].title + "</td>" +
                                                 "<td>" + result.data.items[i].likes + "</td>" +
                                                 "<td>" + result.data.items[i].collect + "</td>" +
                                                 "<td>" + result.data.items[i].dateTime + "</td>" +
-                                                "<td><button id=" + buttonId1 + " type=>查看</button>" + "</td>" +
+                                                "<td><button id=" + buttonId1 + " >查看</button>" + "</td>" +
+                                                "<td><button id=" + likeBtnId + " >点赞</button>" + "</td>" +
+                                                "<td><button id=" + collectBtnId + " >收藏</button>" + "</td>" +
                                                 "</tr>";
                                             table = table + line;
                                         }
@@ -87,10 +92,54 @@
                                         // 给每个按钮绑定操作
                                         for (let i = 0; i < result.data.items.length; ++i) {
                                             let buttonId1 = "detail-btn" + i;
+                                            let likeBtnId = "like-btn" + i;
+                                            let collectBtnId = "collect-btn" + i;
 
                                             // 查看功能，即笔记详细页
                                             $("#" + buttonId1).click(function () {
                                                 location.href = 'http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
+                                            })
+
+                                            // 点赞功能
+                                            $("#" + likeBtnId).click(function () {
+                                                $.ajax({
+                                                    type:"post",
+                                                    url:"/likes",
+                                                    async:true,
+                                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                                    data:JSON.stringify({
+                                                        noteId:result.data.items[i].id
+                                                    }),
+                                                    dataType:"json",
+                                                    success: function (result) {
+                                                        if (result.code === 30001) alert("点赞成功！");
+                                                        else alert("点赞失败！");
+                                                    },
+                                                    error: function () {
+                                                        alert("系统繁忙，稍后再试");
+                                                    }
+                                                })
+                                            })
+
+                                            // 收藏功能
+                                            $("#" + collectBtnId).click(function () {
+                                                $.ajax({
+                                                    type:"post",
+                                                    url:"/collects",
+                                                    async:true,
+                                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                                    data:JSON.stringify({
+                                                        noteId:result.data.items[i].id
+                                                    }),
+                                                    dataType:"json",
+                                                    success: function (result) {
+                                                        if (result.code === 30001) alert("收藏成功！");
+                                                        else alert("收藏失败！");
+                                                    },
+                                                    error: function () {
+                                                        alert("系统繁忙，稍后再试");
+                                                    }
+                                                })
                                             })
                                         }
                                     }
