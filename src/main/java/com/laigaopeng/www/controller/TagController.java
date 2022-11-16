@@ -23,8 +23,8 @@ public class TagController {
     /**
      * 保存标签
      *
-     * @param tag
-     * @return
+     * @param tag 标签
+     * @return 结果
      */
     @PostMapping
     public Result save(@RequestBody Tag tag) {
