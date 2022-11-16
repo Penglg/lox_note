@@ -49,7 +49,7 @@
                         let table;
 
                         table = "<tr>" +
-                            "<th>笔记标题</th>" + "<th>笔记内容</th>" + "<th>用户名</th>" +
+                            "<th>笔记标题</th>" + "<th>笔记内容</th>" + "<th>用户名</th>" + "<th>申请说明</th>" +
                             "<th>查看详细</th>" + "<th>通过</th>" + "<th>不通过</th>" +
                             "</tr>";
 
@@ -62,6 +62,7 @@
                                 "<td>" + result.data.items[i].note.title + "</td>" +
                                 "<td>" + result.data.items[i].note.content + "</td>" +
                                 "<td>" + result.data.items[i].user.name + "</td>" +
+                                "<td>" + result.data.items[i].content + "</td>" +
                                 "<td><button id=" + buttonId + " >查看详细</button>" + "</td>" +
                                 "<td><button id=" + passBtnId + " >通过</button>" + "</td>" +
                                 "<td><button id=" + unPassBtnId + " >不通过</button>" + "</td>" +
@@ -72,16 +73,67 @@
                         $("#show-approval").html(table);
 
                         for (let i = 0; i < result.data.items.length; ++i) {
-                            let buttonId1 = "detail-btn" + i;
+                            let buttonId = "detail-btn" + i;
                             let passBtnId = "pass-btn" + i;
                             let unPassBtnId = "un-passe-btn" + i;
 
                             // 查看功能，即笔记详细页
-                            $("#" + buttonId1).click(function () {
+                            $("#" + buttonId).click(function () {
                                 location.href = 'http://localhost:8080/pages/user/note_detail.html?id=' +
                                     result.data.items[i].noteId;
                             })
 
+                            $("#" + passBtnId).click(function () {
+                                $.ajax({
+                                    type:"put",
+                                    url:"/approvals",
+                                    async:false,
+                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                    data:JSON.stringify({
+                                        id:result.data.items[i].id,
+                                        noteId:result.data.items[i].noteId,
+                                        result:1
+                                    }),
+                                    dataType:"json",
+                                    success:function (result){
+                                        if (result.code === 30001) {
+                                            alert("操作成功！");
+                                        } else {
+                                            alert("操作失败！");
+                                        }
+                                        location.href='http://localhost:8080/pages/section/approval_manage.html?sectionId=' + id;
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
+                            })
+
+                            $("#" + unPassBtnId).click(function () {
+                                $.ajax({
+                                    type:"put",
+                                    url:"/approvals",
+                                    async:false,
+                                    headers:{"Content-Type":"application/json;charset=UTF-8"},
+                                    data:JSON.stringify({
+                                        id:result.data.items[i].id,
+                                        noteId:result.data.items[i].noteId,
+                                        result:0
+                                    }),
+                                    dataType:"json",
+                                    success:function (result){
+                                        if (result.code === 30001) {
+                                            alert("操作成功！");
+                                        } else {
+                                            alert("操作失败！");
+                                        }
+                                        location.href='http://localhost:8080/pages/section/approval_manage.html?sectionId=' + id;
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
+                            })
                         }
 
                     } else {
