@@ -30,14 +30,18 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        if (EmptyCheckerUtil.isIntegerEmpty(id)) return false;
-        // 笔记点赞数减1
-        Like like = likeDao.getById(id);
-        if (like == null) return false; // 此条记录不存在
-        Note note = noteService.getById(likeDao.getById(id).getNoteId());
-        note.setLikes(note.getLikes() - 1);
-        return likeDao.delete(id) == 1 && noteService.updateNote(note);
+    public boolean delete(Integer noteId, Integer userId) {
+        if (EmptyCheckerUtil.isIntegerEmpty(noteId)) return false;
+        Note note = noteService.getById(noteId);
+        if (note != null) { // 点赞数减1
+            note.setLikes(note.getLikes() - 1);
+            noteService.updateNote(note);
+        }
+        Like like = new Like();
+        like.setNoteId(noteId);
+        like.setUserId(userId);
+
+        return likeDao.deleteByConditions(like) == 1;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class LikeServiceTest {
         like.setUserId(0);
         likeDao.save(like);
 
-        boolean result = likeService.delete(like.getId());
+        boolean result = likeService.delete(like.getId(), 0);
         System.out.println("com.laigaopeng.www.service.LikeServiceTest.testDelete: " + result);
     }
 

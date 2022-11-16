@@ -17,12 +17,13 @@ public interface LikeService {
     boolean save(Like like);
 
     /**
-     * 取消点赞
+     * 取消对笔记点赞
      *
-     * @param id 点赞主键
+     * @param noteId 笔记主键
+     * @param userId 用户主键
      * @return 结果
      */
-    boolean delete(Integer id);
+    boolean delete(Integer noteId, Integer userId);
 
     /**
      * 删除笔记下所有的点赞

@@ -202,7 +202,7 @@
 
                         // 删除功能
                         $("#" + deleteBtnId).click(function () {
-                            let r = confirm("您确定删除笔记吗？")
+                            let r = confirm("您确定删除笔记吗？");
                             if (r === true) {
                                 $.ajax({
                                     type: "delete",
@@ -268,7 +268,23 @@
 
                         // 取消点赞功能
                         $("#" + unlikeBtnId).click(function () {
-                            alert("unlike!!!");
+                            let r = confirm("您确定取消点赞吗？");
+                            if (r === true) {
+                                $.ajax({
+                                    type:"delete",
+                                    url:"/likes/" + result.data.items[i].id,
+                                    async:true,
+                                    success : function (result) {
+                                        if (result.code === 30001) alert("取消点赞成功！！");
+                                        else alert("取消点赞失败！");
+                                    },
+                                    error : function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
+                            } else {
+
+                            }
                         })
                     }
                 }
