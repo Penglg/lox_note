@@ -128,7 +128,23 @@
 
                         // 删除功能
                         $("#" + deleteBtnId).click(function () {
-                            alert("delete!!!");
+                            let r = confirm("您确定删除笔记吗？")
+                            if (r === true) {
+                                $.ajax({
+                                    type: "delete",
+                                    url:"/notes/" + result.data.items[i].id,
+                                    async:true,
+                                    success: function (result) {
+                                        if (result.code === 30001) alert("删除成功！");
+                                        else alert("删除失败！");
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
+                            } else {
+
+                            }
                         })
                     }
                 }
@@ -181,12 +197,28 @@
 
                         // 修改功能
                         $("#" + updateBtnId).click(function () {
-                            alert("update!!!");
+                            location.href='http://localhost:8080/pages/user/update_note.html?noteId=' + result.data.items[i].id;
                         })
 
                         // 删除功能
                         $("#" + deleteBtnId).click(function () {
-                            alert("delete!!!");
+                            let r = confirm("您确定删除笔记吗？")
+                            if (r === true) {
+                                $.ajax({
+                                    type: "delete",
+                                    url:"/notes/" + result.data.items[i].id,
+                                    async:true,
+                                    success: function (result) {
+                                        if (result.code === 30001) alert("删除成功！");
+                                        else alert("删除失败！");
+                                    },
+                                    error: function () {
+                                        alert("系统繁忙，稍后再试");
+                                    }
+                                })
+                            } else {
+
+                            }
                         })
                     }
                 }
