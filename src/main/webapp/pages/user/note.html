@@ -10,6 +10,7 @@
     <a href="http://localhost:8080/pages/user/new_note.html">发布新笔记</a>
     <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a>
     <button id="section-manage" type="button">区域管理</button>
+    <button id="system-manage" type="button">区域管理</button>
     <br><br>
 
 
@@ -471,6 +472,22 @@
             if (sectionId === null) return false;
 
             location.href='http://localhost:8080/pages/section/note_manage.html?sectionId=' + sectionId;
+        })
+
+        $("#system-manage").click(function () {
+            $.ajax({
+                type:"get",
+                url:"/roles/user",
+                async:false,
+                success: function (result) {
+                    for (let i = 0; i < result.data.length; ++i) {
+                        if (result.data[i].id === 3) {
+                            location.href='http://localhost:8080/pages/system/user_manage.html?';
+                        }
+                    }
+                    alert("您不是系统管理员！");
+                }
+            })
         })
     })
 

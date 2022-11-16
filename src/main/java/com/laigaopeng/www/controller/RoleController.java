@@ -1,12 +1,14 @@
 package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.Role;
+import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.RoleService;
 import com.laigaopeng.www.util.enumhelper.CodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -19,6 +21,9 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private HttpSession session;
 
     /**
      * 保存角色
@@ -80,5 +85,17 @@ public class RoleController {
     public Result isNameRepeat(@RequestParam String name) {
         boolean result = roleService.isNameRepeat(name);
         return new Result(result, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 获取用户角色
+     *
+     * @return
+     */
+    @GetMapping("/user")
+    public Result ListUserRoles() {
+        User user = (User) session.getAttribute("user");
+        List<Role> roleList = user.getRoles();
+        return new Result(roleList, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }
