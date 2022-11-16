@@ -33,7 +33,7 @@
                 url: "http://localhost:8080/sections",
                 async: false,
                 success: function (result) {
-                    if (result === 30001) {
+                    if (result.code === 30001) {
                         let table;
 
                         table = "<tr>" +

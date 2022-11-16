@@ -123,7 +123,7 @@
 
                         // 修改功能
                         $("#" + updateBtnId).click(function () {
-                            alert("update!!!");
+                            location.href='http://localhost:8080/pages/user/update_note.html?noteId=' + result.data.items[i].id;
                         })
 
                         // 删除功能
