@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.ManagerSectionDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.ManagerSection;
 import com.laigaopeng.www.service.ManagerSectionService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -32,13 +33,13 @@ public class ManagerSectionServiceImpl implements ManagerSectionService {
 
     @Override
     public ManagerSection getById(Integer id) {
-        if (EmptyCheckerUtil.isIntegerEmpty(id)) return null;
+        if (EmptyCheckerUtil.isIntegerEmpty(id)) throw new BusinessException();
         return managerSectionDao.getById(id);
     }
 
     @Override
     public ManagerSection getByUserId(Integer userId) {
-        if (EmptyCheckerUtil.isIntegerEmpty(userId)) return null;
+        if (EmptyCheckerUtil.isIntegerEmpty(userId)) throw new BusinessException();
         return managerSectionDao.getByUserId(userId);
     }
 }

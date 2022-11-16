@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.CollectDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.Collect;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.service.CollectService;
@@ -25,7 +26,7 @@ public class CollectServiceImpl implements CollectService {
     @Override
     public boolean save(Collect collect) {
         if (EmptyCheckerUtil.isIntegerEmpty(collect.getUserId()) || EmptyCheckerUtil.isIntegerEmpty(collect.getNoteId()))
-            return false;
+            throw new BusinessException();
         if (isCollectRepeat(collect.getUserId(), collect.getNoteId())) return false;
         // 笔记收藏量加1
         Note note = noteService.getById(collect.getNoteId());
@@ -35,7 +36,7 @@ public class CollectServiceImpl implements CollectService {
 
     @Override
     public boolean delete(Integer noteId, Integer userId) {
-        if (EmptyCheckerUtil.isIntegerEmpty(noteId)) return false;
+        if (EmptyCheckerUtil.isIntegerEmpty(noteId)) throw new BusinessException();
         Note note = noteService.getById(noteId);
         if (note != null) { // 收藏数减1
             note.setCollect(note.getCollect() - 1);

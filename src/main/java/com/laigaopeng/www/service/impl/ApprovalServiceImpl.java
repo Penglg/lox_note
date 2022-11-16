@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.ApprovalDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.vo.Page;
@@ -37,7 +38,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     public boolean handle(Approval approval) {
-        if (approval == null || approval.getResult().equals(ApprovalEnum.UNPROCESSED.getResult())) return false;
+        if (approval == null || approval.getResult().equals(ApprovalEnum.UNPROCESSED.getResult())) throw new BusinessException();
 
         if (approval.getResult().equals(ApprovalEnum.PASSED.getResult())) { // 审批通过的处理
             // 更新审批申请信息

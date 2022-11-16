@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.LikeDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.Like;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.service.LikeService;
@@ -32,7 +33,7 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean delete(Integer noteId, Integer userId) {
-        if (EmptyCheckerUtil.isIntegerEmpty(noteId)) return false;
+        if (EmptyCheckerUtil.isIntegerEmpty(noteId)) throw new BusinessException();
         Note note = noteService.getById(noteId);
         if (note != null) { // 点赞数减1
             note.setLikes(note.getLikes() - 1);

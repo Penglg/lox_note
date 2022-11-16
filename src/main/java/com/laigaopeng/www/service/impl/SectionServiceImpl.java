@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.SectionDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.Section;
 import com.laigaopeng.www.service.SectionService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -40,7 +41,7 @@ public class SectionServiceImpl implements SectionService {
 
     @Override
     public Section get(Integer id) {
-        if (EmptyCheckerUtil.isIntegerEmpty(id)) return null;
+        if (EmptyCheckerUtil.isIntegerEmpty(id)) throw new BusinessException();
         Section section = sectionDao.getById(id);
         return section;
     }

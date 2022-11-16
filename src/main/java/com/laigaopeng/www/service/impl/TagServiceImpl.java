@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.TagDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.Tag;
 import com.laigaopeng.www.service.TagService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -21,7 +22,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public boolean save(Tag tag) {
-        if (isNameRepeat(tag.getName())) return false;
+        if (isNameRepeat(tag.getName())) throw new BusinessException();
         return tagDao.save(tag) == 1;
     }
 
