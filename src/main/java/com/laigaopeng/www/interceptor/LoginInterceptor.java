@@ -20,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         // 登录操作放行
-        if (request.getRequestURI().contains("users/login")) return true;
+        if (request.getRequestURI().contains("login") || request.getRequestURI().contains("register")) return true;
 
 
         User user = (User) session.getAttribute("user");

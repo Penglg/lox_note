@@ -16,6 +16,10 @@
     </div>
 
     <br><br>
+    <label for="page">选择页数</label>
+    <input type="text" id="page">
+
+    <br><br>
     <div style="text-align: center">
         <table id="show-notes"></table>
     </div>
@@ -58,9 +62,18 @@
                             let buttonId = "choose-btn" + i;
 
                             $("#" + buttonId).click(function () {
+                                let pageNum = $("#page").val();
+                                let pageNumPatt = /^\d{1,5}$/;
+
+                                if (!pageNumPatt.test(pageNum)) {
+                                    alert("没有正确输入页数！");
+                                    return false;
+                                }
+
+
                                 $.ajax({
                                     type: "get",
-                                    url: "/notes/section/" + result.data[i].id + "?isLegal = 1&pageNum=1",
+                                    url: "/notes/section/" + result.data[i].id + "?isLegal = 1&pageNum=" + pageNum,
                                     async: false,
                                     success: function (result) {
                                         let table;
