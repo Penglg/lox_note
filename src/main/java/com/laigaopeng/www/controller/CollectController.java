@@ -32,6 +32,8 @@ public class CollectController {
      */
     @PostMapping
     public Result save(@RequestBody Collect collect) {
+        User user = (User) session.getAttribute("user");
+        collect.setUserId(user.getId());
         boolean result = collectService.save(collect);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());

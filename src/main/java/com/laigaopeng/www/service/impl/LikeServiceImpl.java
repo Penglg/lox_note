@@ -23,6 +23,7 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean save(Like like) {
+        if (isLikeRepeat(like.getUserId(), like.getNoteId())) return false;
         // 笔记点赞数加1
         Note note = noteService.getById(like.getNoteId());
         note.setLikes(note.getLikes() + 1);

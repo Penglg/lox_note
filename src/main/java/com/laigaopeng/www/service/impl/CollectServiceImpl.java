@@ -26,6 +26,7 @@ public class CollectServiceImpl implements CollectService {
     public boolean save(Collect collect) {
         if (EmptyCheckerUtil.isIntegerEmpty(collect.getUserId()) || EmptyCheckerUtil.isIntegerEmpty(collect.getNoteId()))
             return false;
+        if (isCollectRepeat(collect.getUserId(), collect.getNoteId())) return false;
         // 笔记收藏量加1
         Note note = noteService.getById(collect.getNoteId());
         note.setCollect(note.getCollect() + 1);
