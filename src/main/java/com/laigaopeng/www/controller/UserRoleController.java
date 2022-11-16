@@ -37,14 +37,15 @@ public class UserRoleController {
     }
 
     /**
-     * 删除用户-角色绑定
+     * 删除分区管理员
      *
-     * @param id 用户-角色
+     * @param userRole 用户-角色绑定
      * @return 结果
      */
-    @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Integer id) {
-        boolean result = userRoleService.deleteUserRole(id);
+    @DeleteMapping("/section_manager/delete/{sectionId}")
+    public Result delete(@RequestBody UserRole userRole, @PathVariable Integer sectionId) {
+        boolean result = msService.deleteByConditions(userRole.getUserId(), sectionId) &&
+                userRoleService.deleteUserRole(userRole);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }

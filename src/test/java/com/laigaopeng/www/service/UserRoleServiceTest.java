@@ -31,7 +31,7 @@ public class UserRoleServiceTest {
         userRole.setUserId(0);
         userRole.setRoleId(-1);
         userRoleDao.save(userRole);
-        boolean result = userRoleService.deleteUserRole(userRole.getId());
+        boolean result = userRoleService.deleteUserRole(userRole);
         System.out.println("com.laigaopeng.www.service.UserRoleServiceTest.testDeleteUserRole: " + result);
     }
 

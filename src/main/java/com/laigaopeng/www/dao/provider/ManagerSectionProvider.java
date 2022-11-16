@@ -10,7 +10,7 @@ public class ManagerSectionProvider extends SQL {
     public String deleteManagerSection(@Param("ms")ManagerSection managerSection) {
         return new SQL(){{
             DELETE_FROM("manager_section");
-            if (!EmptyCheckerUtil.isIntegerEmpty(managerSection.getSectionId())) {
+            if (!EmptyCheckerUtil.isIntegerEmpty(managerSection.getId())) {
                 WHERE("id = #{ms.id}");
             }
             if (!EmptyCheckerUtil.isIntegerEmpty(managerSection.getUserId())) {

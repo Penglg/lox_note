@@ -22,11 +22,12 @@ public interface ManagerSectionService {
     /**
      * 删除绑定
      *
-     * @param managerSection 条件
-     * @return 结果
+     * @param userId 用户
+     * @param sectionId 分区
+     * @return
      */
     @Transactional
-    boolean deleteByConditions(ManagerSection managerSection);
+    boolean deleteByConditions(Integer userId, Integer sectionId);
 
     /**
      * 根据id获取

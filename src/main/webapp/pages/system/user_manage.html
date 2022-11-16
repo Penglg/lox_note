@@ -155,6 +155,7 @@
                                     success: function (result) {
                                         if (result.code === 30001) alert("封禁成功！");
                                         else alert("封禁失败！");
+                                        location.href='http://localhost:8080/pages/system/user_manage.html';
                                     },
                                     error: function () {
                                         alert("系统繁忙，稍后再试");
@@ -181,6 +182,7 @@
                                     success: function (result) {
                                         if (result.code === 30001) alert("解封成功！");
                                         else alert("解封失败！");
+                                        location.href='http://localhost:8080/pages/system/user_manage.html';
                                     },
                                     error: function () {
                                         alert("系统繁忙，稍后再试");
@@ -212,6 +214,7 @@
                                     success: function (result) {
                                         if (result.code === 30001) alert("封为管理员成功！");
                                         else alert("封为管理员失败！");
+                                        location.href='http://localhost:8080/pages/system/user_manage.html';
                                     },
                                     error: function () {
                                         alert("系统繁忙，稍后再试");
@@ -225,9 +228,9 @@
                                     return false;
                                 }
 
-                                /*$.ajax({
+                                $.ajax({
                                     type:"delete",
-                                    url:"/user_roles/save?sectionId=" + sectionId,
+                                    url:"/user_roles/section_manager/delete/" + result.data.items[i].managerSection.sectionId,
                                     async:false,
                                     headers:{"Content-Type":"application/json;charset=UTF-8"},
                                     data:JSON.stringify({
@@ -236,13 +239,14 @@
                                     }),
                                     dataType:"json",
                                     success: function (result) {
-                                        if (result.code === 30001) alert("封为管理员成功！");
-                                        else alert("封为管理员失败！");
+                                        if (result.code === 30001) alert("解除管理员成功！");
+                                        else alert("解除管理员失败！");
+                                        location.href='http://localhost:8080/pages/system/user_manage.html';
                                     },
                                     error: function () {
                                         alert("系统繁忙，稍后再试");
                                     }
-                                })*/
+                                })
                             })
                         }
 

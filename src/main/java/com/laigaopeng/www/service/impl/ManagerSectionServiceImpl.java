@@ -22,7 +22,11 @@ public class ManagerSectionServiceImpl implements ManagerSectionService {
     }
 
     @Override
-    public boolean deleteByConditions(ManagerSection managerSection) {
+    public boolean deleteByConditions(Integer userId, Integer sectionId) {
+        ManagerSection managerSection = new ManagerSection();
+        managerSection.setUserId(userId);
+        managerSection.setSectionId(sectionId);
+        System.out.println(managerSection);
         return managerSectionDao.delete(managerSection) == 1;
     }
 
