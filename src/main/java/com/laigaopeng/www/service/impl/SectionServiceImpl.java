@@ -39,6 +39,13 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
+    public Section get(Integer id) {
+        if (EmptyCheckerUtil.isIntegerEmpty(id)) return null;
+        Section section = sectionDao.getById(id);
+        return section;
+    }
+
+    @Override
     public List<Section> listAll() {
         return sectionDao.listAll();
     }

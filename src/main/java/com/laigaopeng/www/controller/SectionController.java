@@ -69,10 +69,29 @@ public class SectionController {
         return new Result(sections, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
+    /**
+     * 是否重名
+     *
+     * @param sectionName 分区名
+     * @return 结果
+     */
     @GetMapping("/check")
     public Result isNameRepeat(@RequestParam String sectionName) {
         boolean result = sectionService.isNameRepeat(sectionName);
         return new Result(result, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 根据id获取
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result getBById(@PathVariable Integer id) {
+        Section section = sectionService.get(id);
+        return section != null ? new Result(section, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
+                new Result(null, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }
 
 }

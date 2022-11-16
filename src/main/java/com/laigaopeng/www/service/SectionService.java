@@ -43,6 +43,14 @@ public interface SectionService {
     boolean isNameRepeat(String sectionName);
 
     /**
+     * 获取分区
+     *
+     * @param id 主键
+     * @return 结果
+     */
+    Section get(Integer id);
+
+    /**
      * 查看所有分区
      *
      * @return 查询结果
