@@ -28,6 +28,16 @@ public class User {
     /* 非数据库字段 */
     private List<Role> roles; // 用户的所有角色
 
+    private ManagerSection managerSection; // 用户若为区域管理员，则有信息
+
+    public ManagerSection getManagerSection() {
+        return managerSection;
+    }
+
+    public void setManagerSection(ManagerSection managerSection) {
+        this.managerSection = managerSection;
+    }
+
     public List<Role> getRoles() {
         return roles;
     }

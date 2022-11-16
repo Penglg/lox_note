@@ -2,6 +2,7 @@ package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.UserRole;
 import com.laigaopeng.www.pojo.vo.Result;
+import com.laigaopeng.www.service.ManagerSectionService;
 import com.laigaopeng.www.service.UserRoleService;
 import com.laigaopeng.www.util.enumhelper.CodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UserRoleController {
     @Autowired
     private UserRoleService userRoleService;
 
+    @Autowired
+    private ManagerSectionService msService;
+
     /**
      * 新增用户-角色绑定
      *
@@ -25,8 +29,9 @@ public class UserRoleController {
      * @return 结果
      */
     @PostMapping
-    public Result save(@RequestBody UserRole userRole) {
-        boolean result = userRoleService.save(userRole.getUserId(), userRole.getRoleId());
+    public Result save(@RequestBody UserRole userRole, @RequestParam Integer sectionId) {
+        boolean result = userRoleService.save(userRole.getUserId(), userRole.getRoleId()) &&
+                msService.save(userRole.getUserId(), sectionId);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
     }

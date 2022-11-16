@@ -1,6 +1,7 @@
 package com.laigaopeng.www.dao;
 
 import com.laigaopeng.www.dao.provider.UserProvider;
+import com.laigaopeng.www.pojo.ManagerSection;
 import com.laigaopeng.www.pojo.User;
 import org.apache.ibatis.annotations.*;
 
@@ -47,6 +48,13 @@ public interface UserDao {
                     column = "id",
                     javaType = List.class,
                     many = @Many(select = "com.laigaopeng.www.dao.RoleDao.listByUserId")
+            ),
+            @Result(
+                    property = "managerSection",
+                    column = "id",
+                    javaType = ManagerSection.class,
+                    one = @One(select = "com.laigaopeng.www.dao.ManagerSectionDao.getByUserId")
+
             )
     })
     User getUserAndRolesById(Integer userId);
