@@ -10,7 +10,7 @@
     <a href="http://localhost:8080/pages/user/new_note.html">发布新笔记</a>
     <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a>
     <button id="section-manage" type="button">区域管理</button>
-    <button id="system-manage" type="button">区域管理</button>
+    <button id="system-manage" type="button">系统管理</button>
     <br><br>
 
 
@@ -475,6 +475,7 @@
         })
 
         $("#system-manage").click(function () {
+            let flag = 0;
             $.ajax({
                 type:"get",
                 url:"/roles/user",
@@ -483,11 +484,12 @@
                     for (let i = 0; i < result.data.length; ++i) {
                         if (result.data[i].id === 3) {
                             location.href='http://localhost:8080/pages/system/user_manage.html?';
+                            flag = 1;
                         }
                     }
-                    alert("您不是系统管理员！");
                 }
             })
+            if (flag == 0) alert("您不是系统管理员！");
         })
     })
 
