@@ -1,6 +1,7 @@
 package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.Comment;
+import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.CommentService;
 import com.laigaopeng.www.util.EmptyCheckerUtil;
@@ -8,6 +9,7 @@ import com.laigaopeng.www.util.enumhelper.CodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -27,7 +29,9 @@ public class CommentController {
      * @return 结果
      */
     @PostMapping
-    public Result save(@RequestBody Comment comment) {
+    public Result save(@RequestBody Comment comment, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        comment.setUserId(user.getId());
         boolean result = commentService.save(comment);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
