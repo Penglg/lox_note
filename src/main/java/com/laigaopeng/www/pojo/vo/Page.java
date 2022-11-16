@@ -29,7 +29,7 @@ public class Page<T> {
         this.recordSum = recordSum;
         // 计算页面总数和begin
         this.pageSum = this.recordSum / this.pageSize + ((this.recordSum % this.pageSize > 0) ? 1 : 0);
-        if (pageNum > pageSum ) this.pageNum = pageNum;
+        if (pageNum > pageSum ) this.pageNum = pageSum;
         this.begin = (this.pageNum - 1) * this.pageSize;
     }
 
