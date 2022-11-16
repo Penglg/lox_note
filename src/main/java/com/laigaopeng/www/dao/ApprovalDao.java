@@ -79,8 +79,8 @@ public interface ApprovalDao {
      *
      * @return 查询到的申请集合
      */
-    @Select("select * from approval a, note n where a.result=-1 and n.section_id = #{sectionId} limit #{begin}, " +
-            "#{pageSize}")
+    @Select("select * from approval a, note n where a.result=-1 and n.section_id = #{sectionId} and a.note_id = n.id" +
+            " limit #{begin}, #{pageSize}")
     @ResultMap("approvalUserNoteMap")
     List<Approval> listUnprocessed(@Param("sectionId") Integer sectionId, @Param("begin") Integer begin,
                                    @Param("pageSize") Integer pageSize);
