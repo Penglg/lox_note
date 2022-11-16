@@ -8,7 +8,10 @@
 <div style="text-align: center">
     <h1>lox笔记</h1><br>
     <a href="http://localhost:8080/pages/user/new_note.html">发布新笔记</a>
-    <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a><br><br>
+    <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a>
+    <button id="section-manage" type="button">区域管理</button>
+    <br><br>
+
 
     <button id="sectionNotes-btn">根据分区查看笔记</button><br><br>
 
@@ -443,6 +446,31 @@
 
         $("#sectionNotes-btn").click(function () {
             location.href='http://localhost:8080/pages/user/section_note.html';
+        })
+
+        $("#section-manage").click(function () {
+            let sectionId = null;
+            $.ajax({
+                type:"get",
+                url:"/managerSections",
+                async:false,
+                success:function (result) {
+                    if (result.code === 30001) {
+                        sectionId = result.data.sectionId;
+                    } else if (result.code === 30002){
+                        alert("您不是分区的管理员！")
+                    } else {
+                        alert("获取错误！")
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，稍后再试")
+                }
+            })
+
+            if (sectionId === null) return false;
+
+            location.href='http://localhost:8080/pages/section/note_manage.html?sectionId=' + sectionId;
         })
     })
 
