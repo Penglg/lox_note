@@ -25,11 +25,11 @@ public class Page<T> {
 
     public Page(Integer pageNum, Integer recordSum) {
         this.pageNum = pageNum;
-        if (pageNum < 1) this.pageNum = 1;
         this.recordSum = recordSum;
         // 计算页面总数和begin
         this.pageSum = this.recordSum / this.pageSize + ((this.recordSum % this.pageSize > 0) ? 1 : 0);
         if (pageNum > pageSum ) this.pageNum = pageSum;
+        if (this.pageNum < 1) this.pageNum = 1;
         this.begin = (this.pageNum - 1) * this.pageSize;
     }
 
