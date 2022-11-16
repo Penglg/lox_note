@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.NoteDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
 import com.laigaopeng.www.pojo.NoteTag;
@@ -34,7 +35,9 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public boolean save(Note note, List<Integer> tagIds, String approvalContent) {
-        if (EmptyCheckerUtil.isStringEmpty(approvalContent)) return false;
+        if (EmptyCheckerUtil.isStringEmpty(approvalContent)) {
+            throw new BusinessException();
+        }
         if (noteDao.save(note) != 1) return false;
         if (tagIds != null) {
             for (int tag : tagIds) { // 建立笔记和标签的绑定
@@ -80,6 +83,9 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Page<Note> listAll(Integer pageNum, Integer isLegal) {
+        if (EmptyCheckerUtil.isIntegerEmpty(pageNum) || EmptyCheckerUtil.isIntegerEmpty(isLegal)) {
+            throw new BusinessException();
+        }
         Note note = new Note();
         note.setLegal(isLegal);
         Page<Note> page = new Page<>(pageNum, noteDao.recordTotalCountByConditions(note));
@@ -90,6 +96,10 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Page<Note> listSectionNotes(Integer sectionId, Integer isLegal, Integer pageNum) {
+        if (EmptyCheckerUtil.isIntegerEmpty(pageNum) || EmptyCheckerUtil.isIntegerEmpty(isLegal) ||
+                EmptyCheckerUtil.isIntegerEmpty(sectionId)) {
+            throw new BusinessException();
+        }
         Note note = new Note();
         note.setSectionId(sectionId);
         note.setLegal(isLegal);
@@ -101,6 +111,10 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Page<Note> listUserNotes(Integer userId, Integer isLegal, Integer pageNum) {
+        if (EmptyCheckerUtil.isIntegerEmpty(pageNum) || EmptyCheckerUtil.isIntegerEmpty(isLegal) ||
+                EmptyCheckerUtil.isIntegerEmpty(userId)) {
+            throw new BusinessException();
+        }
         Page<Note> page = new Page<>(pageNum, noteDao.recordTotalByUserId(userId, isLegal));
         List<Note> notes = noteDao.listByUserId(userId, isLegal, page.getBegin(), page.getPageSize());
         page.setItems(notes);
@@ -109,6 +123,9 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Page<Note> listLikeNotes(Integer userId, Integer pageNum) {
+        if (EmptyCheckerUtil.isIntegerEmpty(pageNum) || EmptyCheckerUtil.isIntegerEmpty(userId)) {
+            throw new BusinessException();
+        }
         Page<Note> page = new Page<>(pageNum, noteDao.recordTotalLikes(userId));
         page.setItems(noteDao.listLikes(userId, page.getBegin(), page.getPageSize()));
         return page;
@@ -116,6 +133,9 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Page<Note> listCollectNotes(Integer userId, Integer pageNum) {
+        if (EmptyCheckerUtil.isIntegerEmpty(pageNum) || EmptyCheckerUtil.isIntegerEmpty(userId)) {
+            throw new BusinessException();
+        }
         Page<Note> page = new Page<>(pageNum, noteDao.recordTotalCollect(userId));
         page.setItems(noteDao.listCollections(userId, page.getBegin(), page.getPageSize()));
         return page;

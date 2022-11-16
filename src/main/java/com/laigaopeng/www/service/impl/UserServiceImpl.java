@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service.impl;
 
 import com.laigaopeng.www.dao.UserDao;
+import com.laigaopeng.www.exception.BusinessException;
 import com.laigaopeng.www.pojo.User;
 import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.service.UserRoleService;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean save(User user) {
         // 是否重名或重账号
-        if (ifRepeatByNameOrAccount(user.getName(), user.getAccount())) return false;
+        if (ifRepeatByNameOrAccount(user.getName(), user.getAccount())) throw new BusinessException();
         if (userDao.save(user) == 1) {
             return userRoleService.save(user.getId(), RoleEnum.NORMAL_USER.getPermissionLevel());
         }
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(User user) {
-        if (EmptyCheckerUtil.isIntegerEmpty(user.getId())) return false;
+        if (EmptyCheckerUtil.isIntegerEmpty(user.getId())) throw new BusinessException();
         return userDao.update(user) == 1;
     }
 
@@ -50,13 +51,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(String account, String password) {
-        if (EmptyCheckerUtil.isStringEmpty(account) || EmptyCheckerUtil.isStringEmpty(password)) return null;
+        if (EmptyCheckerUtil.isStringEmpty(account) || EmptyCheckerUtil.isStringEmpty(password)) throw new BusinessException();
         return userDao.getByAccAndPwd(account, password);
     }
 
     @Override
     public boolean manageUser(Integer userId, Integer disabled) {
-        if (EmptyCheckerUtil.isIntegerEmpty(userId) || EmptyCheckerUtil.isIntegerEmpty(disabled)) return false;
+        if (EmptyCheckerUtil.isIntegerEmpty(userId) || EmptyCheckerUtil.isIntegerEmpty(disabled)) throw new BusinessException();
         User target = new User();
         target.setId(userId);
         target.setDisabled(disabled);
