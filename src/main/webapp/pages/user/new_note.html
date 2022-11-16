@@ -20,12 +20,16 @@
         <button id="submit-btn">提交</button><br><br>
     </form>
 
-
-
     <button id="showSections-btn">展示并选择分区</button>
     <div style="text-align: center">
         <table id="section"></table>
     </div>
+
+    <button id="showTags-btn">展示并选择标签</button>
+    <div style="text-align: center">
+        <table id="tag"></table>
+    </div>
+
 </div>
 
 <script src="../../js/jquery-3.6.0.js" type="text/javascript"></script>
@@ -77,6 +81,75 @@
             })
         })
 
+
+        let tagId1 = null;
+        let tagId2 = null;
+        let tagId3 = null;
+
+        $("#showTags-btn").click(function () {
+            $.ajax({
+                type:"get",
+                url:"/tags",
+                async:false,
+                success: function (result) {
+                    let table = "<tr>" +
+                        "<th>标签名</th>" + "<th>标签描述</th>" + "<th>选择（点击哪个选哪个，只有点的前三个有效）</th>" +
+                        "</tr>";
+
+                    for (let i = 0; i <result.data.length; ++i) {
+                        let buttonId = "choose-btn" + i;
+
+                        let line = "<tr>" +
+                            "<td>" + result.data[i].name + "</td>" +
+                            "<td>" + result.data[i].desc + "</td>" +
+                            "<td><button id=" + buttonId + ">选择</button>" + "</td>" +
+                            "</tr>";
+                        table = table + line;
+                    }
+
+                    $("#tag").html(table);
+
+                    // 绑定
+                    for (let i = 0; i < result.data.length; ++i) {
+                        let buttonId = "choose-btn" + i;
+
+                        $("#" + buttonId).click(function () {
+                            if (tagId1 === null || tagId1 === "") {
+                                tagId1 = result.data[i].id;
+                                return true;
+                            }
+                            if (tagId2 === null || tagId2 === "") {
+                                if (tagId1 !== result.data[i].id) {
+                                    tagId2 = result.data[i].id;
+                                    return true;
+                                }
+                                else {
+                                    alert("不能选择重复的标签！");
+                                    return false;
+                                }
+                            }
+                            if (tagId3 === null || tagId3 === "") {
+                                if (tagId1 !== result.data[i].id && tagId2 !== result.data[i].id) {
+                                    tagId3 = result.data[i].id;
+                                    return true;
+                                } else {
+                                    alert("不能选择重复的标签！");
+                                    return false;
+                                }
+                            }
+                            alert("最多只能选择三个标签！");
+                        })
+                    }
+
+                },
+                error: function () {
+                    alert("系统繁忙，稍后再试");
+                }
+            })
+
+
+        })
+
         $("#submit-btn").click(function () {
             title = $("#n-title").val();
             content = $("#n-content").val();
@@ -101,7 +174,9 @@
                 return false;
             }
 
-
+            if (tagId1 === null) tagId1 = -1;
+            if (tagId2 === null) tagId2 = -1;
+            if (tagId3 === null) tagId3 = -1;
 
             $.ajax({
                 type: "post",
@@ -112,7 +187,18 @@
                     title: title,
                     content: content,
                     sectionId: $("#n-sectionId").val(),
-                    approvalContent: approvalContent
+                    approvalContent: approvalContent,
+                    tags: [
+                        {
+                            id:tagId1
+                        },
+                        {
+                            id: tagId2
+                        },
+                        {
+                            id: tagId3
+                        }
+                    ]
                 }),
                 dataType: "json",
                 success: function (result) {
