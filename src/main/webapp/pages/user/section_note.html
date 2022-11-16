@@ -33,68 +33,73 @@
                 url: "http://localhost:8080/sections",
                 async: false,
                 success: function (result) {
-                    let table;
+                    if (result === 30001) {
+                        let table;
 
-                    table = "<tr>" +
-                        "<th>分区名</th>" + "<th>分区描述</th>" + "<th>查看该分区笔记</th>" +
-                        "</tr>";
-
-                    for (let i = 0; i < result.data.length; ++i) {
-                        let buttonId = "choose-btn" + i;
-
-                        let line = "<tr>" +
-                            "<td>" + result.data[i].name + "</td>" +
-                            "<td>" + result.data[i].desc + "</td>" +
-                            "<td><button id=" + buttonId + ">查看</button>" + "</td>" +
+                        table = "<tr>" +
+                            "<th>分区名</th>" + "<th>分区描述</th>" + "<th>查看该分区笔记</th>" +
                             "</tr>";
-                        table = table + line;
-                    }
 
-                    $("#show-section").html(table);
+                        for (let i = 0; i < result.data.length; ++i) {
+                            let buttonId = "choose-btn" + i;
 
-                    // 给每个按钮绑定操作
-                    for (let i = 0; i < result.data.length; ++i) {
-                        let buttonId = "choose-btn" + i;
+                            let line = "<tr>" +
+                                "<td>" + result.data[i].name + "</td>" +
+                                "<td>" + result.data[i].desc + "</td>" +
+                                "<td><button id=" + buttonId + ">查看</button>" + "</td>" +
+                                "</tr>";
+                            table = table + line;
+                        }
 
-                        $("#" + buttonId).click(function () {
-                            $.ajax({
-                                type: "get",
-                                url:"/notes/section/" + result.data[i].id + "?isLegal = 1&pageNum=1",
-                                async: false,
-                                success:function (result) {
-                                    let table;
+                        $("#show-section").html(table);
 
-                                    table = "<tr>" +
-                                        "<th>标题</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
-                                        "<th>查看</th>" +
-                                        "</tr>";
+                        // 给每个按钮绑定操作
+                        for (let i = 0; i < result.data.length; ++i) {
+                            let buttonId = "choose-btn" + i;
 
-                                    for (let i = 0; i < result.data.items.length; ++i) {
-                                        let buttonId1 = "detail-btn" + i;
-                                        let line = "<tr>" +
-                                            "<td>" + result.data.items[i].title + "</td>" +
-                                            "<td>" + result.data.items[i].likes + "</td>" +
-                                            "<td>" + result.data.items[i].collect + "</td>" +
-                                            "<td>" + result.data.items[i].dateTime + "</td>" +
-                                            "<td><button id=" + buttonId1 + " type=>查看</button>" + "</td>" +
+                            $("#" + buttonId).click(function () {
+                                $.ajax({
+                                    type: "get",
+                                    url: "/notes/section/" + result.data[i].id + "?isLegal = 1&pageNum=1",
+                                    async: false,
+                                    success: function (result) {
+                                        let table;
+
+                                        table = "<tr>" +
+                                            "<th>标题</th>" + "<th>点赞数</th>" + "<th>收藏数</th>" + "<th>发布时间</th>" +
+                                            "<th>查看</th>" +
                                             "</tr>";
-                                        table = table + line;
+
+                                        for (let i = 0; i < result.data.items.length; ++i) {
+                                            let buttonId1 = "detail-btn" + i;
+                                            let line = "<tr>" +
+                                                "<td>" + result.data.items[i].title + "</td>" +
+                                                "<td>" + result.data.items[i].likes + "</td>" +
+                                                "<td>" + result.data.items[i].collect + "</td>" +
+                                                "<td>" + result.data.items[i].dateTime + "</td>" +
+                                                "<td><button id=" + buttonId1 + " type=>查看</button>" + "</td>" +
+                                                "</tr>";
+                                            table = table + line;
+                                        }
+
+                                        $("#show-notes").html(table);
+
+                                        // 给每个按钮绑定操作
+                                        for (let i = 0; i < result.data.items.length; ++i) {
+                                            let buttonId1 = "detail-btn" + i;
+
+                                            // 查看功能，即笔记详细页
+                                            $("#" + buttonId1).click(function () {
+                                                location.href = 'http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
+                                            })
+                                        }
                                     }
-
-                                    $("#show-notes").html(table);
-
-                                    // 给每个按钮绑定操作
-                                    for (let i = 0; i < result.data.items.length; ++i) {
-                                        let buttonId1 = "detail-btn" + i;
-
-                                        // 查看功能，即笔记详细页
-                                        $("#" + buttonId1).click(function () {
-                                            location.href='http://localhost:8080/pages/user/note_detail.html?id=' + result.data.items[i].id;
-                                        })
-                                    }
-                                }
+                                })
                             })
-                        })
+                        }
+                    }
+                    else {
+                        alert("操作失败！");
                     }
                 },
                 error: function () {
