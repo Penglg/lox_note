@@ -8,6 +8,8 @@
 <div style="text-align: center">
     <h1>笔记详细</h1><br><br>
     <a href="http://localhost:8080/pages/user/note.html">返回主页</a>
+    <button id="back" type="button">返回上一页</button><br><br>
+
     <button id="show-btn" type="button">展示</button>
     <div style="text-align: center">
         <table id="show"></table>
@@ -127,6 +129,10 @@
                 }
 
             })
+        })
+
+        $("#back").click(function () {
+            history.go(-1);
         })
     })
 </script>

@@ -16,6 +16,7 @@
     <button id="legalNotes-btn">获取所有合法笔记</button>
 
 <!--按分区获取笔记功能未实现-->
+    <button id="sectionNotes-btn">根据分区查看笔记</button>
 
     <button id="userLegalNotes-btn">用户所有合法笔记</button>
 
@@ -290,6 +291,10 @@
                     }
                 }
             })
+        })
+
+        $("#sectionNotes-btn").click(function () {
+            location.href='http://localhost:8080/pages/user/section_note.html';
         })
     })
 
