@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.Approval;
+import com.laigaopeng.www.pojo.vo.Page;
 
 /**
  * 审批申请业务逻辑层
@@ -30,4 +31,13 @@ public interface ApprovalService {
      * @return 执行结果
      */
     boolean handle(Approval approval);
+
+    /**
+     * 获取分区所有笔记的申请
+     *
+     * @param sectionId 分区
+     * @param pageNum 页数
+     * @return 结果
+     */
+    Page<Approval> listUnprocessedBySectionId(Integer sectionId, Integer pageNum);
 }

@@ -3,6 +3,7 @@ package com.laigaopeng.www.service.impl;
 import com.laigaopeng.www.dao.ApprovalDao;
 import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.Note;
+import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.service.ApprovalService;
 import com.laigaopeng.www.service.NoteService;
 import com.laigaopeng.www.util.enumhelper.ApprovalEnum;
@@ -49,5 +50,12 @@ public class ApprovalServiceImpl implements ApprovalService {
         } else { // 审批不通过的处理
             return approvalDao.update(approval) == 1;
         }
+    }
+
+    @Override
+    public Page<Approval> listUnprocessedBySectionId(Integer sectionId, Integer pageNum) {
+        Page<Approval> page = new Page<>(pageNum, approvalDao.totalCountUnprocessed(sectionId));
+        page.setItems(approvalDao.listUnprocessed(sectionId, page.getBegin(), page.getPageSize()));
+        return page;
     }
 }

@@ -1,6 +1,7 @@
 package com.laigaopeng.www.controller;
 
 import com.laigaopeng.www.pojo.Approval;
+import com.laigaopeng.www.pojo.vo.Page;
 import com.laigaopeng.www.pojo.vo.Result;
 import com.laigaopeng.www.service.ApprovalService;
 import com.laigaopeng.www.util.enumhelper.CodeEnum;
@@ -55,5 +56,11 @@ public class ApprovalController {
         boolean result = approvalService.handle(approval);
         return result ? new Result(true, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg()) :
                 new Result(false, CodeEnum.FAIL.getCode(), CodeEnum.FAIL.getMsg());
+    }
+
+    @GetMapping("/section/{sectionId}")
+    public Result listAll(@PathVariable Integer sectionId, @RequestParam Integer pageNum) {
+        Page<Approval> page = approvalService.listUnprocessedBySectionId(sectionId, pageNum);
+        return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 }

@@ -79,7 +79,17 @@ public interface ApprovalDao {
      *
      * @return 查询到的申请集合
      */
-    @Select("select * from approval where result=-1")
+    @Select("select * from approval a, note n where a.result=-1 and n.section_id = #{sectionId} limit #{begin}, " +
+            "#{pageSize}")
     @ResultMap("approvalUserNoteMap")
-    List<Approval> listUnprocessed();
+    List<Approval> listUnprocessed(@Param("sectionId") Integer sectionId, @Param("sectionId") Integer begin,
+                                   @Param("pageSize") Integer pageSize);
+
+    /**
+     * 管理员获取所有未处理的笔记审批申请
+     *
+     * @return 查询到的申请集合
+     */
+    @Select("select count(*) from approval a, note n where a.result=-1 and n.section_id = #{sectionId}")
+    int totalCountUnprocessed(@Param("sectionId") Integer sectionId);
 }
