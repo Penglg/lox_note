@@ -148,8 +148,8 @@ public class NoteController {
      * @return 结果
      */
     @GetMapping("/section/{id}")
-    public Result listSectionNotes(@PathVariable Integer id, @RequestParam(value = "isLegal", required = false,
-            defaultValue = "1") int isLegal, @RequestParam Integer pageNum) {
+    public Result listSectionNotes(@PathVariable Integer id, @RequestParam("isLegal") Integer isLegal,
+                                   @RequestParam("pageNum") Integer pageNum) {
         Page<Note> page = noteService.listSectionNotes(id, isLegal, pageNum);
         return new Result(page, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
