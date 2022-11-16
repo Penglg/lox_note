@@ -10,13 +10,12 @@
     <a href="http://localhost:8080/pages/user/new_note.html">发布新笔记</a>
     <a href="http://localhost:8080/pages/user/update.html">修改个人信息</a><br><br>
 
-<!--新增笔记-->
+    <button id="sectionNotes-btn">根据分区查看笔记</button><br><br>
 
+    <label for="page">选择页数</label>
+    <input type="text" id="page"><br><br>
 
     <button id="legalNotes-btn">获取所有合法笔记</button>
-
-<!--按分区获取笔记功能未实现-->
-    <button id="sectionNotes-btn">根据分区查看笔记</button>
 
     <button id="userLegalNotes-btn">用户所有合法笔记</button>
 
@@ -37,9 +36,17 @@
 
         // 查看所有合法笔记
         $("#legalNotes-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
+
             $.ajax({
                 type:"get",
-                url:"http://localhost:8080/notes/all/1?pageNum=1",
+                url:"http://localhost:8080/notes/all/1?pageNum=" + pageNum,
                 async:false,
                 success: function (result) {
                     let table;
@@ -128,9 +135,17 @@
 
         // 查看用户合法笔记
         $("#userLegalNotes-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
+
             $.ajax({
                 type:"get",
-                url:"http://localhost:8080/notes/my_notes/legal?pageNum=1",
+                url:"http://localhost:8080/notes/my_notes/legal?pageNum=" + pageNum,
                 async:false,
                 success:function (result) {
                     let table;
@@ -202,9 +217,16 @@
 
         // 查看用户不合法笔记
         $("#userIllegalNotes-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
             $.ajax({
                 type:"get",
-                url:"http://localhost:8080/notes/my_notes/illegal?pageNum=1",
+                url:"http://localhost:8080/notes/my_notes/illegal?pageNum=" + pageNum,
                 async:false,
                 success:function (result) {
                     let table;
@@ -276,9 +298,16 @@
 
         // 查看用户点赞的笔记
         $("#likeNotes-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
             $.ajax({
                 type:"get",
-                url:"http://localhost:8080/notes/my_notes/like?pageNum=1",
+                url:"http://localhost:8080/notes/my_notes/like?pageNum=" + pageNum,
                 async:false,
                 success:function (result) {
                     let table;
@@ -342,9 +371,17 @@
 
         // 获取收藏的笔记
         $("#collectNotes-btn").click(function () {
+            let pageNum = $("#page").val();
+            let pageNumPatt = /^\d{1,5}$/;
+
+            if (!pageNumPatt.test(pageNum)) {
+                alert("没有正确输入页数！");
+                return false;
+            }
+
             $.ajax({
                 type:"get",
-                url:"http://localhost:8080/notes/my_notes/collect?pageNum=1",
+                url:"http://localhost:8080/notes/my_notes/collect?pageNum=" + pageNum,
                 async:false,
                 success:function (result) {
                     let table;
