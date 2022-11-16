@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.Section;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public interface SectionService {
      * @param section 分区
      * @return 执行结果
      */
+    @Transactional
     boolean save(Section section);
 
     /**
@@ -24,6 +26,7 @@ public interface SectionService {
      * @param id 分区主键
      * @return 执行结果
      */
+    @Transactional
     boolean delete(Integer id);
 
     /**
@@ -32,6 +35,7 @@ public interface SectionService {
      * @param section 分区
      * @return 执行结果
      */
+    @Transactional
     boolean update(Section section);
 
     /**

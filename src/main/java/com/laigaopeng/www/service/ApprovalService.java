@@ -2,6 +2,7 @@ package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.Approval;
 import com.laigaopeng.www.pojo.vo.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 审批申请业务逻辑层
@@ -14,6 +15,7 @@ public interface ApprovalService {
      * @param approval 审批申请
      * @return 执行结果
      */
+    @Transactional
     boolean save(Approval approval);
 
     /**
@@ -22,6 +24,7 @@ public interface ApprovalService {
      * @param id 审批申请id
      * @return 执行结果
      */
+    @Transactional
     boolean delete(Integer id);
 
     /**
@@ -30,6 +33,7 @@ public interface ApprovalService {
      * @param approval 审批申请
      * @return 执行结果
      */
+    @Transactional
     boolean handle(Approval approval);
 
     /**

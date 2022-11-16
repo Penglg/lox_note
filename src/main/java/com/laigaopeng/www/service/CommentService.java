@@ -26,6 +26,7 @@ public interface CommentService {
      * @param id 评论主键
      * @return 删除结果
      */
+    @Transactional
     boolean delete(Integer id);
 
     /**
@@ -42,5 +43,6 @@ public interface CommentService {
      * @param noteId 笔记主键
      * @return 执行成功结果
      */
+    @Transactional
     boolean deleteNoteComments(Integer noteId);
 }

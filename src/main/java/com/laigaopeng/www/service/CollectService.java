@@ -34,6 +34,7 @@ public interface CollectService {
      * @param noteId 笔记主键
      * @return 执行成功结果
      */
+    @Transactional
     boolean deleteNoteCollects(Integer noteId);
 
     /**

@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.Role;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public interface RoleService {
      * @param role 角色信息
      * @return 执行结果
      */
+    @Transactional
     boolean save(Role role);
 
     /**
@@ -20,6 +22,7 @@ public interface RoleService {
      * @param id 角色主键
      * @return 执行结果
      */
+    @Transactional
     boolean delete(Integer id);
 
     /**
@@ -28,6 +31,7 @@ public interface RoleService {
      * @param role 角色
      * @return 执行结果
      */
+    @Transactional
     boolean update(Role role);
 
     /**

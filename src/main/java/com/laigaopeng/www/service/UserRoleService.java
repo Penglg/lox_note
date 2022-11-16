@@ -1,5 +1,7 @@
 package com.laigaopeng.www.service;
 
+import org.springframework.transaction.annotation.Transactional;
+
 public interface UserRoleService {
 
     /**
@@ -9,6 +11,7 @@ public interface UserRoleService {
      * @param roleId 角色主键
      * @return 执行结果
      */
+    @Transactional
     boolean save(Integer userId, Integer roleId);
 
     /**
@@ -17,6 +20,7 @@ public interface UserRoleService {
      * @param id 用户-角色绑定主键
      * @return 执行结果
      */
+    @Transactional
     boolean deleteUserRole(Integer id);
 
     /**
@@ -25,5 +29,6 @@ public interface UserRoleService {
      * @param roleId 角色主键
      * @return 执行结果
      */
+    @Transactional
     boolean deleteRoleUser(Integer roleId);
 }

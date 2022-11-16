@@ -72,6 +72,7 @@ public interface NoteService {
      * @param id 删除的笔记主键
      * @return 删除结果
      */
+    @Transactional
     boolean deleteNote(Integer id);
 
     /**
@@ -81,6 +82,7 @@ public interface NoteService {
      * @param tagIds 笔记的标签
      * @return 新增结果
      */
+    @Transactional
     boolean save(Note note, List<Integer> tagIds, String approvalContent);
 
     /**

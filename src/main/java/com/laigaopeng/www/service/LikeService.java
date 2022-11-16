@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.Like;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 点赞业务逻辑层
@@ -14,6 +15,7 @@ public interface LikeService {
      * @param like 点赞
      * @return 结果
      */
+    @Transactional
     boolean save(Like like);
 
     /**
@@ -23,6 +25,7 @@ public interface LikeService {
      * @param userId 用户主键
      * @return 结果
      */
+    @Transactional
     boolean delete(Integer noteId, Integer userId);
 
     /**
@@ -31,6 +34,7 @@ public interface LikeService {
      * @param noteId 笔记主键
      * @return 执行结果
      */
+    @Transactional
     boolean deleteNoteLikes(Integer noteId);
 
     /**

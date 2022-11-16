@@ -52,4 +52,7 @@ public interface UserService {
      */
     @Transactional
     boolean manageUser(Integer userId, Integer disabled);
+
+
+
 }

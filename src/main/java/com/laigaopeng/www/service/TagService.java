@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.Tag;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public interface TagService {
      * @param tag 标签
      * @return 执行结果
      */
+    @Transactional
     boolean save(Tag tag);
 
     /**
@@ -31,6 +33,7 @@ public interface TagService {
      * @param id 标签主键
      * @return 执行结果
      */
+    @Transactional
     boolean delete(Integer id);
 
     /**
@@ -39,6 +42,7 @@ public interface TagService {
      * @param tag 标签
      * @return 执行结果
      */
+    @Transactional
     boolean update(Tag tag);
 
     /**

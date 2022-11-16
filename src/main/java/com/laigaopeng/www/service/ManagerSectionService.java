@@ -1,6 +1,7 @@
 package com.laigaopeng.www.service;
 
 import com.laigaopeng.www.pojo.ManagerSection;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 区域管理员-区域绑定业务功能类
@@ -15,6 +16,7 @@ public interface ManagerSectionService {
      * @param sectionId 分区
      * @return 结果
      */
+    @Transactional
     boolean save(Integer userId, Integer sectionId);
 
     /**
@@ -23,6 +25,7 @@ public interface ManagerSectionService {
      * @param managerSection 条件
      * @return 结果
      */
+    @Transactional
     boolean deleteByConditions(ManagerSection managerSection);
 
     /**
