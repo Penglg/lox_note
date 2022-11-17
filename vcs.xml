@@ -26,9 +26,13 @@
           <option name="url" value="https://github.com/Penglg/lox_note.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="git@github.com:IBIZA1992/lox_note.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="E:\Developer" />
+    <option name="cloneParentDir" value="E:\backend_projects" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="COLUMN_ID_ORDER">
